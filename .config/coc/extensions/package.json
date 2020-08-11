@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "coc-clangd": ">=0.4.13",
+    "coc-cmake": ">=0.0.1",
+    "coc-json": ">=1.2.6",
+    "coc-rust-analyzer": ">=0.7.4",
+    "coc-snippets": ">=2.1.28",
+    "coc-tsserver": ">=1.4.15"
+  }
+}

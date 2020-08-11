@@ -1,0 +1,63 @@
+{
+	"rust-analyzer.cargo.allFeatures": true,
+	"rust-analyzer.checkOnSave.enable": true,
+	"rust-analyzer.checkOnSave.command": "clippy",
+	"rust-analyzer.cargo.loadOutDirsFromCheck": true,
+	"rust-analyzer.procMacro.enable": true,
+	"rust-analyzer.diagnostics.enable": true,
+	"rust-analyzer.lens.run": false,
+	"clangd.enabled": true,
+	"clangd.disableSnippetCompletion": false,
+	"clangd.checkUpdates": true,
+	"clangd.semanticHighlighting": true,
+	"clangd.arguments": [
+		"--background-index",
+		"--clang-tidy",
+		"--completion-style=detailed",
+		"--header-insertion=iwyu",
+		"--header-insertion-decorators",
+		"--suggest-missing-includes",
+		"-j=10",
+		"--pch-storage=memory"
+	],
+	"languageserver": {
+		"ccls": {
+			"enable": false,
+			"command": "ccls",
+			"filetypes": ["C", "c", "cpp", "objc", "objcpp", "h"],
+			"rootPatterns": [".ccls", "compile_commands.json", ".git/", ".hg/"],
+			"initializationOptions": {
+				"cache": {
+					"directory": ".ccls-cache"
+				},
+				"highlight": {
+					"lsRanges": true
+				},
+				"index": {
+					"onChange": true,
+					"comments": 2
+				},
+				"client": {
+					"snippetSupport": true
+				},
+				"completion": {
+					"placeholder": true
+				}
+			}
+		},
+		"dls": {
+			"enable": true,
+			"command": "/home/braxton/.dub/packages/.bin/dls-latest/dls",
+			"filetypes": ["d", "D"],
+			"rootPatterns": ["dub.json", "dub.sdl"]
+		}
+	},
+	"codeLens.enable": true,
+	"suggest.enablePreselect": true,
+	"suggest.enablePreview": true,
+	"suggest.floatEnable": true,
+	"coc.preferences.useQuickfixForLocations": true,
+	"diagnostic.virtualText": true,
+	"coc.preferences.formatOnInsertLeave": true,
+	"coc.preferences.jumpCommand": "CocSplitIfNotOpen"
+}
