@@ -84,6 +84,7 @@ let g:load_doxygen_syntax=1
 hi LspCxxHlGroupEnumConstant ctermfg=3 guifg=#00997b cterm=none gui=none
 hi LspCxxHlGroupNamespace ctermfg=3 guifg=#00997b cterm=italic,bold gui=italic,bold
 hi LspCxxHlGroupMemberVariable ctermfg=88 guifg=#c65156 cterm=none gui=none
+hi LspCxxHlSymUnknownStaticField ctermfg=88 guifg=#c65156 cterm=bold gui=bold
 hi LspCxxHlSymDependentType ctermfg=3 guifg=#00997b cterm=none gui=none
 hi Type ctermfg=29 guifg=#dbba75 cterm=none gui=none
 hi LspCxxHlSymTypeAlias ctermfg=29 guifg=#dbba75 cterm=none gui=none
@@ -139,6 +140,10 @@ hi rsIdentifier ctermfg=white guifg=#9daaaa cterm=none gui=none
 hi rsFieldAccess ctermfg=88 guifg=#c65156 cterm=none gui=none
 
 "coc settings
+let g:coc_global_extensions = ['coc-clangd', 'coc-cmake', 'coc-css', 'coc-git', 'coc-html',
+			\'coc-java', 'coc-json', 'coc-marketplace', 'coc-omnisharp', 'coc-python',
+			\'coc-rust-analyzer', 'coc-sh', 'coc-snippets', 'coc-sql', 'coc-toml', 'coc-tsserver',
+			\'coc-vimlsp', 'coc-xml', 'coc-yaml']
 set hidden
 set nobackup
 set nowritebackup
@@ -147,7 +152,7 @@ set updatetime=500
 set shortmess+=c
 let g:airline#extensions#coc#enabled=1
 set statusline^=%{coc#status()}
-autocmd CursorHold * if ! coc#util#has_float() | silent call Show_documentation() | endif
+autocmd CursorHold * if ! coc#float#has_float() | silent call Show_documentation() | endif
 nnoremap <C-k> :call Show_documentation()<CR>
 hi link CocHintSign Comment
 let g:DoxygenToolkit_commentType="C++"
@@ -161,20 +166,19 @@ nnoremap <C-D> :Dox<CR>
 let g:ale_linters = {
 			\
 			\ }
-let g:ale_linters_explicit=1
-let g:ale_c_parse_compile_commands=1
-let g:ale_cpp_parse_compile_commands=1
-let g:ale_set_balloons=1
-let g:ale_cpp_clangtidy_checks= ['bugprone-*', 'cert-*', 'clang-analyer-*', 'cppcoreguidelines-*', 'google-*',
-			\'hicpp-*', 'misc-*', 'modernize-*', 'performance-*', 'portability-*', 'readability-*',
-			\'-hicpp-special-member-functions', '-cppcoreguidelines-special-member-functions',
-			\'-misc-non-private-member-variables-in-classes', '-cppcoreguidelines-non-private-member-variables-in-classes',
-			\'-readability-magic-numbers', '-cppcoreguidelines-avoid-magic-numbers', '-readability-else-after-return',
-			\'-google-default-arguments']
-let g:ale_cpp_clangtidy_extra_options = ''
-let g:ale_cpp_clangtidy_options = ''
-let g:airline#extensions#ale#enabled=1
-"let g:ale_disable_lsp=1
+"let g:ale_linters_explicit=1
+"let g:ale_c_parse_compile_commands=1
+"let g:ale_cpp_parse_compile_commands=1
+"let g:ale_set_balloons=1
+"let g:ale_cpp_clangtidy_checks= ['bugprone-*', 'cert-*', 'clang-analyer-*', 'cppcoreguidelines-*', 'google-*',
+"			\'hicpp-*', 'misc-*', 'modernize-*', 'performance-*', 'portability-*', 'readability-*',
+"			\'-hicpp-special-member-functions', '-cppcoreguidelines-special-member-functions',
+"			\'-misc-non-private-member-variables-in-classes', '-cppcoreguidelines-non-private-member-variables-in-classes',
+"			\'-readability-magic-numbers', '-cppcoreguidelines-avoid-magic-numbers', '-readability-else-after-return',
+"			\'-google-default-arguments']
+"let g:ale_cpp_clangtidy_extra_options = ''
+"let g:ale_cpp_clangtidy_options = ''
+"let g:airline#extensions#ale#enabled=1
 
 set exrc
 
@@ -182,7 +186,7 @@ function! Show_documentation()
 	"if (index(['vim', 'help'], &filetype) >= 0)
 	"	execute 'h '.expand('<cword>')
 	"else
-	call CocAction('doHover')
+	call CocActionAsync('doHover')
 	"endif
 endfunction
 
@@ -257,12 +261,18 @@ nnoremap <C-Right> <C-w><C-l>
 map <C-l> :CocDiagnostics<CR>
 map <C-l><C-k> :lclose<CR>
 
+autocmd! BufRead,BufNewFile *.clang-tidy setfiletype yaml
+autocmd! BufRead,BufNewFile *.clang-format setfiletype yaml
+autocmd! BufRead,BufNewFile *.clangd setfiletype yaml
+autocmd! BufRead,BufNewFile CMakeFiles.text setfiletype cmake
+autocmd! BufRead,BufNewFile *.cmake setfiletype cmake
+
 function! <SID>AutoIndent()
 	if &modifiable
-		if &ft=='text' || &ft=='sql' || &ft=='html' || &ft=='yml' || &ft=='yaml' || &ft=='md' || &ft=='markdown' || &ft=='dockerfile'
+		if &ft=='text' || &ft=='sql' || &ft=='html' || &ft=='md' || &ft=='markdown' || &ft=='dockerfile'
 		else
-			if &ft=='cpp' || &ft=='c' || &ft=='rust' || &ft=='toml'
-				call CocAction('format')
+			if &ft=='cpp' || &ft=='c' || &ft=='rust' || &ft=='toml' || &ft=='yaml' || &ft=='yml' || &ft=='YAML'
+				call CocActionAsync('format')
 			else
 				:Autoformat<CR>
 			endif

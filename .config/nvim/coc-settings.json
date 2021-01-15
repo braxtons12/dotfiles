@@ -6,6 +6,7 @@
 	"rust-analyzer.procMacro.enable": true,
 	"rust-analyzer.diagnostics.enable": true,
 	"rust-analyzer.lens.run": false,
+	"rust-analyzer.diagnostics.disabled": ["incorrect-ident-case"],
 	"clangd.enabled": true,
 	"clangd.disableSnippetCompletion": false,
 	"clangd.checkUpdates": true,
@@ -44,13 +45,8 @@
 					"placeholder": true
 				}
 			}
-		},
-		"dls": {
-			"enable": true,
-			"command": "/home/braxton/.dub/packages/.bin/dls-latest/dls",
-			"filetypes": ["d", "D"],
-			"rootPatterns": ["dub.json", "dub.sdl"]
 		}
+
 	},
 	"codeLens.enable": true,
 	"suggest.enablePreselect": true,

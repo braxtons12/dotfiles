@@ -65,3 +65,9 @@ ddl
 git
 Projucer
 sessions
+.oh-my-zsh
+.oh-my-zsh/
+aur-temp
+aur-temp/
+.pipewire-media-session
+.pipewire-media-session/
