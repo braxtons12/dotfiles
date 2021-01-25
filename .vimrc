@@ -14,6 +14,7 @@ let g:airline_theme='one'
 colorscheme one
 
 highlight ColorColumn ctermbg=lightblue guibg=#334555
+highlight Normal ctermbg=darkgrey guibg=#20242a
 
 if (empty($TMUX))
 	if (has("nvim"))
