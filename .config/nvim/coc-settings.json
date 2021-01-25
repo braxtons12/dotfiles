@@ -6,7 +6,7 @@
 	"rust-analyzer.procMacro.enable": true,
 	"rust-analyzer.diagnostics.enable": true,
 	"rust-analyzer.lens.run": false,
-	"rust-analyzer.diagnostics.disabled": ["incorrect-ident-case"],
+	//"rust-analyzer.diagnostics.disabled": ["incorrect-ident-case"],
 	"clangd.enabled": true,
 	"clangd.disableSnippetCompletion": false,
 	"clangd.checkUpdates": true,
@@ -25,8 +25,20 @@
 		"ccls": {
 			"enable": false,
 			"command": "ccls",
-			"filetypes": ["C", "c", "cpp", "objc", "objcpp", "h"],
-			"rootPatterns": [".ccls", "compile_commands.json", ".git/", ".hg/"],
+			"filetypes": [
+				"C",
+				"c",
+				"cpp",
+				"objc",
+				"objcpp",
+				"h"
+			],
+			"rootPatterns": [
+				".ccls",
+				"compile_commands.json",
+				".git/",
+				".hg/"
+			],
 			"initializationOptions": {
 				"cache": {
 					"directory": ".ccls-cache"
@@ -46,14 +58,35 @@
 				}
 			}
 		}
-
 	},
 	"codeLens.enable": true,
 	"suggest.enablePreselect": true,
 	"suggest.enablePreview": true,
 	"suggest.floatEnable": true,
 	"coc.preferences.useQuickfixForLocations": true,
-	"diagnostic.virtualText": true,
-	"coc.preferences.formatOnInsertLeave": true,
-	"coc.preferences.jumpCommand": "CocSplitIfNotOpen"
+	"coc.preferences.formatOnSaveFiletypes": [
+		"C",
+		"c",
+		"CPP",
+		"cpp",
+		"Cpp",
+		"rust",
+		"rs",
+		"obc",
+		"objcpp",
+		"h",
+		"toml",
+		"yaml",
+		"yml",
+		"c#",
+		"csharp",
+		"java",
+		"json",
+		"vimscript",
+		"vim",
+		"vimrc"
+	],
+	"diagnostic.virtualText": true
+	//"coc.preferences.formatOnInsertLeave": true,
+	//"coc.preferences.jumpCommand": "CocSplitIfNotOpen"
 }

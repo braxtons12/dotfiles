@@ -112,32 +112,41 @@ hi doxygenSpecial guifg=#8278b4 cterm=italic,bold gui=italic,bold
 "nnoremap s :call SynGroup()<CR>
 
 "rust semantic highlighting settings
-hi rsUse ctermfg=lightblue guifg=#61afef cterm=italic,bold gui=italic,bold
-"purple keywords
+"hi rsUse ctermfg=lightblue guifg=#61afef cterm=italic,bold gui=italic,bold
 hi rsKeyword guifg=#c678dd
-"red keywords
-"hi rsKeyword guifg=#c65156
+hi rsUse guifg=#c678dd cterm=italic gui=italic
 hi rsTypeParamDef ctermfg=3 guifg=#00997b
 hi rsTypeParams ctermfg=3 guifg=#00997b
 hi rustsModPath ctermfg=3 guifg=#00997b
-hi rsAsync ctermfg=88 guifg=#c65156
-"hi rsAwait ctermfg=88 guifg=#c65156
-hi rsFn ctermfg=88 guifg=#c65156
-hi rsPub ctermfg=88 guifg=#c65156
-hi rsMod ctermfg=88 guifg=#c65156
-hi rsSuper ctermfg=88 guifg=#c65156
-hi rsRef ctermfg=88 guifg=#c65156
-hi rsStatic ctermfg=88 guifg=#c65156
-hi rsConst ctermfg=88 guifg=#c65156
-hi rsCrate ctermfg=88 guifg=#c65156
-hi rsUnsafe ctermfg=88 guifg=#c65156
-hi rsLet ctermfg=88 guifg=#c65156
-hi rsMut ctermfg=29 guifg=#dbba75
-hi rsSelfType guifg=#e5c07b
-hi rsSelfValue guifg=#e5c07b
+hi rustModPath ctermfg=3 guifg=#00997b
+hi rsModPath ctermfg=3 guifg=#00997b
+hi rsModule ctermfg=3 guifg=#00997b
+hi link rsAsync rsKeyword
+hi link rsAwait rsKeyword
+hi link rsPub rsKeyword
+hi link sFn rsKeyword
+hi link sMod rsKeyword
+hi link sEnum rsKeyword
+hi link sStruct rsKeyword
+hi rsSuper ctermfg=88 guifg=#dbba75
+hi link rsRef rsKeyword
+hi link rsStatic rsKeyword
+hi link rsConst rsKeyword
+hi rsCrate ctermfg=88 guifg=#00997b
+hi rsUnsafe ctermfg=88 guifg=#c65156 cterm=bold gui=bold
+hi link rsLet rsKeyword
+hi link rsMut rsKeyword
+hi rsSelfType guifg=#dbba75
+hi link rsSelfValue rsKeyword
 hi rsUserMacro guifg=#9c80ff cterm=none gui=none
-hi rsIdentifier ctermfg=white guifg=#9daaaa cterm=none gui=none
+hi rsIdentifier ctermfg=white guifg=#abb2bf cterm=none gui=none
+hi rsUserIdent ctermfg=white guifg=#abb2bf cterm=none gui=none
+hi rsIdentDef ctermfg=white guifg=#abb2bf cterm=none gui=none
+hi rsIdent ctermfg=white guifg=#abb2bf cterm=none gui=none
 hi rsFieldAccess ctermfg=88 guifg=#c65156 cterm=none gui=none
+hi rsLifetimeDef ctermfg=88 guifg=#c65156 cterm=italic gui=italic
+hi rsDelimiter ctermfg=white guifg=#979da9
+hi rsOperator ctermfg=white guifg=#979da9
 
 "coc settings
 let g:coc_global_extensions = ['coc-clangd', 'coc-cmake', 'coc-css', 'coc-git', 'coc-html',
@@ -267,7 +276,7 @@ autocmd! BufRead,BufNewFile *.clangd setfiletype yaml
 autocmd! BufRead,BufNewFile CMakeFiles.text setfiletype cmake
 autocmd! BufRead,BufNewFile *.cmake setfiletype cmake
 
-function! <SID>AutoIndent()
+function! <SID>AutoIndentOnOpen()
 	if &modifiable
 		if &ft=='text' || &ft=='sql' || &ft=='html' || &ft=='md' || &ft=='markdown' || &ft=='dockerfile'
 		else
@@ -280,5 +289,24 @@ function! <SID>AutoIndent()
 	endif
 endfun
 
-autocmd BufRead,BufWritePre * :call <SID>AutoIndent()
+function! <SID>AutoIndentOnClose()
+	if &modifiable
+		if &ft=='text' || &ft=='sql' || &ft=='html' || &ft=='md' || &ft=='markdown' || &ft=='dockerfile'
+		else
+			if &ft=='cpp' || &ft=='c' || &ft=='rust' || &ft=='toml' || &ft=='yaml' || &ft=='yml' || &ft=='YAML'
+				"call CocActionAsync('format')
+			else
+				:Autoformat<CR>
+			endif
+		endif
+	endif
+endfun
+
+autocmd BufRead * :call <SID>AutoIndentOnOpen()
+autocmd BufWritePre * :call <SID>AutoIndentOnClose()
 "autocmd BufRead,BufWritePre * :Autoformat<CR>
+
+"view the syntax highlight group under the cursor
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+			\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+			\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
