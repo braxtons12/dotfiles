@@ -60,6 +60,7 @@ let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 let g:airline#extensions#whitespace#mixed_indent_algo = 2
 let g:airline#extensions#whitespace#checks = ['trailing']
+let g:airline_powerline_fonts = 1
 
 set signcolumn=yes
 set splitbelow
