@@ -1,0 +1,40 @@
+window:
+    dimensions:
+        columns: 130
+        lines: 40
+    scrolling:
+        history: 10000
+font:
+    normal:
+        family: Hack
+    bold:
+        family: Hack
+    italic:
+        family: Hack
+    bold_italic:
+        family: Hack
+    size: 11.5
+    tabspaces: 4
+colors:
+    primary:
+        background: '0x20242a'
+        foreground: '0xcbced3'
+    normal:
+        black: '0x20242a'
+        red: '0xd05b64'
+        green: '0x87b268'
+        yellow: '0x24b06a'
+        blue: '0x509ede'
+        magenta: '0xb567cc'
+        cyan: '0x45a5b1'
+        white: '0xcbced3'
+    bright:
+        black: '0x20242a'
+        red: '0xd05b64'
+        green: '0x87b268'
+        yellow: '0x24b06a'
+        blue: '0x509ede'
+        magenta: '0xb567cc'
+        cyan: '0x45a5b1'
+        white: '0xcbced3'
+background_opacity: 0.98
