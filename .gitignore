@@ -1,6 +1,7 @@
 .bash_history
 .bash_logout
 .bashrc
+.Xauthority
 .Xclients
 .cache/
 .cargo/
