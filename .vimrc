@@ -221,6 +221,7 @@ let g:coc_snippet_previous = '<S-tab>'
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gs :CocCommand clangd.switchSourceHeader<CR>
+nmap <S-f> <Plug>(coc-codeaction-selected)<CR>
 
 function! SplitIfNotOpen(...)
 	" Ref: https://github.com/neoclide/coc.nvim/blob/7e9e0e91e24fc447e96079ae59e9f6caffe604a4/autoload/coc/util.vim#L380-L383
