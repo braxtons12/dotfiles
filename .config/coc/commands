@@ -1,1 +1,6 @@
+rust-analyzer.reloadWorkspace
+rust-analyzer.reload
+rust-analyzer.upgrade
+rust-analyzer.analyzerStatus
+rust-analyzer.status
 clangd.switchSourceHeader

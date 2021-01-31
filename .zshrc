@@ -144,6 +144,8 @@ alias sudo='sudo '
 alias cmake_release='cmake -B build -G Ninja -DCMAKE_TOOLCHAIN_FILE=linux-clang.cmake -DCMAKE_BUILD_TYPE=Release && yes | cp -f build/compile_commands.json compile_commands.json'
 alias cmake_debug='cmake -B build -G Ninja -DCMAKE_TOOLCHAIN_FILE=linux-clang.cmake -DCMAKE_BUILD_TYPE=Debug && yes | cp -f build/compile_commands.json compile_commands.json'
 
+alias clippy='~/clippy_alias.sh'
+
 alias build='./build.sh'
 alias test='./test.sh'
 alias build_and_test='./build.sh && ./test.sh'
