@@ -6,7 +6,7 @@
 	"rust-analyzer.procMacro.enable": true,
 	"rust-analyzer.diagnostics.enable": true,
 	"rust-analyzer.lens.run": false,
-	"rust-analyzer.updates.channel": "nightly",
+	"rust-analyzer.updates.channel": "stable",
 	"rust-analyzer.cargo.autoreload": true,
 	"rust-analyzer.hoverActions.enable": true,
 	"rust-analyzer.checkOnSave.allFeatures": true,

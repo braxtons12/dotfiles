@@ -1,5 +1,5 @@
 {
   "coc-rust-analyzer|global": {
-    "release": "nightly 2021-02-01"
+    "release": "2021-02-01"
   }
 }
