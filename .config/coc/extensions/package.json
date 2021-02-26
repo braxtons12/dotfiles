@@ -14,7 +14,7 @@
     "coc-sh": ">=0.6.0",
     "coc-snippets": ">=2.4.0",
     "coc-sql": ">=0.5.0",
-    "coc-toml": ">=1.0.3",
+    "coc-toml": ">=1.0.4",
     "coc-tsserver": ">=1.6.8",
     "coc-vimlsp": ">=0.11.0",
     "coc-xml": ">=1.14.0",
