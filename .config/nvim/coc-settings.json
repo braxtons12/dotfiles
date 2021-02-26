@@ -16,6 +16,7 @@
 	"rust-analyzer.completion.postfix.enable": true,
 	"rust-analyzer.completion.addCallParenthesis": true,
 	"clangd.enabled": true,
+	"clangd.path": "clangd",
 	"clangd.disableSnippetCompletion": false,
 	"clangd.checkUpdates": true,
 	"clangd.semanticHighlighting": true,
