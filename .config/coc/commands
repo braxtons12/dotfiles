@@ -1,3 +1,4 @@
+clangd.symbolInfo
 clangd.update
 rust-analyzer.reloadWorkspace
 rust-analyzer.reload
