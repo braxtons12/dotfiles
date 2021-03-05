@@ -167,5 +167,6 @@ alias -s js=nvim
 alias -s ts=nvim
 alias -s java=nvim
 alias -s sql=nvim
+
 alias .vimrc="nvim .vimrc"
 

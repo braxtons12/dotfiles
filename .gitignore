@@ -1,3 +1,15 @@
+.compiz/
+.dmrc
+.sudo_as_admin_successful
+.wget-hsts
+.xsession-errors
+.xsession-errors.old
+.zcompdump
+.zcompdump-braxtons-laptop-5.8
+examples.desktop
+jobs/
+jobs
+seagate/
 .bash_history
 .bash_logout
 .bashrc
