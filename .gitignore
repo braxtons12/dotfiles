@@ -1,3 +1,6 @@
+.asoundrc
+.log/
+.var/
 .compiz/
 .dmrc
 .sudo_as_admin_successful
