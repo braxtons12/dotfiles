@@ -33,3 +33,5 @@ export JUCE_DIR
 
 CMAKE_PREFIX_PATH=/home/braxton/JUCE_CMAKE:/home/braxton/git/Apex/dependencies/GSL_CMAKE:$CMAKE_PREFIX_PATH:$PATH
 export CMAKE_PREFIX_PATH
+
+export PATH="/usr/lib/go-1.15/bin:$PATH"

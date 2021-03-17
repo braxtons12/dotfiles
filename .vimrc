@@ -109,32 +109,6 @@ hi link doxygenSpecialOnelineDesc doxygenComment
 hi doxygenParamName ctermfg=88 guifg=#a04146 cterm=italic gui=italic
 hi doxygenParam guifg=#8278b4 cterm=italic,bold gui=italic,bold
 hi doxygenSpecial guifg=#8278b4 cterm=italic,bold gui=italic,bold
-"""""""""""""""""""""""""""""""""
-" COC.NVIM SEMANTIC HIGHLIGHTING
-"""""""""""""""""""""""""""""""""
-hi CocSem_namespace ctermfg=3 guifg=#00997b cterm=italic,bold gui=italic,bold
-hi link CocSem_class Type
-hi link CocSem_enum Type
-hi link CocSem_interface Type
-hi link CocSem_struct Type
-hi CocSem_typeParameter ctermfg=3 guifg=#00997b cterm=bold gui=bold
-hi link CocSem_type Type
-hi CocSem_parameter ctermfg=white guifg=#6090a4 cterm=none gui=none
-hi CocSem_variable ctermfg=white guifg=#9daaaa cterm=none gui=none
-hi CocSem_property ctermfg=88 guifg=#c65156 cterm=none gui=none
-hi CocSem_enumMember ctermfg=3 guifg=#00997b cterm=none gui=none
-hi link CocSem_event Function
-hi link CocSem_function Function
-hi link CocSem_method Function
-hi link CocSem_macro Macro
-hi link CocSem_label Keyword
-hi link CocSem_comment Comment
-hi link CocSem_string String
-hi link CocSem_keyword Keyword
-hi link CocSem_number Number
-hi link CocSem_regexp CocSem_string
-hi link CocSem_operator Normal
-
 
 "function to tell what syntax group something belong to
 "function! SynGroup()
@@ -181,6 +155,45 @@ hi rsLifetimeDef ctermfg=88 guifg=#c65156 cterm=italic gui=italic
 hi rsDelimiter ctermfg=white guifg=#979da9
 hi rsOperator ctermfg=white guifg=#979da9
 
+"""""""""""""""""""""""""""""""""
+" COC.NVIM SEMANTIC HIGHLIGHTING
+"""""""""""""""""""""""""""""""""
+hi CocSem_namespace ctermfg=3 guifg=#00997b cterm=italic,bold gui=italic,bold
+hi link CocSem_class Type
+hi link CocSem_enum Type
+hi link CocSem_interface Type
+hi link CocSem_struct Type
+hi link CocSem_concept Type
+hi link CocSem_builtinType Type
+hi CocSem_typeParameter ctermfg=3 guifg=#00997b cterm=bold gui=bold
+hi link CocSem_type Type
+hi link CocSem_typeAlias Type
+hi CocSem_parameter ctermfg=white guifg=#6090a4 cterm=none gui=none
+hi CocSem_variable ctermfg=white guifg=#9daaaa cterm=none gui=none
+hi CocSem_property ctermfg=88 guifg=#c65156 cterm=none gui=none
+hi CocSem_enumMember ctermfg=3 guifg=#00997b cterm=none gui=none
+hi link CocSem_lifetime CocSem_property
+hi link CocSem_event Function
+hi link CocSem_function Function
+hi link CocSem_method Function
+hi link CocSem_macro Macro
+hi link CocSem_label Keyword
+hi link CocSem_comment Comment
+hi link CocSem_string String
+hi link CocSem_formatSpecifier String
+hi link CocSem_keyword Keyword
+hi link CocSem_number Number
+hi link CocSem_regexp CocSem_string
+hi link CocSem_operator CocSem_variable
+hi link CocSem_brace CocSem_variable
+hi link CocSem_comma CocSem_variable
+hi link CocSem_semicolon CocSem_variable
+hi link CocSem_parenthesis CocSem_variable
+hi link CocSem_angle CocSem_variable
+hi link CocSem_colon CocSem_variable
+hi link CocSem_bracket CocSem_variable
+hi link CocSem_punctuation CocSem_variable
+
 "coc settings
 let g:coc_global_extensions = ['coc-clangd', 'coc-cmake', 'coc-css', 'coc-git', 'coc-html',
 			\'coc-java', 'coc-json', 'coc-marketplace', 'coc-omnisharp', 'coc-python',
@@ -199,6 +212,7 @@ nnoremap <C-k> :call Show_documentation()<CR>
 hi link CocHintSign Comment
 let g:DoxygenToolkit_commentType="C++"
 nnoremap <C-D> :Dox<CR>
+autocmd BufEnter,TextChanged,TextChangedI,TextChangedP,CursorHold * call CocActionAsync('semanticHighlight')
 
 "ALE settings
 "let g:ale_linters = {
