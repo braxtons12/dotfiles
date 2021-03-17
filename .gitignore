@@ -88,3 +88,7 @@ aur-temp/
 .pipewire-media-session
 .pipewire-media-session/
 .jackdrc
+.VST2/
+.VST3/
+.steam/
+packages-microsoft-prod.deb
