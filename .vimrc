@@ -71,16 +71,23 @@ set inccommand:nosplit
 nnoremap <C-f> :find<space>
 nnoremap <C-t> :NERDTreeToggle<CR>
 
-let g:loaded_sql_completion = 0
-let g:omni_sql_no_default_maps = 1
-let g:neomake_java_enabled_makers = ['']
-
 autocmd vimenter * GitGutterEnable
 
 "CPP semantic highlighting settings
 let g:lsp_cxx_hl_use_nvim_text_props=1
 
-"autocmd InsertLeave,InsertEnter,BufRead,BufWritePre * :LspCxxHighlight
+"""""""""""""""""""""""""""""
+"" GENERIC HIGHLIGHTING
+"""""""""""""""""""""""""""""
+hi Type ctermfg=29 guifg=#dbba75 cterm=none gui=none
+hi Macro guifg=#9c80ff cterm=none gui=none
+hi Function guifg=#61afef cterm=none gui=none
+hi Keyword guifg=#c67ada cterm=none gui=none
+hi Comment guifg=#686e78 cterm=none gui=none
+hi String guifg=#83a76e cterm=none gui=none
+hi Number guifg=#d29767 cterm=none gui=none
+hi Normal guifg=#9daaaa cterm=none gui=none
+
 """""""""""""""""""""""""""""
 "" CPP SEMANTIC HIGHLIGHTING
 """""""""""""""""""""""""""""
@@ -89,15 +96,14 @@ hi LspCxxHlGroupNamespace ctermfg=3 guifg=#00997b cterm=italic,bold gui=italic,b
 hi LspCxxHlGroupMemberVariable ctermfg=88 guifg=#c65156 cterm=none gui=none
 hi LspCxxHlSymUnknownStaticField ctermfg=88 guifg=#c65156 cterm=bold gui=bold
 hi LspCxxHlSymDependentType ctermfg=3 guifg=#00997b cterm=none gui=none
-hi Type ctermfg=29 guifg=#dbba75 cterm=none gui=none
 hi LspCxxHlSymTypeAlias ctermfg=29 guifg=#dbba75 cterm=none gui=none
 hi LspCxxhlSymTypeParameter ctermfg=3 guifg=#00997b cterm=bold gui=bold
 hi LspCxxHlSymTemplateParameter ctermfg=3 guifg=#00997b cterm=bold gui=bold
 hi LspCxxHlSymVariable ctermfg=white guifg=#9daaaa cterm=none gui=none
 hi LspCxxHlSymParameter ctermfg=white guifg=#6090a4 cterm=none gui=none
-hi Macro guifg=#9c80ff cterm=none gui=none
 hi LspCxxHlSkippedRegion ctermfg=lightgrey ctermbg=darkgrey guifg=#444444 guibg=#202020
 hi LspCxxHlSkippedRegionBeginEnd ctermfg=lightgrey ctermbg=darkgrey guifg=#444444 guibg=#202020
+
 """"""""""""""""""""""""""
 " DOXYGEN HIGHLIGHTING
 """"""""""""""""""""""""""
@@ -110,16 +116,9 @@ hi doxygenParamName ctermfg=88 guifg=#a04146 cterm=italic gui=italic
 hi doxygenParam guifg=#8278b4 cterm=italic,bold gui=italic,bold
 hi doxygenSpecial guifg=#8278b4 cterm=italic,bold gui=italic,bold
 
-"function to tell what syntax group something belong to
-"function! SynGroup()
-"	let l:s = synID(line('.'), col('.'), 1)
-"	echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
-"endfun
-
-"nnoremap s :call SynGroup()<CR>
-
-"rust semantic highlighting settings
-"hi rsUse ctermfg=lightblue guifg=#61afef cterm=italic,bold gui=italic,bold
+""""""""""""""""""""""""""
+" RUST SEMANTIC HIGHLIGHTING
+""""""""""""""""""""""""""
 hi rsKeyword guifg=#c678dd
 hi rsUse guifg=#c678dd cterm=italic gui=italic
 hi rsTypeParamDef ctermfg=3 guifg=#00997b
@@ -154,45 +153,51 @@ hi rsFieldAccess ctermfg=88 guifg=#c65156 cterm=none gui=none
 hi rsLifetimeDef ctermfg=88 guifg=#c65156 cterm=italic gui=italic
 hi rsDelimiter ctermfg=white guifg=#979da9
 hi rsOperator ctermfg=white guifg=#979da9
+hi link rustDerive Keyword
+hi link rustAttribute Keyword
+hi link rustDeriveTrait Type
 
 """""""""""""""""""""""""""""""""
 " COC.NVIM SEMANTIC HIGHLIGHTING
 """""""""""""""""""""""""""""""""
-hi CocSem_namespace ctermfg=3 guifg=#00997b cterm=italic,bold gui=italic,bold
-hi link CocSem_class Type
-hi link CocSem_enum Type
-hi link CocSem_interface Type
-hi link CocSem_struct Type
-hi link CocSem_concept Type
-hi link CocSem_builtinType Type
-hi CocSem_typeParameter ctermfg=3 guifg=#00997b cterm=bold gui=bold
-hi link CocSem_type Type
-hi link CocSem_typeAlias Type
-hi CocSem_parameter ctermfg=white guifg=#6090a4 cterm=none gui=none
-hi CocSem_variable ctermfg=white guifg=#9daaaa cterm=none gui=none
-hi CocSem_property ctermfg=88 guifg=#c65156 cterm=none gui=none
-hi CocSem_enumMember ctermfg=3 guifg=#00997b cterm=none gui=none
-hi link CocSem_lifetime CocSem_property
-hi link CocSem_event Function
-hi link CocSem_function Function
-hi link CocSem_method Function
-hi link CocSem_macro Macro
-hi link CocSem_label Keyword
-hi link CocSem_comment Comment
-hi link CocSem_string String
-hi link CocSem_formatSpecifier String
-hi link CocSem_keyword Keyword
-hi link CocSem_number Number
-hi link CocSem_regexp CocSem_string
-hi link CocSem_operator CocSem_variable
-hi link CocSem_brace CocSem_variable
-hi link CocSem_comma CocSem_variable
-hi link CocSem_semicolon CocSem_variable
-hi link CocSem_parenthesis CocSem_variable
-hi link CocSem_angle CocSem_variable
-hi link CocSem_colon CocSem_variable
-hi link CocSem_bracket CocSem_variable
-hi link CocSem_punctuation CocSem_variable
+hi! CocSem_namespace ctermfg=3 guifg=#00997b cterm=italic,bold gui=italic,bold
+hi! link CocSem_class Type
+hi! link CocSem_enum Type
+hi! link CocSem_interface Type
+hi! link CocSem_struct Type
+hi! link CocSem_concept Type
+hi! link CocSem_builtinType Type
+hi! CocSem_typeParameter ctermfg=3 guifg=#00997b cterm=bold gui=bold
+hi! link CocSem_type Type
+hi! link CocSem_typeAlias Type
+hi! link CocSem_selfKeyword Keyword
+hi! CocSem_parameter ctermfg=white guifg=#6090a4 cterm=none gui=none
+hi! CocSem_variable ctermfg=white guifg=#9daaaa cterm=none gui=none
+hi! CocSem_property ctermfg=88 guifg=#c65156 cterm=none gui=none
+hi! CocSem_enumMember ctermfg=3 guifg=#00997b cterm=none gui=none
+hi! link CocSem_lifetime CocSem_property
+hi! link CocSem_event Function
+hi! link CocSem_function Function
+hi! link CocSem_method Function
+hi! link CocSem_macro Macro
+hi! link CocSem_attribute Type
+hi! link CocSem_label Keyword
+hi! link CocSem_comment Comment
+hi! link CocSem_string String
+hi! link CocSem_formatSpecifier String
+hi! link CocSem_keyword Keyword
+hi! link CocSem_number Number
+hi! link CocSem_regexp CocSem_string
+hi! link CocSem_operator CocSem_variable
+hi! link CocSem_brace CocSem_variable
+hi! link CocSem_comma CocSem_variable
+hi! link CocSem_semicolon CocSem_variable
+hi! link CocSem_parenthesis CocSem_variable
+hi! link CocSem_angle CocSem_variable
+hi! link CocSem_colon CocSem_variable
+hi! link CocSem_bracket CocSem_variable
+hi! link CocSem_punctuation CocSem_variable
+hi! link CocSem_unresolvedReference CocSem_variable
 
 "coc settings
 let g:coc_global_extensions = ['coc-clangd', 'coc-cmake', 'coc-css', 'coc-git', 'coc-html',
@@ -212,31 +217,6 @@ nnoremap <C-k> :call Show_documentation()<CR>
 hi link CocHintSign Comment
 let g:DoxygenToolkit_commentType="C++"
 nnoremap <C-D> :Dox<CR>
-autocmd BufEnter,TextChanged,TextChangedI,TextChangedP,CursorHold * call CocActionAsync('semanticHighlight')
-
-"ALE settings
-"let g:ale_linters = {
-""			\'cpp': ['cppcheck', 'clangcheck', 'clangtidy'],
-""			\'c': ['cppcheck', 'clangcheck', 'clangtidy']
-""			\}
-let g:ale_linters = {
-			\
-			\ }
-"let g:ale_linters_explicit=1
-"let g:ale_c_parse_compile_commands=1
-"let g:ale_cpp_parse_compile_commands=1
-"let g:ale_set_balloons=1
-"let g:ale_cpp_clangtidy_checks= ['bugprone-*', 'cert-*', 'clang-analyer-*', 'cppcoreguidelines-*', 'google-*',
-"			\'hicpp-*', 'misc-*', 'modernize-*', 'performance-*', 'portability-*', 'readability-*',
-"			\'-hicpp-special-member-functions', '-cppcoreguidelines-special-member-functions',
-"			\'-misc-non-private-member-variables-in-classes', '-cppcoreguidelines-non-private-member-variables-in-classes',
-"			\'-readability-magic-numbers', '-cppcoreguidelines-avoid-magic-numbers', '-readability-else-after-return',
-"			\'-google-default-arguments']
-"let g:ale_cpp_clangtidy_extra_options = ''
-"let g:ale_cpp_clangtidy_options = ''
-"let g:airline#extensions#ale#enabled=1
-
-set exrc
 
 function! Show_documentation()
 	"if (index(['vim', 'help'], &filetype) >= 0)
@@ -291,11 +271,6 @@ set shiftwidth=4
 set autoindent
 set smartindent
 set cindent
-
-"chromatica syntax highlighting settings
-"assuming libclang.so is at /usr/lib/libclang.so
-"if not, need to let g:chromatica#libclang_path='pathtolibclang.so'
-"let g:chromatica#enable_at_startup=1
 
 nnoremap <C-p> :bp<CR>
 nnoremap <C-n> :bn<CR>
@@ -352,7 +327,6 @@ endfun
 
 autocmd BufRead * :call <SID>AutoIndentOnOpen()
 autocmd BufWritePre * :call <SID>AutoIndentOnClose()
-"autocmd BufRead,BufWritePre * :Autoformat<CR>
 
 "view the syntax highlight group under the cursor
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
