@@ -178,6 +178,7 @@ hi! CocSem_enumMember ctermfg=3 guifg=#00997b cterm=none gui=none
 hi! link CocSem_lifetime CocSem_property
 hi! link CocSem_event Function
 hi! link CocSem_function Function
+hi! link CocSem_dependent Function
 hi! link CocSem_method Function
 hi! link CocSem_macro Macro
 hi! link CocSem_attribute Type
