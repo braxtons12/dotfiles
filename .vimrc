@@ -69,7 +69,11 @@ set wildmenu
 set inccommand:nosplit
 
 nnoremap <C-f> :find<space>
-nnoremap <C-t> :NERDTreeToggle<CR>
+if exists('g:goneovim')
+	nnoremap <C-t> :GonvimFiler<CR>
+else
+	nnoremap <C-t> :NERDTreeToggle<CR>
+endif
 
 autocmd vimenter * GitGutterEnable
 
@@ -315,7 +319,7 @@ endfun
 
 function! <SID>AutoIndentOnClose()
 	if &modifiable
-		if &ft=='text' || &ft=='sql' || &ft=='html' || &ft=='md' || &ft=='markdown' || &ft=='dockerfile'
+		if &ft=='text' || &ft=='sql' || &ft=='html' || &ft=='md' || &ft=='markdown' || &ft=='dockerfile' || &ft=='rst'
 		else
 			if &ft=='cpp' || &ft=='c' || &ft=='rust' || &ft=='toml' || &ft=='yaml' || &ft=='yml' || &ft=='YAML'
 				"call CocActionAsync('format')

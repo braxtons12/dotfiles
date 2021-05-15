@@ -121,6 +121,8 @@ PATH=/home/braxton/git/gcc4mbed/gcc-arm-none-eabi/bin:$PATH
 PATH=/home/braxton/.cargo/bin:$PATH
 PATH=/home/braxton/.dub/packages/.bin/dls-latest:$PATH
 PATH=/home/braxton/.local/share/code-d/bin:$PATH
+PATH=/home/braxton/goneovim:$PATH
+PATH=/home/braxton/.nvm/versions/node/v15.14.0/bin:$PATH
 export PATH
 
 JUCE_DIR="$HOME/JUCE_CMAKE"
@@ -138,6 +140,7 @@ alias sshfs-google-cloud='sshfs braxtonsalyer@104.198.173.158:/ ~/remote-dev/os-
 alias cat=bat
 alias ls="exa -l --icons --all --group-directories-first --git"
 alias vim=nvim
+alias gvim=goneovim
 alias emacs='emacs -nw'
 alias json2cmakelists="python3 ~/git/json2cmakelists/json2cmakelists.py"
 alias sudo='sudo '
@@ -170,3 +173,7 @@ alias -s sql=nvim
 
 alias .vimrc="nvim .vimrc"
 
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export HDOC_PROJECT_API_KEY=9qUFEPM5.wwfPILGV1ylTrmPitgkAwWiYOngxAQz2

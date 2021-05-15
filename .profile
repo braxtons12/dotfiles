@@ -35,3 +35,5 @@ CMAKE_PREFIX_PATH=/home/braxton/JUCE_CMAKE:/home/braxton/git/Apex/dependencies/G
 export CMAKE_PREFIX_PATH
 
 export PATH="/usr/lib/go-1.15/bin:$PATH"
+
+export PATH="/home/braxton/.nvm/versions/node/v15.14.0/bin:$PATH"
