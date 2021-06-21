@@ -1,4 +1,6 @@
-execute pathogen#infect()
+if !exists('g:vscode')
+	execute pathogen#infect()
+endif
 syntax on
 filetype plugin indent on
 set number
@@ -29,38 +31,40 @@ if (empty($TMUX))
 	endif
 endif
 
-" NERDTRees File highliting
-function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
-	exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
-	exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
-endfunction
+if !exists('g:vscode')
+	" NERDTRees File highliting
+	function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
+		exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+		exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+	endfunction
 
-call NERDTreeHighlightFile('jade', '2', 'none', '2', '#151515')
-call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('md', '3', 'none', '#3366ff', '#151515')
-call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
-call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
-call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
-call NERDTreeHighlightFile('js', 'red', 'none', '#ffa500', '#151515')
-call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
-let g:NERDTreeShowHidden=1
+	call NERDTreeHighlightFile('jade', '2', 'none', '2', '#151515')
+	call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
+	call NERDTreeHighlightFile('md', '3', 'none', '#3366ff', '#151515')
+	call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
+	call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
+	call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
+	call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
+	call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
+	call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
+	call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
+	call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
+	call NERDTreeHighlightFile('js', 'red', 'none', '#ffa500', '#151515')
+	call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
+	let g:NERDTreeShowHidden=1
 
-set statusline+=%#warningmsg#
-set statusline+=%*
+	set statusline+=%#warningmsg#
+	set statusline+=%*
 
-let g:gitgutter_max_signs=2000
+	let g:gitgutter_max_signs=2000
 
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-let g:airline#extensions#tabline#buffer_idx_mode = 1
-let g:airline#extensions#whitespace#mixed_indent_algo = 2
-let g:airline#extensions#whitespace#checks = ['trailing']
-let g:airline_powerline_fonts = 1
+	let g:airline#extensions#tabline#enabled = 1
+	let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+	let g:airline#extensions#tabline#buffer_idx_mode = 1
+	let g:airline#extensions#whitespace#mixed_indent_algo = 2
+	let g:airline#extensions#whitespace#checks = ['trailing']
+	let g:airline_powerline_fonts = 1
+endif
 
 set signcolumn=yes
 set splitbelow
@@ -68,17 +72,21 @@ set path+=**
 set wildmenu
 set inccommand:nosplit
 
-nnoremap <C-f> :find<space>
-if exists('g:goneovim')
-	nnoremap <C-t> :GonvimFiler<CR>
-else
-	nnoremap <C-t> :NERDTreeToggle<CR>
+if !exists('g:vscode')
+	nnoremap <C-f> :find<space>
+	if exists('g:goneovim')
+		nnoremap <C-t> :GonvimFiler<CR>
+	else
+		nnoremap <C-t> :NERDTreeToggle<CR>
+	endif
+
+
+	"CPP semantic highlighting settings
+	let g:lsp_cxx_hl_use_nvim_text_props=1
+
+	autocmd vimenter * GitGutterEnable
 endif
 
-autocmd vimenter * GitGutterEnable
-
-"CPP semantic highlighting settings
-let g:lsp_cxx_hl_use_nvim_text_props=1
 
 """""""""""""""""""""""""""""
 "" GENERIC HIGHLIGHTING
@@ -203,73 +211,86 @@ hi! link CocSem_colon CocSem_variable
 hi! link CocSem_bracket CocSem_variable
 hi! link CocSem_punctuation CocSem_variable
 hi! link CocSem_unresolvedReference CocSem_variable
+hi link CocHintSign Comment
 
-"coc settings
-let g:coc_global_extensions = ['coc-clangd', 'coc-cmake', 'coc-css', 'coc-git', 'coc-html',
-			\'coc-java', 'coc-json', 'coc-marketplace', 'coc-omnisharp', 'coc-python',
-			\'coc-rust-analyzer', 'coc-sh', 'coc-snippets', 'coc-sql', 'coc-toml', 'coc-tsserver',
-			\'coc-vimlsp', 'coc-xml', 'coc-yaml']
+if !exists('g:vscode')
+	"coc settings
+	let g:coc_global_extensions = ['coc-clangd', 'coc-cmake', 'coc-css', 'coc-git', 'coc-html',
+				\'coc-java', 'coc-json', 'coc-marketplace', 'coc-omnisharp', 'coc-python',
+				\'coc-rust-analyzer', 'coc-sh', 'coc-snippets', 'coc-sql', 'coc-toml', 'coc-tsserver',
+				\'coc-vimlsp', 'coc-xml', 'coc-yaml']
+endif
+
 set hidden
 set nobackup
 set nowritebackup
 set cmdheight=2
 set updatetime=500
 set shortmess+=c
-let g:airline#extensions#coc#enabled=1
-set statusline^=%{coc#status()}
-autocmd CursorHold * if ! coc#float#has_float() | silent call Show_documentation() | endif
-nnoremap <C-k> :call Show_documentation()<CR>
-hi link CocHintSign Comment
+
 let g:DoxygenToolkit_commentType="C++"
-nnoremap <C-D> :Dox<CR>
+nnoremap <S-D> :Dox<CR>
 
-function! Show_documentation()
-	"if (index(['vim', 'help'], &filetype) >= 0)
-	"	execute 'h '.expand('<cword>')
-	"else
-	call CocActionAsync('doHover')
-	"endif
-endfunction
+if exists('g:vscode')
+	nnoremap <C-k> :call VSCodeCall("editor.action.showHover")<CR>
+	autocmd CursorHold * call VSCodeCall("editor.action.showHover")
+endif
 
-inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-inoremap <silent><expr> <TAB>
-			\ pumvisible() ? "\<C-n>" :
-			\ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-			\ <SID>check_back_space() ? "\<TAB>" :
-			\ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+if !exists('g:vscode')
+	let g:airline#extensions#coc#enabled=1
+	set statusline^=%{coc#status()}
+	autocmd CursorHold * if ! coc#float#has_float() | silent call Show_documentation() | endif
+	nnoremap <C-k> :call Show_documentation()<CR>
 
-function! s:check_back_space() abort
-	let col = col('.') - 1
-	return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
 
-let g:coc_snippet_next = '<tab>'
-let g:coc_snippet_previous = '<S-tab>'
+	function! Show_documentation()
+		"if (index(['vim', 'help'], &filetype) >= 0)
+		"	execute 'h '.expand('<cword>')
+		"else
+		call CocActionAsync('doHover')
+		"endif
+	endfunction
 
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gs :CocCommand clangd.switchSourceHeader<CR>
-nmap <S-f> <Plug>(coc-codeaction-selected)<CR>
+	inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+	inoremap <silent><expr> <TAB>
+				\ pumvisible() ? "\<C-n>" :
+				\ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+				\ <SID>check_back_space() ? "\<TAB>" :
+				\ coc#refresh()
+	inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+	autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
-function! SplitIfNotOpen(...)
-	" Ref: https://github.com/neoclide/coc.nvim/blob/7e9e0e91e24fc447e96079ae59e9f6caffe604a4/autoload/coc/util.vim#L380-L383
-	let cursorCmd = ''
-	let fname = a:1
-	if a:0 == 2  " Two arguments.
-		let cursorCmd = a:1
-		let fname = a:2
-	endif
-	if fname != fnamemodify(expand('%'), ':p:~:.')
-		exec 'vsplit '.fname
-	endif
-	if len(cursorCmd)
-		exec cursorCmd
-	endif
-endfunction
+	function! s:check_back_space() abort
+		let col = col('.') - 1
+		return !col || getline('.')[col - 1]  =~# '\s'
+	endfunction
 
-command! -nargs=+ CocSplitIfNotOpen :call SplitIfNotOpen(<f-args>)
+	let g:coc_snippet_next = '<tab>'
+	let g:coc_snippet_previous = '<S-tab>'
+
+	autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+	nmap <silent> gd <Plug>(coc-definition)
+	nmap <silent> gs :CocCommand clangd.switchSourceHeader<CR>
+	nmap <S-f> <Plug>(coc-codeaction-selected)<CR>
+
+	function! SplitIfNotOpen(...)
+		" Ref: https://github.com/neoclide/coc.nvim/blob/7e9e0e91e24fc447e96079ae59e9f6caffe604a4/autoload/coc/util.vim#L380-L383
+		let cursorCmd = ''
+		let fname = a:1
+		if a:0 == 2  " Two arguments.
+			let cursorCmd = a:1
+			let fname = a:2
+		endif
+		if fname != fnamemodify(expand('%'), ':p:~:.')
+			exec 'vsplit '.fname
+		endif
+		if len(cursorCmd)
+			exec cursorCmd
+		endif
+	endfunction
+
+	command! -nargs=+ CocSplitIfNotOpen :call SplitIfNotOpen(<f-args>)
+endif
 
 set tabstop=4
 set shiftwidth=4
@@ -304,36 +325,38 @@ autocmd! BufRead,BufNewFile *.clangd setfiletype yaml
 autocmd! BufRead,BufNewFile CMakeFiles.text setfiletype cmake
 autocmd! BufRead,BufNewFile *.cmake setfiletype cmake
 
-function! <SID>AutoIndentOnOpen()
-	if &modifiable
-		if &ft=='text' || &ft=='sql' || &ft=='html' || &ft=='md' || &ft=='markdown' || &ft=='dockerfile'
-		else
-			if &ft=='cpp' || &ft=='c' || &ft=='rust' || &ft=='toml' || &ft=='yaml' || &ft=='yml' || &ft=='YAML'
-				call CocActionAsync('format')
+if !exists('g:vscode')
+	function! <SID>AutoIndentOnOpen()
+		if &modifiable
+			if &ft=='text' || &ft=='sql' || &ft=='html' || &ft=='md' || &ft=='markdown' || &ft=='dockerfile'
 			else
-				:Autoformat<CR>
+				if &ft=='cpp' || &ft=='c' || &ft=='rust' || &ft=='toml' || &ft=='yaml' || &ft=='yml' || &ft=='YAML'
+					call CocActionAsync('format')
+				else
+					:Autoformat<CR>
+				endif
 			endif
 		endif
-	endif
-endfun
+	endfun
 
-function! <SID>AutoIndentOnClose()
-	if &modifiable
-		if &ft=='text' || &ft=='sql' || &ft=='html' || &ft=='md' || &ft=='markdown' || &ft=='dockerfile' || &ft=='rst'
-		else
-			if &ft=='cpp' || &ft=='c' || &ft=='rust' || &ft=='toml' || &ft=='yaml' || &ft=='yml' || &ft=='YAML'
-				"call CocActionAsync('format')
+	function! <SID>AutoIndentOnClose()
+		if &modifiable
+			if &ft=='text' || &ft=='sql' || &ft=='html' || &ft=='md' || &ft=='markdown' || &ft=='dockerfile' || &ft=='rst'
 			else
-				:Autoformat<CR>
+				if &ft=='cpp' || &ft=='c' || &ft=='rust' || &ft=='toml' || &ft=='yaml' || &ft=='yml' || &ft=='YAML'
+					"call CocActionAsync('format')
+				else
+					:Autoformat<CR>
+				endif
 			endif
 		endif
-	endif
-endfun
+	endfun
 
-autocmd BufRead * :call <SID>AutoIndentOnOpen()
-autocmd BufWritePre * :call <SID>AutoIndentOnClose()
+	autocmd BufRead * :call <SID>AutoIndentOnOpen()
+	autocmd BufWritePre * :call <SID>AutoIndentOnClose()
 
-"view the syntax highlight group under the cursor
-map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-			\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-			\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+	"view the syntax highlight group under the cursor
+	map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+				\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+				\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+endif

@@ -125,6 +125,9 @@ PATH=/home/braxton/goneovim:$PATH
 PATH=/home/braxton/.nvm/versions/node/v15.14.0/bin:$PATH
 export PATH
 
+PICO_SDK_PATH=/home/braxton/git/pico/pico-sdk
+export PICO_SDK_PATH
+
 JUCE_DIR="$HOME/JUCE_CMAKE"
 export JUCE_DIR
 
@@ -145,7 +148,9 @@ alias emacs='emacs -nw'
 alias json2cmakelists="python3 ~/git/json2cmakelists/json2cmakelists.py"
 alias sudo='sudo '
 alias cmake_release='cmake -B build -G Ninja -DCMAKE_TOOLCHAIN_FILE=linux-clang.cmake -DCMAKE_BUILD_TYPE=Release && yes | cp -f build/compile_commands.json compile_commands.json'
+alias cmake_release_gcc='cmake -B build -G Ninja -DCMAKE_TOOLCHAIN_FILE=linux-gcc.cmake -DCMAKE_BUILD_TYPE=Release && yes | cp -f build/compile_commands.json compile_commands.json'
 alias cmake_debug='cmake -B build -G Ninja -DCMAKE_TOOLCHAIN_FILE=linux-clang.cmake -DCMAKE_BUILD_TYPE=Debug && yes | cp -f build/compile_commands.json compile_commands.json'
+alias cmake_debug_gcc='cmake -B build -G Ninja -DCMAKE_TOOLCHAIN_FILE=linux-gcc.cmake -DCMAKE_BUILD_TYPE=Debug && yes | cp -f build/compile_commands.json compile_commands.json'
 
 alias clippy='~/clippy_alias.sh'
 
