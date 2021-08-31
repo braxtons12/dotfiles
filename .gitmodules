@@ -5,9 +5,6 @@
 [submodule ".vim/bundle/ale"]
 	path = .vim/bundle/ale
 	url = https://github.com/dense-analysis/ale
-[submodule ".vim/bundle/nerdtree"]
-	path = .vim/bundle/nerdtree
-	url = https://github.com/preservim/nerdtree
 [submodule ".vim/bundle/typescript-vim"]
 	path = .vim/bundle/typescript-vim
 	url = https://github.com/leafgarland/typescript-vim
@@ -47,3 +44,6 @@
 [submodule ".vim/bundle/delimitMate"]
 	path = .vim/bundle/delimitMate
 	url = https://github.com/Raimondi/delimitMate
+[submodule ".vim/bundle/nvim-web-devicons"]
+	path = .vim/bundle/nvim-web-devicons
+	url = https://github.com/kyazdani42/nvim-web-devicons

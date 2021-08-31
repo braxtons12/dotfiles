@@ -32,27 +32,6 @@ if (empty($TMUX))
 endif
 
 if !exists('g:vscode')
-	" NERDTRees File highliting
-	function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
-		exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
-		exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
-	endfunction
-
-	call NERDTreeHighlightFile('jade', '2', 'none', '2', '#151515')
-	call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
-	call NERDTreeHighlightFile('md', '3', 'none', '#3366ff', '#151515')
-	call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
-	call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
-	call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
-	call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
-	call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
-	call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
-	call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
-	call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
-	call NERDTreeHighlightFile('js', 'red', 'none', '#ffa500', '#151515')
-	call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
-	let g:NERDTreeShowHidden=1
-
 	set statusline+=%#warningmsg#
 	set statusline+=%*
 
@@ -77,7 +56,7 @@ if !exists('g:vscode')
 	if exists('g:goneovim')
 		nnoremap <C-t> :GonvimFiler<CR>
 	else
-		nnoremap <C-t> :NERDTreeToggle<CR>
+		nnoremap <C-t> :CocCommand explorer<CR>
 	endif
 
 

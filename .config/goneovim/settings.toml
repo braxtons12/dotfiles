@@ -1,0 +1,70 @@
+[Editor]
+Width = 1920
+Height = 1080
+Gap = 4
+#Transparent = 0.99
+FontFamily = "Hack Nerd Font"
+FontSize = 12
+ExtCmdline = true
+ExtPopupmenu = true
+ExtTabline = false
+ExtMessages = true
+DisableLigatures = false
+Clipboard = true
+DrawWindowSeparator = true
+WindowSeparatorTheme = "one"
+WindowSeparatorColor = "#333333"
+WindowSeparatorGradient = true
+SmoothScroll = false
+DisableHorizontalScroll = false
+DrawBorderForFloatWindow = false
+DrawShadowForFloatWindow = true
+ClickEffect = true
+IndentGuide = true
+
+[Cursor]
+SmoothMove = true
+
+[Statusline]
+Visible = false
+Left = ["mode", "filename", "git"]
+Right = ["message", "filetype", "fileformat", "fileencoding", "curpos", "lint"]
+NormalModeColor = "#5e784a"
+InsertModeColor = "#5192c8"
+CommandModeColor = "#5e784a"
+VisualModeColor = "#aa59be"
+ReplaceModeColor = "#aa59be"
+TerminalModeColor = "00997b"
+
+[Palette]
+AreaRatio = 0.1
+MaxNumberOfResultItems = 30
+Transparent = 0.99
+
+[Tabline]
+Visible = true
+ShowIcon = true
+
+[Popupmenu]
+ShowDetail = false
+InfoWidth = 10
+MenuWidth = 200
+DetailWidth = 10
+ShowDigit = false
+
+[ScrollBar]
+Visible = true
+
+[Minimap]
+Disable = false
+Visible = true
+Width = 80
+
+[Markdown]
+Disable = false
+
+[Sidebar]
+Visible = false
+Width = 200
+AccentColor = "#61afef"
+DropShadow = true

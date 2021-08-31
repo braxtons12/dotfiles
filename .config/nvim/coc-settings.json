@@ -10,7 +10,6 @@
 	"rust-analyzer.cargo.autoreload": true,
 	"rust-analyzer.hoverActions.enable": true,
 	"rust-analyzer.checkOnSave.allFeatures": true,
-	"rust-analyzer.hoverActions.linksInHover": true,
 	"rust-analyzer.completion.autoimport.enable": true,
 	"rust-analyzer.completion.addCallArgumentSnippets": true,
 	"rust-analyzer.completion.postfix.enable": true,
@@ -50,7 +49,7 @@
 			],
 			"initializationOptions": {
 				"cache": {
-					"directory": ".ccls-cache"
+					"directory": ""
 				},
 				"highlight": {
 					"lsRanges": true
@@ -75,6 +74,10 @@
 	"coc.preferences.messageLevel": "error",
 	"coc.preferences.enableMessageDialog": true,
 	"coc.preferences.useQuickfixForLocations": true,
+	"coc.preferences.semanticTokensHighlights": false,
+	"coc.preferences.colorSupport": true,
+	"coc.preferences.enableFloatHighlight": true,
+	"coc.preferences.enableMarkdown": true,
 	"coc.preferences.formatOnSaveFiletypes": [
 		"C",
 		"c",
@@ -97,7 +100,65 @@
 		"vim",
 		"vimrc"
 	],
-	"diagnostic.virtualText": true
+	"diagnostic.virtualText": true,
+	"explorer.previewAction.onHover": "content",
+	"explorer.openAction.strategy": "sourceWindow",
+	"explorer.icon.enableNerdfont": true,
+	"explorer.icon.source": "nvim-web-devicons",
+	"explorer.file.showHiddenFiles": true,
+	"explorer.openAction.relativePath": true,
+	"explorer.openAction.for.directory": "expand",
+	"explorer.file.child.template": "[git | 2] [diagnosticError & 1 | 2] [indent][indent][icon | 1] [filename omitCenter 1][modified] [linkIcon & 1][link growRight 1 omitCenter 5]",
+	"explorer.root.strategies": [
+		"cwd"
+	],
+	"explorer.keyMappings.global": {
+		"h": [
+			"expandable?",
+			[
+				"expanded?",
+				"collapse",
+				""
+			],
+			""
+		],
+		"l": [
+			"expandable?",
+			[
+				"expanded?",
+				"collapse",
+				"expand"
+			],
+			""
+		],
+		"e": [
+			"expandable?",
+			[
+				"expanded?",
+				"collapse",
+				"expand"
+			],
+			"open"
+		],
+		"<cr>": [
+			"expandable?",
+			[
+				"expanded?",
+				"collapse",
+				"expand"
+			],
+			"open"
+		],
+		"<2-LeftMouse>": [
+			"expandable?",
+			[
+				"expanded?",
+				"collapse",
+				"expand"
+			],
+			"open"
+		]
+	}
 	//"coc.preferences.formatOnInsertLeave": true,
 	//"coc.preferences.jumpCommand": "CocSplitIfNotOpen"
 }

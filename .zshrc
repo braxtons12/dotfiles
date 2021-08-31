@@ -161,6 +161,8 @@ alias clean='./clean.sh'
 alias clean_build='./clean.sh && ./build.sh'
 alias clean_build_and_test='./clean.sh && ./build.sh && ./test.sh'
 
+alias onivim="/home/braxton/Onivim/usr/bin/Oni2"
+
 alias -s c=nvim
 alias -s cpp=nvim
 alias -s h=nvim
