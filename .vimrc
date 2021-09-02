@@ -53,11 +53,11 @@ set inccommand:nosplit
 
 if !exists('g:vscode')
 	nnoremap <C-f> :find<space>
-	if exists('g:goneovim')
-		nnoremap <C-t> :GonvimFiler<CR>
-	else
-		nnoremap <C-t> :CocCommand explorer<CR>
-	endif
+	" if exists('g:goneovim')
+	"	 nnoremap <C-t> :GonvimFiler<CR>
+	" else
+	nnoremap <C-t> :CocCommand explorer<CR>
+	" endif
 
 
 	"CPP semantic highlighting settings

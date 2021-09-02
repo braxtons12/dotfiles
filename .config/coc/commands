@@ -1,7 +1,8 @@
 explorer
+clangd.install
+clangd.update
 workspace.showOutput
 clangd.symbolInfo
-clangd.update
 rust-analyzer.reloadWorkspace
 rust-analyzer.reload
 rust-analyzer.upgrade
