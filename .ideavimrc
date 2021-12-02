@@ -1,0 +1,57 @@
+syntax on
+filetype plugin indent on
+set number
+set relativenumber
+set mouse=a
+set clipboard=unnamedplus
+set nowrap
+set colorcolumn=101
+
+set background=dark
+let g:one_allow_italics=1
+let g:airline_theme='one'
+colorscheme one
+
+set signcolumn=yes
+set splitbelow
+set path+=**
+set wildmenu
+set inccommand:nosplit
+
+set hidden
+set nobackup
+set nowritebackup
+set cmdheight=2
+set updatetime=500
+set shortmess+=c
+
+set tabstop=4
+set shiftwidth=4
+set autoindent
+set smartindent
+set cindent
+
+nnoremap <C-p> :bp<CR>
+nnoremap <C-n> :bn<CR>
+nnoremap <C-c> :bd<CR>
+
+nnoremap<C-s> :vsplit<CR>
+
+sethandler <A-h> a:vim
+sethandler <A-l> a:vim
+
+nnoremap <A-h> 0
+nnoremap <A-l> $
+nnoremap<S-l> <C-w><C-l>
+nnoremap<S-h> <C-w><C-h>
+nnoremap<S-j> <C-w><C-j>
+nnoremap<S-k> <C-w><C-h>
+
+nnoremap <C-Up> <C-w><C-k>
+nnoremap <C-Down> <C-w><C-j>
+nnoremap <C-Left> <C-w><C-h>
+nnoremap <C-Right> <C-w><C-l>
+
+nnoremap <C-q> <C-w><C-q>
+set clipboard+=ideaput
+
