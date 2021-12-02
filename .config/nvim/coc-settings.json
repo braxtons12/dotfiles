@@ -74,7 +74,7 @@
 	"coc.preferences.messageLevel": "error",
 	"coc.preferences.enableMessageDialog": true,
 	"coc.preferences.useQuickfixForLocations": true,
-	"coc.preferences.semanticTokensHighlights": false,
+	"coc.preferences.semanticTokensHighlights": true,
 	"coc.preferences.colorSupport": true,
 	"coc.preferences.enableFloatHighlight": true,
 	"coc.preferences.enableMarkdown": true,

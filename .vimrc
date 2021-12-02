@@ -311,8 +311,10 @@ if !exists('g:vscode')
 			else
 				if &ft=='cpp' || &ft=='c' || &ft=='rust' || &ft=='toml' || &ft=='yaml' || &ft=='yml' || &ft=='YAML'
 					call CocActionAsync('format')
+					call CocActionAsync('semanticHighlight')
 				else
 					:Autoformat<CR>
+					call CocActionAsync('semanticHighlight')
 				endif
 			endif
 		endif
@@ -326,6 +328,7 @@ if !exists('g:vscode')
 					"call CocActionAsync('format')
 				else
 					:Autoformat<CR>
+					call CocActionAsync('semanticHighlight')
 				endif
 			endif
 		endif
