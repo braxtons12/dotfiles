@@ -16,7 +16,8 @@ let g:airline_theme='one'
 colorscheme one
 
 highlight ColorColumn ctermbg=lightblue guibg=#334555
-highlight Normal ctermbg=darkgrey guibg=#20242a
+"highlight Normal ctermbg=darkgrey guibg=#20242a
+highlight Normal ctermbg=darkgrey guibg=#252931
 
 if (empty($TMUX))
 	if (has("nvim"))
@@ -37,9 +38,9 @@ if !exists('g:vscode')
 
 	let g:gitgutter_max_signs=2000
 
-	let g:airline#extensions#tabline#enabled = 1
-	let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-	let g:airline#extensions#tabline#buffer_idx_mode = 1
+	" let g:airline#extensions#tabline#enabled = 1
+	" let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+	" let g:airline#extensions#tabline#buffer_idx_mode = 1
 	let g:airline#extensions#whitespace#mixed_indent_algo = 2
 	let g:airline#extensions#whitespace#checks = ['trailing']
 	let g:airline_powerline_fonts = 1
@@ -151,45 +152,59 @@ hi link rustDeriveTrait Type
 """""""""""""""""""""""""""""""""
 " COC.NVIM SEMANTIC HIGHLIGHTING
 """""""""""""""""""""""""""""""""
-hi! CocSem_namespace ctermfg=3 guifg=#00997b cterm=italic,bold gui=italic,bold
-hi! link CocSem_class Type
-hi! link CocSem_enum Type
-hi! link CocSem_interface Type
-hi! link CocSem_struct Type
-hi! link CocSem_concept Type
-hi! link CocSem_builtinType Type
-hi! CocSem_typeParameter ctermfg=3 guifg=#00997b cterm=bold gui=bold
-hi! link CocSem_type Type
-hi! link CocSem_typeAlias Type
-hi! link CocSem_selfKeyword Keyword
-hi! CocSem_parameter ctermfg=white guifg=#6090a4 cterm=none gui=none
-hi! CocSem_variable ctermfg=white guifg=#9daaaa cterm=none gui=none
-hi! CocSem_property ctermfg=88 guifg=#c65156 cterm=none gui=none
-hi! CocSem_enumMember ctermfg=3 guifg=#00997b cterm=none gui=none
-hi! link CocSem_lifetime CocSem_property
-hi! link CocSem_event Function
-hi! link CocSem_function Function
-hi! link CocSem_dependent Function
-hi! link CocSem_method Function
-hi! link CocSem_macro Macro
-hi! link CocSem_attribute Type
-hi! link CocSem_label Keyword
-hi! link CocSem_comment Comment
-hi! link CocSem_string String
-hi! link CocSem_formatSpecifier String
-hi! link CocSem_keyword Keyword
-hi! link CocSem_number Number
-hi! link CocSem_regexp CocSem_string
-hi! link CocSem_operator CocSem_variable
-hi! link CocSem_brace CocSem_variable
-hi! link CocSem_comma CocSem_variable
-hi! link CocSem_semicolon CocSem_variable
-hi! link CocSem_parenthesis CocSem_variable
-hi! link CocSem_angle CocSem_variable
-hi! link CocSem_colon CocSem_variable
-hi! link CocSem_bracket CocSem_variable
-hi! link CocSem_punctuation CocSem_variable
-hi! link CocSem_unresolvedReference CocSem_variable
+hi! CocSemNamespace ctermfg=3 guifg=#00997b cterm=italic,bold gui=italic,bold
+hi! link CocSemType Type
+hi! link CocSemClass CocSemtype
+hi! link CocSemEnum CocSemtype
+hi! link CocSemInterface CocSemtype
+hi! link CocSemStruct CocSemtype
+hi! link CocSemConcept CocSemtype
+hi! link CocSemBuiltinType CocSemtype
+hi! CocSemTypeParameter ctermfg=3 guifg=#00997b cterm=bold gui=bold
+hi! link CocSemTypeAlias CocSemtype
+hi! link CocSemTrait CocSemtype
+hi! link CocSemSelfKeyword Keyword
+hi! CocSemParameter ctermfg=white guifg=#6090a4 cterm=none gui=none
+hi! link CocSemConstParameter CocSemparameter
+hi! CocSemVariable ctermfg=white guifg=#9daaaa cterm=none gui=none
+hi! CocSemProperty ctermfg=88 guifg=#c65156 cterm=none gui=none
+hi! CocSemEnumMember ctermfg=3 guifg=#00997b cterm=none gui=none
+hi! link CocSemCharacter CocSemstring
+hi! link CocSemDerive CocSemtype
+hi! link CocSemMacroBang CocSemmacro
+hi! link CocSemUnion CocSemtype
+hi! link CocSemToolModule CocSemnamespace
+hi! link CocSemLifetime CocSemproperty
+hi! link CocSemEvent Function
+hi! link CocSemFunction Function
+hi! link CocSemDependent Function
+hi! link CocSemMethod Function
+hi! link CocSemMacro Macro
+hi! link CocSemAttribute CocSemmacro
+hi! link CocSemBuiltinAttribute CocSemattribute
+hi! link CocSemAttributeBracket CocSemattribute
+hi! link CocSemArithmetic CocSemvariable
+hi! link CocSemComparison CocSemvariable
+hi! link CocSemBitwise CocSemvariable
+hi! link CocSemLogical CocSemvariable
+hi! link CocSemDot CocSemvariable
+hi! link CocSemLabel Keyword
+hi! link CocSemComment Comment
+hi! link CocSemString String
+hi! link CocSemFormatSpecifier String
+hi! link CocSemKeyword Keyword
+hi! link CocSemNumber Number
+hi! link CocSemRegexp CocSemstring
+hi! link CocSemOperator CocSemvariable
+hi! link CocSemBrace CocSemvariable
+hi! link CocSemComma CocSemvariable
+hi! link CocSemSemicolon CocSemvariable
+hi! link CocSemParenthesis CocSemvariable
+hi! link CocSemAngle CocSemvariable
+hi! link CocSemColon CocSemvariable
+hi! link CocSemBracket CocSemvariable
+hi! link CocSemPunctuation CocSemvariable
+hi! link CocSemUnresolvedReference CocSemvariable
 hi link CocHintSign Comment
 
 if !exists('g:vscode')
@@ -251,6 +266,8 @@ if !exists('g:vscode')
 	nmap <silent> gd <Plug>(coc-definition)
 	nmap <silent> gs :CocCommand clangd.switchSourceHeader<CR>
 	nmap <S-f> <Plug>(coc-codeaction-selected)<CR>
+	map <A-CR>=^[^M
+	nmap <A-CR> <Plug>(coc-codeaction-selected)<CR>
 
 	function! SplitIfNotOpen(...)
 		" Ref: https://github.com/neoclide/coc.nvim/blob/7e9e0e91e24fc447e96079ae59e9f6caffe604a4/autoload/coc/util.vim#L380-L383
@@ -277,8 +294,14 @@ set autoindent
 set smartindent
 set cindent
 
-nnoremap <C-p> :bp<CR>
-nnoremap <C-n> :bn<CR>
+nnoremap <C-p> :BufferLineCyclePrev<CR>
+nnoremap <C-n> :BufferLineCycleNext<CR>
+
+nnoremap <C-m><C-p> :BufferLineMovePrev<CR>
+nnoremap <C-m><C-n> :BufferLineMoveNext<CR>
+
+"nnoremap <C-p> :bp<CR>
+"nnoremap <C-n> :bn<CR>
 nnoremap <C-c> :bd<CR>
 
 nnoremap<C-s> :vsplit<CR>
@@ -298,6 +321,7 @@ nnoremap <C-Right> <C-w><C-l>
 map <C-l> :CocDiagnostics<CR>
 map <C-l><C-k> :lclose<CR>
 
+
 autocmd! BufRead,BufNewFile *.clang-tidy setfiletype yaml
 autocmd! BufRead,BufNewFile *.clang-format setfiletype yaml
 autocmd! BufRead,BufNewFile *.clangd setfiletype yaml
@@ -307,14 +331,12 @@ autocmd! BufRead,BufNewFile *.cmake setfiletype cmake
 if !exists('g:vscode')
 	function! <SID>AutoIndentOnOpen()
 		if &modifiable
-			if &ft=='text' || &ft=='sql' || &ft=='html' || &ft=='md' || &ft=='markdown' || &ft=='dockerfile'
+			if &ft=='text' || &ft=='sql' || &ft=='html' || &ft=='md' || &ft=='markdown' || &ft=='dockerfile' || &ft=='vim'
 			else
 				if &ft=='cpp' || &ft=='c' || &ft=='rust' || &ft=='toml' || &ft=='yaml' || &ft=='yml' || &ft=='YAML'
 					call CocActionAsync('format')
-					call CocActionAsync('semanticHighlight')
 				else
 					:Autoformat<CR>
-					call CocActionAsync('semanticHighlight')
 				endif
 			endif
 		endif
@@ -322,13 +344,12 @@ if !exists('g:vscode')
 
 	function! <SID>AutoIndentOnClose()
 		if &modifiable
-			if &ft=='text' || &ft=='sql' || &ft=='html' || &ft=='md' || &ft=='markdown' || &ft=='dockerfile' || &ft=='rst'
+			if &ft=='text' || &ft=='sql' || &ft=='html' || &ft=='md' || &ft=='markdown' || &ft=='dockerfile' || &ft=='rst' || &ft=='vim'
 			else
 				if &ft=='cpp' || &ft=='c' || &ft=='rust' || &ft=='toml' || &ft=='yaml' || &ft=='yml' || &ft=='YAML'
 					"call CocActionAsync('format')
 				else
 					:Autoformat<CR>
-					call CocActionAsync('semanticHighlight')
 				endif
 			endif
 		endif
@@ -336,6 +357,9 @@ if !exists('g:vscode')
 
 	autocmd BufRead * :call <SID>AutoIndentOnOpen()
 	autocmd BufWritePre * :call <SID>AutoIndentOnClose()
+
+	execute "map <A-l>=\el"
+	nnoremap <A-l> :call CocActionAsync('format')<CR>
 
 	"view the syntax highlight group under the cursor
 	map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'

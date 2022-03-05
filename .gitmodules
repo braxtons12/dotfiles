@@ -1,16 +1,22 @@
+[submodule ".vim/bundle/bufferline.nvim"]
+	path = .vim/bundle/bufferline.nvim
+	url = https://github.com/akinsho/bufferline.nvim
 [submodule ".vim/bundle/coc.nvim"]
 	path = .vim/bundle/coc.nvim
 	url = https://github.com/neoclide/coc.nvim
 	branch = release
-[submodule ".vim/bundle/ale"]
-	path = .vim/bundle/ale
-	url = https://github.com/dense-analysis/ale
+[submodule ".vim/bundle/delimitMate"]
+	path = .vim/bundle/delimitMate
+	url = https://github.com/Raimondi/delimitMate
+[submodule ".vim/bundle/lualine.vim"]
+	path = .vim/bundle/lualine.nvim
+	url = https://github.com/nvim-lualine/lualine.nvim
+[submodule ".vim/bundle/nvim-web-devicons"]
+	path = .vim/bundle/nvim-web-devicons
+	url = https://github.com/kyazdani42/nvim-web-devicons
 [submodule ".vim/bundle/typescript-vim"]
 	path = .vim/bundle/typescript-vim
 	url = https://github.com/leafgarland/typescript-vim
-[submodule ".vim/bundle/vim-airline"]
-	path = .vim/bundle/vim-airline
-	url = https://github.com/vim-airline/vim-airline
 [submodule ".vim/bundle/vim-autoformat"]
 	path = .vim/bundle/vim-autoformat
 	url = https://github.com/Chiel92/vim-autoformat
@@ -29,9 +35,6 @@
 [submodule ".vim/bundle/vim-one"]
 	path = .vim/bundle/vim-one
 	url = https://github.com/rakr/vim-one
-[submodule ".vim/bundle/vim-rust-syntax-ext"]
-	path = .vim/bundle/vim-rust-syntax-ext
-	url = https://github.com/arzg/vim-rust-syntax-ext
 [submodule ".vim/bundle/vim-toml"]
 	path = .vim/bundle/vim-toml
 	url = https://github.com/cespare/vim-toml
@@ -41,9 +44,6 @@
 [submodule ".vim/bundle/yats.vim"]
 	path = .vim/bundle/yats.vim
 	url = https://github.com/HerringtonDarkholme/yats.vim
-[submodule ".vim/bundle/delimitMate"]
-	path = .vim/bundle/delimitMate
-	url = https://github.com/Raimondi/delimitMate
-[submodule ".vim/bundle/nvim-web-devicons"]
-	path = .vim/bundle/nvim-web-devicons
-	url = https://github.com/kyazdani42/nvim-web-devicons
+[submodule ".vim/bundle/lualine.nvim"]
+	path = .vim/bundle/lualine.nvim
+	url = https://github.com/nvim-lualine/lualine.nvim
