@@ -37,9 +37,6 @@ nnoremap <C-c> :bd<CR>
 
 nnoremap<C-s> :vsplit<CR>
 
-sethandler <A-h> a:vim
-sethandler <A-l> a:vim
-
 nnoremap <A-h> 0
 nnoremap <A-l> $
 nnoremap<S-l> <C-w><C-l>
@@ -54,4 +51,3 @@ nnoremap <C-Right> <C-w><C-l>
 
 nnoremap <C-q> <C-w><C-q>
 set clipboard+=ideaput
-
