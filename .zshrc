@@ -123,6 +123,8 @@ PATH=/home/braxton/.dub/packages/.bin/dls-latest:$PATH
 PATH=/home/braxton/.local/share/code-d/bin:$PATH
 PATH=/home/braxton/goneovim:$PATH
 PATH=/home/braxton/.nvm/versions/node/v15.14.0/bin:$PATH
+PATH=/home/braxton/.local/share/gem/ruby/2.7.0:$PATH
+PATH=/var/lib/gems/2.7.0:$PATH
 export PATH
 
 PICO_SDK_PATH=/home/braxton/git/pico/pico-sdk

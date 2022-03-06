@@ -1,6 +1,25 @@
 if !exists('g:vscode')
-	execute pathogen#infect()
+	call plug#begin()
+
+	Plug 'kyazdani42/nvim-web-devicons'
+	Plug 'akinsho/bufferline.nvim'
+	Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+	Plug 'Raimondi/delimitMate'
+	Plug 'nvim-lualine/lualine.nvim'
+	Plug 'leafgarland/typescript-vim'
+	Plug 'vim-autoformat/vim-autoformat'
+	Plug 'easymotion/vim-easymotion'
+	Plug 'tpope/vim-fugitive'
+	Plug 'airblade/vim-gitgutter'
+	Plug 'jackguo380/vim-lsp-cxx-highlight'
+	Plug 'rakr/vim-one'
+	Plug 'cespare/vim-toml'
+	Plug 'guns/xterm-color-table.vim'
+	Plug 'HerringtonDarkholme/yats.vim'
+
+	call plug#end()
 endif
+
 syntax on
 filetype plugin indent on
 set number
@@ -180,6 +199,7 @@ hi! link CocSemFunction Function
 hi! link CocSemDependent Function
 hi! link CocSemMethod Function
 hi! link CocSemMacro Macro
+hi! link macro Macro
 hi! link CocSemAttribute CocSemmacro
 hi! link CocSemBuiltinAttribute CocSemattribute
 hi! link CocSemAttributeBracket CocSemattribute
@@ -358,8 +378,8 @@ if !exists('g:vscode')
 	autocmd BufRead * :call <SID>AutoIndentOnOpen()
 	autocmd BufWritePre * :call <SID>AutoIndentOnClose()
 
-	execute "map <A-l>=\el"
-	nnoremap <A-l> :call CocActionAsync('format')<CR>
+	execute "map <A-k>=\el"
+	nnoremap <A-k> :call CocActionAsync('format')<CR>
 
 	"view the syntax highlight group under the cursor
 	map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
