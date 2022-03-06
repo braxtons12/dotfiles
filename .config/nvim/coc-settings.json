@@ -122,6 +122,11 @@
 		"vimrc"
 	],
 	"diagnostic.virtualText": true,
+	"diagnostic.level": "hint",
+	"diagnostic.signLevel": "hint",
+	"diagnostic.messageLevel": "hint",
+	"diagnostic.messageTarget": "float",
+	"explorer.mouseMode": "doubleclick",
 	"explorer.previewAction.onHover": "content",
 	"explorer.openAction.strategy": "sourceWindow",
 	"explorer.icon.enableNerdfont": true,
