@@ -36,7 +36,7 @@ colorscheme one
 
 highlight ColorColumn ctermbg=lightblue guibg=#334555
 "highlight Normal ctermbg=darkgrey guibg=#20242a
-highlight Normal ctermbg=darkgrey guibg=#252931
+highlight Normal ctermbg=darkgrey guibg=#262b33
 
 if (empty($TMUX))
 	if (has("nvim"))
@@ -378,8 +378,7 @@ if !exists('g:vscode')
 	autocmd BufRead * :call <SID>AutoIndentOnOpen()
 	autocmd BufWritePre * :call <SID>AutoIndentOnClose()
 
-	execute "map <A-k>=\el"
-	nnoremap <A-k> :call CocActionAsync('format')<CR>
+	nnoremap <C-A-l> :call CocActionAsync('format')<CR>
 
 	"view the syntax highlight group under the cursor
 	map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
