@@ -14,8 +14,10 @@
 	"rust-analyzer.completion.addCallArgumentSnippets": true,
 	"rust-analyzer.completion.postfix.enable": true,
 	"rust-analyzer.completion.addCallParenthesis": true,
+	"rust-analyzer.inlayHints.enable": true,
+	"rust-analyzer.inlayHints.typeHints": true,
+	"rust-analyzer.inlayHints.chainingHints": true,
 	"clangd.enabled": true,
-	//"clangd.path": "/home/braxton/.config/coc/extensions/coc-clangd-data/install/12.0.1/clangd_12.0.1/bin/clangd",
 	"clangd.disableSnippetCompletion": false,
 	"clangd.checkUpdates": true,
 	"clangd.arguments": [
@@ -26,7 +28,9 @@
 		"--header-insertion-decorators",
 		"--suggest-missing-includes",
 		"-j=10",
-		"--pch-storage=memory"
+		"--pch-storage=memory",
+		"--enable-config",
+		"--inlay-hints=true"
 	],
 	"languageserver": {
 		"ccls": {

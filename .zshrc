@@ -122,9 +122,10 @@ PATH=/home/braxton/.cargo/bin:$PATH
 PATH=/home/braxton/.dub/packages/.bin/dls-latest:$PATH
 PATH=/home/braxton/.local/share/code-d/bin:$PATH
 PATH=/home/braxton/goneovim:$PATH
-PATH=/home/braxton/.nvm/versions/node/v15.14.0/bin:$PATH
+PATH=/home/braxton/.nvm/versions/node/v17.7.2/bin:$PATH
 PATH=/home/braxton/.local/share/gem/ruby/2.7.0:$PATH
 PATH=/var/lib/gems/2.7.0:$PATH
+PATH=/home/braxton/JUCE/extras/AudioPluginHost/Builds/LinuxMakefile/build:$PATH
 export PATH
 
 PICO_SDK_PATH=/home/braxton/git/pico/pico-sdk
@@ -153,6 +154,11 @@ alias cmake_release='cmake -B build -G Ninja -DCMAKE_TOOLCHAIN_FILE=linux-clang.
 alias cmake_release_gcc='cmake -B build -G Ninja -DCMAKE_TOOLCHAIN_FILE=linux-gcc.cmake -DCMAKE_BUILD_TYPE=Release && yes | cp -f build/compile_commands.json compile_commands.json'
 alias cmake_debug='cmake -B build -G Ninja -DCMAKE_TOOLCHAIN_FILE=linux-clang.cmake -DCMAKE_BUILD_TYPE=Debug && yes | cp -f build/compile_commands.json compile_commands.json'
 alias cmake_debug_gcc='cmake -B build -G Ninja -DCMAKE_TOOLCHAIN_FILE=linux-gcc.cmake -DCMAKE_BUILD_TYPE=Debug && yes | cp -f build/compile_commands.json compile_commands.json'
+
+alias cmake_release_juce='cmake -B build -G Ninja -DCMAKE_TOOLCHAIN_FILE=linux-clang.cmake -DCMAKE_BUILD_TYPE=Release -DVST2_SDK_PATH=/home/braxton/seagate/audio-dev/sdks/VST_SDK/VST2_SDK && yes | cp -f build/compile_commands.json compile_commands.json'
+alias cmake_release_gcc_juce='cmake -B build -G Ninja -DCMAKE_TOOLCHAIN_FILE=linux-gcc.cmake -DCMAKE_BUILD_TYPE=Release -DVST2_SDK_PATH=/home/braxton/seagate/audio-dev/sdks/VST_SDK/VST2_SDK && yes | cp -f build/compile_commands.json compile_commands.json'
+alias cmake_debug_juce='cmake -B build -G Ninja -DCMAKE_TOOLCHAIN_FILE=linux-clang.cmake -DCMAKE_BUILD_TYPE=Debug -DVST2_SDK_PATH=/home/braxton/seagate/audio-dev/sdks/VST_SDK/VST2_SDK && yes | cp -f build/compile_commands.json compile_commands.json'
+alias cmake_debug_gcc_juce='cmake -B build -G Ninja -DCMAKE_TOOLCHAIN_FILE=linux-gcc.cmake -DCMAKE_BUILD_TYPE=Debug -DVST2_SDK_PATH=/home/braxton/seagate/audio-dev/sdks/VST_SDK/VST2_SDK && yes | cp -f build/compile_commands.json compile_commands.json'
 
 alias clippy='~/clippy_alias.sh'
 
