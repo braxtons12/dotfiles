@@ -2,6 +2,8 @@ set runtimepath^=~/.vim runtimepath+=~/.vim/after
 let &packpath=&runtimepath
 source ~/.vimrc
 
+if !exists('g:vscode')
+
 lua << EOF
 require("bufferline").setup {
 	options = {
@@ -132,3 +134,4 @@ require("lualine").setup {
 
 EOF
 
+endif
