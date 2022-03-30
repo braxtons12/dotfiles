@@ -16,6 +16,7 @@ if !exists('g:vscode')
 	Plug 'cespare/vim-toml'
 	Plug 'guns/xterm-color-table.vim'
 	Plug 'HerringtonDarkholme/yats.vim'
+	Plug 'dstein64/nvim-scrollview', { 'branch': 'main' }
 
 	call plug#end()
 endif
