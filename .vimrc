@@ -17,6 +17,8 @@ if !exists('g:vscode')
 	Plug 'guns/xterm-color-table.vim'
 	Plug 'HerringtonDarkholme/yats.vim'
 	Plug 'dstein64/nvim-scrollview', { 'branch': 'main' }
+	Plug 'octol/vim-cpp-enhanced-highlight'
+	Plug 'bfrg/vim-cpp-modern' 
 
 	call plug#end()
 endif
@@ -86,7 +88,6 @@ if !exists('g:vscode')
 
 	autocmd vimenter * GitGutterEnable
 endif
-
 
 """""""""""""""""""""""""""""
 "" GENERIC HIGHLIGHTING
@@ -227,6 +228,26 @@ hi! link CocSemBracket CocSemvariable
 hi! link CocSemPunctuation CocSemvariable
 hi! link CocSemUnresolvedReference CocSemvariable
 hi link CocHintSign Comment
+
+
+if !exists('g:vscode')
+	let g:cpp_attributes_highlight = 1
+	let g:cpp_member_highlight = 1
+
+	hi! link CUserFunction Macro
+	hi! link cppAttribute Normal
+	hi! link CStructMember CocSemProperty
+
+	let g:cpp_class_scope_highlight = 1
+	let g:cpp_member_variable_highlight = 1
+	let g:cpp_lcass_decl_highlight = 1
+	let g:cpp_posix_standard = 1
+	let g:cpp_experimential_template_highlight = 1
+	let g:cpp_concepts_highlight = 1
+
+	hi! link cCustomFunc Macro
+	hi! link CCustomMemVar CocSemProperty
+endif
 
 if !exists('g:vscode')
 	"coc settings
