@@ -74,6 +74,42 @@
 	"suggest.enablePreselect": true,
 	"suggest.enablePreview": true,
 	"suggest.floatEnable": true,
+	"suggest.floatConfig": {
+		"focusable": true,
+		"maxWidth": 150,
+		"highlight": "CocFloating"
+	},
+	"suggest.detailMaxLength": 150,
+	"suggest.labelMaxLength": 70,
+	"suggest.maxCompleteItemCount": 30,
+	"suggest.fixInsertedWord": true,
+	"suggest.completionItemKindLabels": {
+		"function": "\uf794",
+		"method": "\uf794",
+		"typeParameter": "\uf6a6",
+		"variable": "\uf71b",
+		"constant": "\uf8ff",
+		"struct": "\uf6a6",
+		"class": "\uf6a6",
+		"interface": "\ufa52",
+		"text": "\ue612",
+		"enum": "\uf02b",
+		"enumMember": "\uf02b",
+		"module": "\uf668",
+		"color": "\ue22b",
+		"property": "\ufab6",
+		"field": "\ufab6",
+		"unit": "\uf475",
+		"file": "\uf471",
+		"value": "\uf8a3",
+		"event": "\ufacd",
+		"folder": "\uf115",
+		"keyword": "\uf893",
+		"snippet": "\uf64d",
+		"operator": "\uf915",
+		"reference": "\uf87a",
+		"default": "\uf29c"
+	},
 	"coc.preferences.messageLevel": "error",
 	"coc.preferences.enableMessageDialog": true,
 	"coc.preferences.useQuickfixForLocations": true,
@@ -130,6 +166,19 @@
 	"diagnostic.signLevel": "hint",
 	"diagnostic.messageLevel": "hint",
 	"diagnostic.messageTarget": "float",
+	"diagnostic.floatConfig": {
+		"close": true,
+		"focusable": true,
+		"highlight": "CocFloating"
+	},
+	"diagnostic.showUnused": true,
+	"diagnostic.showDeprecated": true,
+	"signature.floatConfig": {
+		"highlight": "CocFloating"
+	},
+	"hover.floatConfig": {
+		"highlight": "CocFloating"
+	},
 	"explorer.mouseMode": "doubleclick",
 	"explorer.previewAction.onHover": "content",
 	"explorer.openAction.strategy": "sourceWindow",

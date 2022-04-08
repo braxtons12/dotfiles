@@ -1,12 +1,12 @@
 [Editor]
 Width = 1920
 Height = 1080
-Gap = 4
-#Transparent = 0.99
+Gap = 0
+#Transparent = 1.0
 FontFamily = "Hack Nerd Font"
 FontSize = 12
 ExtCmdline = true
-ExtPopupmenu = true
+ExtPopupmenu = false
 ExtTabline = false
 ExtMessages = true
 DisableLigatures = false
@@ -15,7 +15,7 @@ DrawWindowSeparator = true
 WindowSeparatorTheme = "one"
 WindowSeparatorColor = "#333333"
 WindowSeparatorGradient = true
-SmoothScroll = false
+SmoothScroll = true
 DisableHorizontalScroll = false
 DrawBorderForFloatWindow = false
 DrawShadowForFloatWindow = true
@@ -36,18 +36,18 @@ VisualModeColor = "#aa59be"
 ReplaceModeColor = "#aa59be"
 TerminalModeColor = "00997b"
 
-[Palette]
-AreaRatio = 0.1
-MaxNumberOfResultItems = 30
-Transparent = 0.99
-
 [Tabline]
-Visible = true
+Visible = false
 ShowIcon = true
+
+[Palette]
+AreaRatio = 0.10
+MaxNumberOfResultItems = 20
+#Transparent = 1.0
 
 [Popupmenu]
 ShowDetail = false
-InfoWidth = 10
+InfoWidth = 200
 MenuWidth = 200
 DetailWidth = 10
 ShowDigit = false

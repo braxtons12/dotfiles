@@ -147,6 +147,7 @@ alias cat=bat
 alias ls="exa -l --icons --all --group-directories-first --git"
 alias vim=nvim
 alias gvim=goneovim
+#alias gvim="nvui --ext_multigrid --ext_popupmenu --ext_cmdline --"
 alias emacs='emacs -nw'
 alias json2cmakelists="python3 ~/git/json2cmakelists/json2cmakelists.py"
 alias sudo='sudo '

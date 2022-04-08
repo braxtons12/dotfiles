@@ -32,6 +32,7 @@ set clipboard=unnamedplus
 set nowrap
 set colorcolumn=101
 
+
 set background=dark
 let g:one_allow_italics=1
 let g:airline_theme='one'
@@ -40,6 +41,10 @@ colorscheme one
 highlight ColorColumn ctermbg=lightblue guibg=#334555
 "highlight Normal ctermbg=darkgrey guibg=#20242a
 highlight Normal ctermbg=darkgrey guibg=#262b33
+
+highlight CocFloating ctermbg=darkgrey guibg=#2f353f
+highlight PMenuSel ctermbg=darkgrey ctermfg=lightblue guibg=#262b33 guifg=#61afef
+highlight PMenu ctermbg=darkgrey guibg=#2f353f
 
 if (empty($TMUX))
 	if (has("nvim"))
@@ -52,6 +57,14 @@ if (empty($TMUX))
 	if (has("termguicolors"))
 		set termguicolors
 	endif
+endif
+
+set guifont=Hack\ Nerd\ Font\ Mono:h12
+
+if exists('g:nvui')
+	NvuiCmdFontFamily Hack Nerd Font Mono
+	NvuiCmdFontSize 14.0
+	NvuiScrollAnimationDuration 0.2
 endif
 
 if !exists('g:vscode')
@@ -353,7 +366,7 @@ nnoremap <A-l> $
 nnoremap<S-l> <C-w><C-l>
 nnoremap<S-h> <C-w><C-h>
 nnoremap<S-j> <C-w><C-j>
-nnoremap<S-k> <C-w><C-h>
+nnoremap<S-k> <C-w><C-k>
 
 nnoremap <C-Up> <C-w><C-k>
 nnoremap <C-Down> <C-w><C-j>
