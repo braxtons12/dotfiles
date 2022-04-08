@@ -20,6 +20,7 @@
 	"clangd.enabled": true,
 	"clangd.disableSnippetCompletion": false,
 	"clangd.checkUpdates": true,
+	"clangd.inlayHints.enable": true,
 	"clangd.arguments": [
 		"--background-index",
 		"--clang-tidy",
@@ -71,6 +72,7 @@
 		}
 	},
 	"codeLens.enable": true,
+	"codeLens.position": "top",
 	"suggest.enablePreselect": true,
 	"suggest.enablePreview": true,
 	"suggest.floatEnable": true,
@@ -176,6 +178,7 @@
 	"signature.floatConfig": {
 		"highlight": "CocFloating"
 	},
+	"hover.target": "float",
 	"hover.floatConfig": {
 		"highlight": "CocFloating"
 	},
