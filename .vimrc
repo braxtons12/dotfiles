@@ -19,6 +19,7 @@ if !exists('g:vscode')
 	Plug 'dstein64/nvim-scrollview', { 'branch': 'main' }
 	Plug 'octol/vim-cpp-enhanced-highlight'
 	Plug 'bfrg/vim-cpp-modern' 
+	Plug 'rcarriga/nvim-notify'
 
 	call plug#end()
 endif
@@ -101,6 +102,30 @@ if !exists('g:vscode')
 
 	autocmd vimenter * GitGutterEnable
 endif
+
+"""""""""""""""""""""""""""""
+"" nvim-notify HIGHLIGHTING
+"""""""""""""""""""""""""""""
+hi NotifyERRORBorder guifg=#c65156
+hi NotifyWARNBorder guifg=#dbba75
+hi NotifyINFOBorder guifg=#61afef
+hi NotifyDEBUGBorder guifg=#00997b
+hi NotifyTRACEBorder guifg=#9daaaa
+hi NotifyERRORIcon guifg=#c65156
+hi NotifyWARNIcon guifg=#dbba75
+hi NotifyINFOIcon guifg=#61afef
+hi NotifyDEBUGIcon guifg=#00997b
+hi NotifyTRACEIcon guifg=#9daaaa
+hi NotifyERRORTitle guifg=#c65156
+hi NotifyWARNTitle guifg=#dbba75
+hi NotifyINFOTitle guifg=#61afef
+hi NotifyDEBUGTitle guifg=#00997b
+hi NotifyTRACETitle guifg=#9daaaa
+hi link NotifyERRORBody Normal
+hi link NotifyWARNBody Normal
+hi link NotifyINFOBody Normal
+hi link NotifyDEBUGBody Normal
+hi link NotifyTRACEBody Normal
 
 """""""""""""""""""""""""""""
 "" GENERIC HIGHLIGHTING
@@ -260,6 +285,8 @@ if !exists('g:vscode')
 
 	hi! link cCustomFunc Macro
 	hi! link CCustomMemVar CocSemProperty
+	hi! link cppSTLnamespace CocSemNamespace
+	hi! link cCustomClass CocSemNamespace
 endif
 
 if !exists('g:vscode')
@@ -293,11 +320,9 @@ if !exists('g:vscode')
 
 
 	function! Show_documentation()
-		"if (index(['vim', 'help'], &filetype) >= 0)
-		"	execute 'h '.expand('<cword>')
-		"else
-		call CocActionAsync('doHover')
-		"endif
+		if CocAction('hasProvider', 'hover')
+			call CocActionAsync('doHover')
+		endif
 	endfunction
 
 	inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
@@ -319,10 +344,11 @@ if !exists('g:vscode')
 
 	autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 	nmap <silent> gd <Plug>(coc-definition)
-	nmap <silent> gs :CocCommand clangd.switchSourceHeader<CR>
-	nmap <S-f> <Plug>(coc-codeaction-selected)<CR>
+	nmap <silent> gs <Plug>(coc-implementation)
+	nmap <S-f> <Plug>(coc-codeaction-selected)
 	map <A-CR>=^[^M
-	nmap <A-CR> <Plug>(coc-codeaction-selected)<CR>
+	nmap <A-CR> <Plug>(coc-codeaction-selected)
+	nmap <silent> rn <Plug>(coc-rename)
 
 	function! SplitIfNotOpen(...)
 		" Ref: https://github.com/neoclide/coc.nvim/blob/7e9e0e91e24fc447e96079ae59e9f6caffe604a4/autoload/coc/util.vim#L380-L383
@@ -386,9 +412,9 @@ autocmd! BufRead,BufNewFile *.cmake setfiletype cmake
 if !exists('g:vscode')
 	function! <SID>AutoIndentOnOpen()
 		if &modifiable
-			if &ft=='text' || &ft=='sql' || &ft=='html' || &ft=='md' || &ft=='markdown' || &ft=='dockerfile' || &ft=='vim'
+			if &ft=='text' || &ft=='sql' || &ft=='html' || &ft=='md' || &ft=='markdown' || &ft=='dockerfile' || &ft=='doxyfile' || &ft=='in'
 			else
-				if &ft=='cpp' || &ft=='c' || &ft=='rust' || &ft=='toml' || &ft=='yaml' || &ft=='yml' || &ft=='YAML'
+				if &ft=='cpp' || &ft=='c' || &ft=='rust' || &ft=='toml' || &ft=='yaml' || &ft=='yml' || &ft=='YAML' || &ft=='vim'
 					call CocActionAsync('format')
 				else
 					:Autoformat<CR>
@@ -399,9 +425,9 @@ if !exists('g:vscode')
 
 	function! <SID>AutoIndentOnClose()
 		if &modifiable
-			if &ft=='text' || &ft=='sql' || &ft=='html' || &ft=='md' || &ft=='markdown' || &ft=='dockerfile' || &ft=='rst' || &ft=='vim'
+			if &ft=='text' || &ft=='sql' || &ft=='html' || &ft=='md' || &ft=='markdown' || &ft=='dockerfile' || &ft=='rst' || &ft=='doxyfile' || &ft=='in'
 			else
-				if &ft=='cpp' || &ft=='c' || &ft=='rust' || &ft=='toml' || &ft=='yaml' || &ft=='yml' || &ft=='YAML'
+				if &ft=='cpp' || &ft=='c' || &ft=='rust' || &ft=='toml' || &ft=='yaml' || &ft=='yml' || &ft=='YAML' || &ft=='vim'
 					"call CocActionAsync('format')
 				else
 					:Autoformat<CR>

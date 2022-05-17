@@ -4,6 +4,7 @@ window:
         lines: 40
     scrolling:
         history: 10000
+    opacity: 0.98
 font:
     normal:
         family: Hack Nerd Font Mono
@@ -13,7 +14,7 @@ font:
         family: Hack Nerd Font Mono
     bold_italic:
         family: Hack Nerd Font Mono
-    size: 12
+    size: 13
     tabspaces: 4
 colors:
     primary:
@@ -37,4 +38,4 @@ colors:
         magenta: '0xb567cc'
         cyan: '0x45a5b1'
         white: '0xcbced3'
-background_opacity: 0.98
+

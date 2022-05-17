@@ -19,7 +19,7 @@
 	"rust-analyzer.inlayHints.chainingHints": true,
 	"clangd.enabled": true,
 	"clangd.disableSnippetCompletion": false,
-	"clangd.checkUpdates": true,
+	"clangd.checkUpdates": false,
 	"clangd.inlayHints.enable": true,
 	"clangd.arguments": [
 		"--background-index",
@@ -28,7 +28,7 @@
 		"--header-insertion=iwyu",
 		"--header-insertion-decorators",
 		"--suggest-missing-includes",
-		"-j=10",
+		"-j=12",
 		"--pch-storage=memory",
 		"--enable-config",
 		"--inlay-hints=true"
@@ -112,7 +112,7 @@
 		"reference": "\uf87a",
 		"default": "\uf29c"
 	},
-	"coc.preferences.messageLevel": "error",
+	"coc.preferences.messageLevel": "more",
 	"coc.preferences.enableMessageDialog": true,
 	"coc.preferences.useQuickfixForLocations": true,
 	"semanticTokens.filetypes": [

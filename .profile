@@ -26,7 +26,6 @@ if [ -d "$HOME/.local/bin" ] ; then
 	PATH="$HOME/.local/bin:$PATH"
 fi
 
-export PATH="$HOME/.cargo/bin:$PATH"
 
 JUCE_DIR="$HOME/JUCE_CMAKE"
 export JUCE_DIR
@@ -40,3 +39,4 @@ export PATH="/home/braxton/.nvm/versions/node/v15.14.0/bin:$PATH"
 
 PICO_SDK_PATH=/home/braxton/git/pico/pico-sdk
 export PICO_SDK_PATH
+. "$HOME/.cargo/env"

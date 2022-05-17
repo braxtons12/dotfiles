@@ -126,6 +126,8 @@ PATH=/home/braxton/.nvm/versions/node/v17.7.2/bin:$PATH
 PATH=/home/braxton/.local/share/gem/ruby/2.7.0:$PATH
 PATH=/var/lib/gems/2.7.0:$PATH
 PATH=/home/braxton/JUCE/extras/AudioPluginHost/Builds/LinuxMakefile/build:$PATH
+PATH=/home/braxton/.local/bin/:$PATH
+PATH=/home/braxton/llvm14/bin:$PATH
 export PATH
 
 PICO_SDK_PATH=/home/braxton/git/pico/pico-sdk

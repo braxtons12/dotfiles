@@ -132,6 +132,71 @@ require("lualine").setup {
 	},
 }
 
+notify = require("notify")
+vim.notify = notify
+
+notify.setup(
+	{
+        background_colour = "Normal",
+        fps = 30,
+        icons = {
+          DEBUG = "",
+          ERROR = "",
+          INFO = "",
+          TRACE = "✎",
+          WARN = ""
+        },
+        level = "warn",
+        minimum_width = 30,
+        max_width = 60,
+        render = "default",
+        stages = "fade_in_slide_out",
+        timeout = 2500
+      })
+
+local coc_status_record = {}
+
+function coc_status_notify(msg, level)
+  local notify_opts = { title = "LSP Status", timeout = 500, hide_from_history = true, on_close = reset_coc_status_record }
+  -- if coc_status_record is not {} then add it to notify_opts to key called "replace"
+  if coc_status_record ~= {} then
+    notify_opts["replace"] = coc_status_record.id
+  end
+  coc_status_record = vim.notify(msg, level, notify_opts)
+end
+
+function reset_coc_status_record(window)
+  coc_status_record = {}
+end
+
+local coc_diag_record = {}
+
+function coc_diag_notify(msg, level)
+  local notify_opts = { title = "LSP Diagnostics", timeout = 500, on_close = reset_coc_diag_record }
+  -- if coc_diag_record is not {} then add it to notify_opts to key called "replace"
+  if coc_diag_record ~= {} then
+    notify_opts["replace"] = coc_diag_record.id
+  end
+  coc_diag_record = vim.notify(msg, level, notify_opts)
+end
+
+function reset_coc_diag_record(window)
+  coc_diag_record = {}
+end
 EOF
 
+function! s:StatusNotify() abort
+  let l:status = get(g:, 'coc_status', '')
+  let l:level = 'info'
+  if empty(l:status) | return '' | endif
+  call v:lua.coc_status_notify(l:status, l:level)
+endfunction
+
+function! s:InitCoc() abort
+  execute "lua vim.notify('Initialized coc.nvim for LSP support', 'info', { title = 'LSP Status' })"
+endfunction
+
+" notifications
+autocmd User CocNvimInit call s:InitCoc()
+autocmd User CocStatusChange call s:StatusNotify()
 endif
