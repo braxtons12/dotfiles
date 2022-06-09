@@ -1,0 +1,253 @@
+{
+	"rust-analyzer.cargo.allFeatures": true,
+	"rust-analyzer.checkOnSave.enable": true,
+	"rust-analyzer.checkOnSave.command": "clippy",
+	"rust-analyzer.cargo.runBuildScripts": true,
+	"rust-analyzer.procMacro.enable": true,
+	"rust-analyzer.diagnostics.enable": true,
+	"rust-analyzer.lens.run": false,
+	"rust-analyzer.updates.channel": "stable",
+	"rust-analyzer.cargo.autoreload": true,
+	"rust-analyzer.hoverActions.enable": true,
+	"rust-analyzer.checkOnSave.allFeatures": true,
+	"rust-analyzer.completion.autoimport.enable": true,
+	"rust-analyzer.completion.addCallArgumentSnippets": true,
+	"rust-analyzer.completion.postfix.enable": true,
+	"rust-analyzer.completion.addCallParenthesis": true,
+	"rust-analyzer.inlayHints.enable": true,
+	"rust-analyzer.inlayHints.typeHints": true,
+	"rust-analyzer.inlayHints.chainingHints": true,
+	"clangd.enabled": true,
+	"clangd.disableSnippetCompletion": false,
+	"clangd.checkUpdates": false,
+	"clangd.inlayHints.enable": true,
+	"clangd.arguments": [
+		"--background-index",
+		"--clang-tidy",
+		"--completion-style=detailed",
+		"--header-insertion=iwyu",
+		"--header-insertion-decorators",
+		"--suggest-missing-includes",
+		"-j=12",
+		"--pch-storage=memory",
+		"--enable-config",
+		"--inlay-hints=true"
+	],
+	"languageserver": {
+		"ccls": {
+			"enable": false,
+			"command": "ccls",
+			"filetypes": [
+				"C",
+				"c",
+				"cpp",
+				"objc",
+				"objcpp",
+				"h"
+			],
+			"rootPatterns": [
+				".ccls",
+				"compile_commands.json",
+				".git/",
+				".hg/"
+			],
+			"initializationOptions": {
+				"cache": {
+					"directory": ""
+				},
+				"highlight": {
+					"lsRanges": true
+				},
+				"index": {
+					"onChange": true,
+					"comments": 2
+				},
+				"client": {
+					"snippetSupport": true
+				},
+				"completion": {
+					"placeholder": true
+				}
+			}
+		}
+	},
+	"codeLens.enable": true,
+	"codeLens.position": "top",
+	"suggest.enablePreselect": true,
+	"suggest.enablePreview": true,
+	"suggest.floatEnable": true,
+	"suggest.floatConfig": {
+		"focusable": true,
+		"maxWidth": 150,
+		"highlight": "CocFloating"
+	},
+	"suggest.detailMaxLength": 150,
+	"suggest.labelMaxLength": 70,
+	"suggest.maxCompleteItemCount": 30,
+	"suggest.fixInsertedWord": true,
+	"suggest.completionItemKindLabels": {
+		"function": "\uf794",
+		"method": "\uf794",
+		"typeParameter": "\uf6a6",
+		"variable": "\uf71b",
+		"constant": "\uf8ff",
+		"struct": "\uf6a6",
+		"class": "\uf6a6",
+		"interface": "\ufa52",
+		"text": "\ue612",
+		"enum": "\uf02b",
+		"enumMember": "\uf02b",
+		"module": "\uf668",
+		"color": "\ue22b",
+		"property": "\ufab6",
+		"field": "\ufab6",
+		"unit": "\uf475",
+		"file": "\uf471",
+		"value": "\uf8a3",
+		"event": "\ufacd",
+		"folder": "\uf115",
+		"keyword": "\uf893",
+		"snippet": "\uf64d",
+		"operator": "\uf915",
+		"reference": "\uf87a",
+		"default": "\uf29c"
+	},
+	"coc.preferences.messageLevel": "more",
+	"coc.preferences.enableMessageDialog": true,
+	"coc.preferences.useQuickfixForLocations": true,
+	"semanticTokens.filetypes": [
+		"C",
+		"c",
+		"CPP",
+		"cpp",
+		"Cpp",
+		"h",
+		"rust",
+		"rs",
+		"objc",
+		"objcpp",
+		"toml",
+		"yaml",
+		"yml",
+		"c#",
+		"C#",
+		"csharp",
+		"java",
+		"javascript",
+		"json",
+		"vimscript",
+		"vim",
+		"vimrc"
+	],
+	//"coc.preferences.enableFloatHighlight": true,
+	"coc.preferences.enableMarkdown": true,
+	"coc.preferences.formatOnSaveFiletypes": [
+		"C",
+		"c",
+		"CPP",
+		"cpp",
+		"Cpp",
+		"rust",
+		"rs",
+		"obc",
+		"objcpp",
+		"h",
+		"toml",
+		"yaml",
+		"yml",
+		"c#",
+		"csharp",
+		"java",
+		"json",
+		"vimscript",
+		"vim",
+		"vimrc"
+	],
+	"diagnostic.virtualText": true,
+	"diagnostic.level": "hint",
+	"diagnostic.signLevel": "hint",
+	"diagnostic.messageLevel": "hint",
+	"diagnostic.messageTarget": "float",
+	"diagnostic.floatConfig": {
+		"close": true,
+		"focusable": true,
+		"highlight": "CocFloating"
+	},
+	"diagnostic.showUnused": true,
+	"diagnostic.showDeprecated": true,
+	"diagnostic.filetypeMap": {
+		"default": "bufferType"
+	},
+	"signature.enable": true,
+	"signature.floatConfig": {
+		"highlight": "CocFloating"
+	},
+	"hover.target": "float",
+	"hover.floatConfig": {
+		"highlight": "CocFloating"
+	},
+	"explorer.buffer.root.template": "",
+	"explorer.file.root.template": " [icon] [root] [fullpath]",
+	"explorer.mouseMode": "doubleclick",
+	"explorer.previewAction.onHover": "content",
+	"explorer.openAction.strategy": "sourceWindow",
+	"explorer.width": 30,
+	"explorer.icon.enableNerdfont": true,
+	"explorer.icon.source": "nvim-web-devicons",
+	"explorer.file.showHiddenFiles": true,
+	"explorer.openAction.relativePath": true,
+	"explorer.openAction.for.directory": "expand",
+	"explorer.file.child.template": " [diagnosticError | diagnosticWarning | 1] [indent][icon | 1] [filename omitCenter 1][modified] [linkIcon & 1][link growRight 1 omitCenter 5]",
+	"explorer.root.strategies": [
+		"cwd"
+	],
+	"explorer.keyMappings.global": {
+		"h": [
+			"expandable?",
+			[
+				"expanded?",
+				"collapse",
+				""
+			],
+			""
+		],
+		"l": [
+			"expandable?",
+			[
+				"expanded?",
+				"collapse",
+				"expand"
+			],
+			""
+		],
+		"e": [
+			"expandable?",
+			[
+				"expanded?",
+				"collapse",
+				"expand"
+			],
+			"open"
+		],
+		"<cr>": [
+			"expandable?",
+			[
+				"expanded?",
+				"collapse",
+				"expand"
+			],
+			"open"
+		],
+		"<2-LeftMouse>": [
+			"expandable?",
+			[
+				"expanded?",
+				"collapse",
+				"expand"
+			],
+			"open"
+		]
+	}
+	//"coc.preferences.formatOnInsertLeave": true,
+	//"coc.preferences.jumpCommand": "CocSplitIfNotOpen"
+}

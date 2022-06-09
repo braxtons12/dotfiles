@@ -2,10 +2,8 @@ if !exists('g:vscode')
 	call plug#begin()
 
 	Plug 'kyazdani42/nvim-web-devicons'
-	Plug 'akinsho/bufferline.nvim'
 	Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 	Plug 'Raimondi/delimitMate'
-	Plug 'nvim-lualine/lualine.nvim'
 	Plug 'leafgarland/typescript-vim'
 	Plug 'vim-autoformat/vim-autoformat'
 	Plug 'easymotion/vim-easymotion'
@@ -19,7 +17,11 @@ if !exists('g:vscode')
 	Plug 'dstein64/nvim-scrollview', { 'branch': 'main' }
 	Plug 'octol/vim-cpp-enhanced-highlight'
 	Plug 'bfrg/vim-cpp-modern' 
-	Plug 'rcarriga/nvim-notify'
+	"Plug 'rcarriga/nvim-notify'
+	"Plug 'nvim-lualine/lualine.nvim'
+	"Plug 'akinsho/bufferline.nvim'
+	Plug 'vim-airline/vim-airline'
+	Plug 'vim-airline/vim-airline-themes'
 
 	call plug#end()
 endif
@@ -33,19 +35,20 @@ set clipboard=unnamedplus
 set nowrap
 set colorcolumn=101
 
-
 set background=dark
 let g:one_allow_italics=1
 let g:airline_theme='one'
 colorscheme one
 
-highlight ColorColumn ctermbg=lightblue guibg=#334555
+highlight ColourColumn ctermbg=darkgrey guibg=#262b33 ctermfg=lightgrey guifg=#383d48
 "highlight Normal ctermbg=darkgrey guibg=#20242a
 highlight Normal ctermbg=darkgrey guibg=#262b33
+highlight VertSplit ctermbg=darkgrey guibg=#262b33 ctermfg=lightgrey guifg=#383d48
 
-highlight CocFloating ctermbg=darkgrey guibg=#2f353f
-highlight PMenuSel ctermbg=darkgrey ctermfg=lightblue guibg=#262b33 guifg=#61afef
-highlight PMenu ctermbg=darkgrey guibg=#2f353f
+"highlight CocFloating ctermbg=darkgrey guibg=#2f353f
+highlight CocFloating ctermbg=darkgrey guibg=#313741
+highlight PMenuSel ctermbg=darkgrey ctermfg=lightblue guibg=#292f37 guifg=#61afef
+highlight PMenu ctermbg=darkgrey guibg=#313741
 
 if (empty($TMUX))
 	if (has("nvim"))
@@ -415,7 +418,9 @@ if !exists('g:vscode')
 			if &ft=='text' || &ft=='sql' || &ft=='html' || &ft=='md' || &ft=='markdown' || &ft=='dockerfile' || &ft=='doxyfile' || &ft=='in'
 			else
 				if &ft=='cpp' || &ft=='c' || &ft=='rust' || &ft=='toml' || &ft=='yaml' || &ft=='yml' || &ft=='YAML' || &ft=='vim'
-					call CocActionAsync('format')
+					if CocActionAsync('hasProvider', 'format')
+						call CocActionAsync('format')
+					endif
 				else
 					:Autoformat<CR>
 				endif

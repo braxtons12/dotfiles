@@ -103,7 +103,7 @@ source $ZSH/oh-my-zsh.sh
 #
 
 alias ls='ls --color=auto'
-alias grep='grep --colour=auto'
+alias grep='rg -p -P'
 alias egrep='egrep --colour=auto'
 alias fgrep='fgrep --colour=auto'
 alias cp="cp -i"

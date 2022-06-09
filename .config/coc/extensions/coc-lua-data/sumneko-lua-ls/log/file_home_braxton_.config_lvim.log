@@ -1,0 +1,548 @@
+[00:58:06.784][info] [#0:/home/braxton/.config/coc/extensions/coc-lua-data/sumneko-lua-ls/main.lua:49]: Lua Lsp startup, root: 	/home/braxton/.config/coc/extensions/coc-lua-data/sumneko-lua-ls
+[00:58:06.784][debug][#0:/home/braxton/.config/coc/extensions/coc-lua-data/sumneko-lua-ls/main.lua:50]: ROOT:	/home/braxton/.config/coc/extensions/coc-lua-data/sumneko-lua-ls
+[00:58:06.784][debug][#0:/home/braxton/.config/coc/extensions/coc-lua-data/sumneko-lua-ls/main.lua:51]: LOGPATH:	/home/braxton/.config/coc/extensions/coc-lua-data/sumneko-lua-ls/log
+[00:58:06.784][debug][#0:/home/braxton/.config/coc/extensions/coc-lua-data/sumneko-lua-ls/main.lua:52]: METAPATH:	/home/braxton/.config/coc/extensions/coc-lua-data/sumneko-lua-ls/meta
+[00:58:06.784][debug][#0:/home/braxton/.config/coc/extensions/coc-lua-data/sumneko-lua-ls/main.lua:53]: VERSION:	2.5.1
+[00:58:06.818][info] [#0:script/service/telemetry.lua:21]: Telemetry Token:	09A6573D8443A616
+[00:58:06.823][info] [#0:script/pub/pub.lua:48]: Create brave:	1
+[00:58:06.823][info] [#0:script/pub/pub.lua:48]: Create brave:	2
+[00:58:06.823][info] [#0:script/pub/pub.lua:48]: Create brave:	3
+[00:58:06.823][info] [#0:script/pub/pub.lua:48]: Create brave:	4
+[00:58:06.823][debug][#0:script/service/service.lua:138]: 
+========= Medical Examination Report =========
+    --------------- Memory ---------------
+        Total: 1.326 MB
+        # 00 : 1.326 MB
+        # 01 : 0.000 MB
+        # 02 : 0.000 MB
+        # 03 : 0.000 MB
+        # 04 : 0.000 MB
+    --------------- Coroutine ---------------
+        Total:     0
+        Running:   0
+        Suspended: 0
+        Normal:    0
+        Dead:      0
+    --------------- Cache ---------------
+        Total: 1
+        Dead:  0
+    --------------- Proto ---------------
+        Holdon:   0
+        Waiting:  0
+==============================================
+[00:58:06.850][debug][#0:script/client.lua:344]: Client init	{
+    capabilities = {
+        general = {
+            markdown = {
+                parser = "marked",
+                version = "4.0.10",
+            },
+            regularExpressions = {
+                engine = "ECMAScript",
+                version = "ES2020",
+            },
+        },
+        textDocument = {
+            callHierarchy = {
+                dynamicRegistration = true,
+            },
+            codeAction = {
+                codeActionLiteralSupport = {
+                    codeActionKind = {
+                        valueSet = {
+                            [1] = "",
+                            [2] = "quickfix",
+                            [3] = "refactor",
+                            [4] = "refactor.extract",
+                            [5] = "refactor.inline",
+                            [6] = "refactor.rewrite",
+                            [7] = "source",
+                            [8] = "source.organizeImports",
+                        },
+                    },
+                },
+                dataSupport = true,
+                disabledSupport = true,
+                dynamicRegistration = true,
+                honorsChangeAnnotations = false,
+                isPreferredSupport = true,
+                resolveSupport = {
+                    properties = {
+                        [1] = "edit",
+                    },
+                },
+            },
+            codeLens = {
+                dynamicRegistration = true,
+            },
+            colorProvider = {
+                dynamicRegistration = true,
+            },
+            completion = {
+                completionItem = {
+                    commitCharactersSupport = true,
+                    deprecatedSupport = true,
+                    documentationFormat = {
+                        [1] = "markdown",
+                        [2] = "plaintext",
+                    },
+                    insertReplaceSupport = true,
+                    insertTextModeSupport = {
+                        valueSet = {
+                            [1] = 1,
+                            [2] = 2,
+                        },
+                    },
+                    preselectSupport = true,
+                    resolveSupport = {
+                        properties = {
+                            [1] = "documentation",
+                            [2] = "detail",
+                            [3] = "additionalTextEdits",
+                        },
+                    },
+                    snippetSupport = true,
+                    tagSupport = {
+                        valueSet = {
+                            [1] = 1,
+                        },
+                    },
+                },
+                completionItemKind = {
+                    valueSet = {
+                        [01] = 1,
+                        [02] = 2,
+                        [03] = 3,
+                        [04] = 4,
+                        [05] = 5,
+                        [06] = 6,
+                        [07] = 7,
+                        [08] = 8,
+                        [09] = 9,
+                        [10] = 10,
+                        [11] = 11,
+                        [12] = 12,
+                        [13] = 13,
+                        [14] = 14,
+                        [15] = 15,
+                        [16] = 16,
+                        [17] = 17,
+                        [18] = 18,
+                        [19] = 19,
+                        [20] = 20,
+                        [21] = 21,
+                        [22] = 22,
+                        [23] = 23,
+                        [24] = 24,
+                        [25] = 25,
+                    },
+                },
+                contextSupport = true,
+                dynamicRegistration = true,
+                insertTextMode = 2,
+            },
+            declaration = {
+                dynamicRegistration = true,
+            },
+            definition = {
+                dynamicRegistration = true,
+            },
+            documentHighlight = {
+                dynamicRegistration = true,
+            },
+            documentLink = {
+                dynamicRegistration = true,
+                tooltipSupport = true,
+            },
+            documentSymbol = {
+                dynamicRegistration = true,
+                hierarchicalDocumentSymbolSupport = true,
+                labelSupport = true,
+                symbolKind = {
+                    valueSet = {
+                        [01] = 1,
+                        [02] = 2,
+                        [03] = 3,
+                        [04] = 4,
+                        [05] = 5,
+                        [06] = 6,
+                        [07] = 7,
+                        [08] = 8,
+                        [09] = 9,
+                        [10] = 10,
+                        [11] = 11,
+                        [12] = 12,
+                        [13] = 13,
+                        [14] = 14,
+                        [15] = 15,
+                        [16] = 16,
+                        [17] = 17,
+                        [18] = 18,
+                        [19] = 19,
+                        [20] = 20,
+                        [21] = 21,
+                        [22] = 22,
+                        [23] = 23,
+                        [24] = 24,
+                        [25] = 25,
+                        [26] = 26,
+                    },
+                },
+                tagSupport = {
+                    valueSet = {
+                        [1] = 1,
+                    },
+                },
+            },
+            foldingRange = {
+                dynamicRegistration = true,
+                lineFoldingOnly = true,
+                rangeLimit = 5000,
+            },
+            formatting = {
+                dynamicRegistration = true,
+            },
+            hover = {
+                contentFormat = {
+                    [1] = "markdown",
+                    [2] = "plaintext",
+                },
+                dynamicRegistration = true,
+            },
+            implementation = {
+                dynamicRegistration = true,
+            },
+            linkedEditingRange = {
+                dynamicRegistration = true,
+            },
+            onTypeFormatting = {
+                dynamicRegistration = true,
+            },
+            publishDiagnostics = {
+                codeDescriptionSupport = true,
+                dataSupport = true,
+                relatedInformation = true,
+                tagSupport = {
+                    valueSet = {
+                        [1] = 1,
+                        [2] = 2,
+                    },
+                },
+                versionSupport = true,
+            },
+            rangeFormatting = {
+                dynamicRegistration = true,
+            },
+            references = {
+                dynamicRegistration = true,
+            },
+            rename = {
+                dynamicRegistration = true,
+                prepareSupport = true,
+            },
+            selectionRange = {
+                dynamicRegistration = true,
+            },
+            semanticTokens = {
+                dynamicRegistration = true,
+                formats = {
+                    [1] = "relative",
+                },
+                multilineTokenSupport = false,
+                overlappingTokenSupport = false,
+                requests = {
+                    full = {
+                        delta = true,
+                    },
+                    range = true,
+                },
+                tokenModifiers = {
+                    [01] = "declaration",
+                    [02] = "definition",
+                    [03] = "readonly",
+                    [04] = "static",
+                    [05] = "deprecated",
+                    [06] = "abstract",
+                    [07] = "async",
+                    [08] = "modification",
+                    [09] = "documentation",
+                    [10] = "defaultLibrary",
+                },
+                tokenTypes = {
+                    [01] = "namespace",
+                    [02] = "type",
+                    [03] = "class",
+                    [04] = "enum",
+                    [05] = "interface",
+                    [06] = "struct",
+                    [07] = "typeParameter",
+                    [08] = "parameter",
+                    [09] = "variable",
+                    [10] = "property",
+                    [11] = "enumMember",
+                    [12] = "event",
+                    [13] = "function",
+                    [14] = "method",
+                    [15] = "macro",
+                    [16] = "keyword",
+                    [17] = "modifier",
+                    [18] = "comment",
+                    [19] = "string",
+                    [20] = "number",
+                    [21] = "regexp",
+                    [22] = "operator",
+                },
+            },
+            signatureHelp = {
+                contextSupport = true,
+                dynamicRegistration = true,
+                signatureInformation = {
+                    activeParameterSupport = true,
+                    documentationFormat = {
+                        [1] = "markdown",
+                        [2] = "plaintext",
+                    },
+                    parameterInformation = {
+                        labelOffsetSupport = true,
+                    },
+                },
+            },
+            synchronization = {
+                didSave = true,
+                dynamicRegistration = true,
+                willSave = true,
+                willSaveWaitUntil = true,
+            },
+            typeDefinition = {
+                dynamicRegistration = true,
+            },
+        },
+        window = {
+            showDocument = {
+                support = true,
+            },
+            showMessage = {
+                messageActionItem = {
+                    additionalPropertiesSupport = true,
+                },
+            },
+            workDoneProgress = true,
+        },
+        workspace = {
+            applyEdit = true,
+            codeLens = {
+                refreshSupport = true,
+            },
+            configuration = true,
+            didChangeConfiguration = {
+                dynamicRegistration = true,
+            },
+            didChangeWatchedFiles = {
+                dynamicRegistration = true,
+            },
+            executeCommand = {
+                dynamicRegistration = true,
+            },
+            fileOperations = {
+                didCreate = true,
+                didDelete = true,
+                didRename = true,
+                dynamicRegistration = true,
+                willCreate = true,
+                willDelete = true,
+                willRename = true,
+            },
+            semanticTokens = {
+                refreshSupport = true,
+            },
+            symbol = {
+                dynamicRegistration = true,
+                symbolKind = {
+                    valueSet = {
+                        [01] = 1,
+                        [02] = 2,
+                        [03] = 3,
+                        [04] = 4,
+                        [05] = 5,
+                        [06] = 6,
+                        [07] = 7,
+                        [08] = 8,
+                        [09] = 9,
+                        [10] = 10,
+                        [11] = 11,
+                        [12] = 12,
+                        [13] = 13,
+                        [14] = 14,
+                        [15] = 15,
+                        [16] = 16,
+                        [17] = 17,
+                        [18] = 18,
+                        [19] = 19,
+                        [20] = 20,
+                        [21] = 21,
+                        [22] = 22,
+                        [23] = 23,
+                        [24] = 24,
+                        [25] = 25,
+                        [26] = 26,
+                    },
+                },
+                tagSupport = {
+                    valueSet = {
+                        [1] = 1,
+                    },
+                },
+            },
+            workspaceEdit = {
+                changeAnnotationSupport = {
+                    groupsOnLabel = false,
+                },
+                documentChanges = true,
+                failureHandling = "undo",
+                normalizesLineEndings = true,
+                resourceOperations = {
+                    [1] = "create",
+                    [2] = "rename",
+                    [3] = "delete",
+                },
+            },
+            workspaceFolders = true,
+        },
+    },
+    clientInfo = {
+        name = "coc.nvim",
+        version = "0.0.81",
+    },
+    locale = "en_US",
+    processId = 124127,
+    rootPath = "/home/braxton/.config/lvim",
+    rootUri = "file:///home/braxton/.config/lvim",
+    trace = "off",
+    workspaceFolders = {
+        [1] = {
+            name = "lvim",
+            uri = "file:///home/braxton/.config/lvim",
+        },
+    },
+}
+[00:58:06.850][info] [#0:script/language.lua:135]: VSC language: en_US
+[00:58:06.850][info] [#0:script/language.lua:136]: LS  language: en-us
+[00:58:06.850][info] [#0:script/workspace/workspace.lua:34]: Workspace inited: 	file:///home/braxton/.config/lvim
+[00:58:06.850][info] [#0:script/workspace/workspace.lua:43]: Log path: 	/home/braxton/.config/coc/extensions/coc-lua-data/sumneko-lua-ls/log/file_home_braxton_.config_lvim.log
+[00:58:06.851][debug][#0:script/provider/completion.lua:34]: Enable completion.
+[00:58:06.851][debug][#0:script/provider/completion.lua:59]: Disable completion.
+[00:58:06.851][debug][#0:script/provider/completion.lua:34]: Enable completion.
+[00:58:06.851][debug][#0:script/provider/semantic-tokens.lua:33]: Enable semantic tokens.
+[00:58:06.851][debug][#0:script/provider/semantic-tokens.lua:108]: Refresh semantic tokens.
+[00:58:06.851][debug][#0:script/provider/semantic-tokens.lua:108]: Refresh semantic tokens.
+[00:58:06.851][debug][#0:script/provider/semantic-tokens.lua:108]: Refresh semantic tokens.
+[00:58:06.851][debug][#0:script/provider/semantic-tokens.lua:108]: Refresh semantic tokens.
+[00:58:06.851][debug][#0:script/provider/semantic-tokens.lua:108]: Refresh semantic tokens.
+[00:58:06.930][debug][#0:script/provider/provider.lua:48]: load config from client
+[00:58:06.930][debug][#0:script/provider/provider.lua:59]: loaded config dump:	{
+    Lua = {
+        color = {
+            mode = "Semantic",
+        },
+        completion = {
+            callSnippet = "Disable",
+            displayContext = 6,
+            enable = true,
+            keywordSnippet = "Replace",
+            workspaceWord = true,
+        },
+        diagnostics = {
+            enable = true,
+            workspaceDelay = 0,
+            workspaceRate = 100,
+        },
+        hint = {
+            enable = false,
+            paramName = true,
+            paramType = true,
+            setType = false,
+        },
+        hover = {
+            enable = true,
+            fieldInfer = 3000,
+            previewFields = 100,
+            viewNumber = true,
+            viewString = true,
+            viewStringMax = 1000,
+        },
+        intelliSense = {
+            searchDepth = 0,
+        },
+        runtime = {
+            path = {
+                [1] = "?.lua",
+                [2] = "?/init.lua",
+                [3] = "?/?.lua",
+            },
+            plugin = ".vscode/lua/plugin.lua",
+            unicodeName = false,
+            version = "Lua 5.4",
+        },
+        signatureHelp = {
+            enable = true,
+        },
+        telemetry = {
+            enable = true,
+        },
+        window = {
+            progressBar = true,
+            statusBar = true,
+        },
+        workspace = {
+            ignoreDir = {
+                [1] = ".vscode",
+            },
+            ignoreSubmodules = true,
+            maxPreload = 1000,
+            preloadFileSize = 100,
+            useGitIgnore = true,
+        },
+    },
+}
+[00:58:06.930][debug][#0:script/provider/semantic-tokens.lua:108]: Refresh semantic tokens.
+[00:58:06.930][debug][#0:script/provider/semantic-tokens.lua:108]: Refresh semantic tokens.
+[00:58:06.930][debug][#0:script/provider/semantic-tokens.lua:108]: Refresh semantic tokens.
+[00:58:07.035][info] [#0:script/plugin.lua:88]: plugin path:	/home/braxton/.config/lvim/.vscode/lua/plugin.lua
+[00:58:07.036][info] [#0:script/workspace/workspace.lua:335]: Preload start.
+[00:58:07.036][info] [#0:script/workspace/workspace.lua:135]: Ignore directory:	.vscode
+[00:58:07.037][debug][#0:script/workspace/workspace.lua:168]: getLibraryMatchers	/home/braxton/.config/coc/extensions/coc-lua-data/sumneko-lua-ls/meta/Lua 5.4 en-us utf8	/home/braxton/.config/coc/extensions/coc-lua-data/sumneko-lua-ls/meta/Lua 5.4 en-us utf8
+[00:58:07.037][info] [#0:script/workspace/workspace.lua:340]: Scan files at:	/home/braxton/.config/lvim
+[00:58:07.037][info] [#0:script/workspace/workspace.lua:345]: Scan library at:	/home/braxton/.config/coc/extensions/coc-lua-data/sumneko-lua-ls/meta/Lua 5.4 en-us utf8
+[00:58:07.038][info] [#0:script/workspace/workspace.lua:369]: Found 13 files.
+[00:58:07.038][info] [#0:script/workspace/workspace.lua:247]: Preload file at: file:///home/braxton/.config/coc/extensions/coc-lua-data/sumneko-lua-ls/meta/Lua%205.4%20en-us%20utf8/os.lua , size = 4.299 KB
+[00:58:07.038][info] [#0:script/workspace/workspace.lua:249]: ++++As library of:	/home/braxton/.config/coc/extensions/coc-lua-data/sumneko-lua-ls/meta/Lua 5.4 en-us utf8
+[00:58:07.042][info] [#0:script/workspace/workspace.lua:372]: Loaded 1/13 files
+[00:58:07.042][info] [#0:script/workspace/workspace.lua:247]: Preload file at: file:///home/braxton/.config/coc/extensions/coc-lua-data/sumneko-lua-ls/meta/Lua%205.4%20en-us%20utf8/table.lua , size = 2.767 KB
+[00:58:07.042][info] [#0:script/workspace/workspace.lua:249]: ++++As library of:	/home/braxton/.config/coc/extensions/coc-lua-data/sumneko-lua-ls/meta/Lua 5.4 en-us utf8
+[00:58:07.045][info] [#0:script/workspace/workspace.lua:247]: Preload file at: file:///home/braxton/.config/coc/extensions/coc-lua-data/sumneko-lua-ls/meta/Lua%205.4%20en-us%20utf8/coroutine.lua , size = 2.573 KB
+[00:58:07.045][info] [#0:script/workspace/workspace.lua:249]: ++++As library of:	/home/braxton/.config/coc/extensions/coc-lua-data/sumneko-lua-ls/meta/Lua 5.4 en-us utf8
+[00:58:07.047][info] [#0:script/workspace/workspace.lua:247]: Preload file at: file:///home/braxton/.config/coc/extensions/coc-lua-data/sumneko-lua-ls/meta/Lua%205.4%20en-us%20utf8/debug.lua , size = 7.516 KB
+[00:58:07.047][info] [#0:script/workspace/workspace.lua:249]: ++++As library of:	/home/braxton/.config/coc/extensions/coc-lua-data/sumneko-lua-ls/meta/Lua 5.4 en-us utf8
+[00:58:07.052][info] [#0:script/workspace/workspace.lua:247]: Preload file at: file:///home/braxton/.config/coc/extensions/coc-lua-data/sumneko-lua-ls/meta/Lua%205.4%20en-us%20utf8/math.lua , size = 8.632 KB
+[00:58:07.052][info] [#0:script/workspace/workspace.lua:249]: ++++As library of:	/home/braxton/.config/coc/extensions/coc-lua-data/sumneko-lua-ls/meta/Lua 5.4 en-us utf8
+[00:58:07.058][info] [#0:script/workspace/workspace.lua:247]: Preload file at: file:///home/braxton/.config/coc/extensions/coc-lua-data/sumneko-lua-ls/meta/Lua%205.4%20en-us%20utf8/basic.lua , size = 13.954 KB
+[00:58:07.058][info] [#0:script/workspace/workspace.lua:249]: ++++As library of:	/home/braxton/.config/coc/extensions/coc-lua-data/sumneko-lua-ls/meta/Lua 5.4 en-us utf8
+[00:58:07.065][info] [#0:script/workspace/workspace.lua:247]: Preload file at: file:///home/braxton/.config/coc/extensions/coc-lua-data/sumneko-lua-ls/meta/Lua%205.4%20en-us%20utf8/builtin.lua , size = 0.216 KB
+[00:58:07.065][info] [#0:script/workspace/workspace.lua:249]: ++++As library of:	/home/braxton/.config/coc/extensions/coc-lua-data/sumneko-lua-ls/meta/Lua 5.4 en-us utf8
+[00:58:07.066][info] [#0:script/workspace/workspace.lua:247]: Preload file at: file:///home/braxton/.config/coc/extensions/coc-lua-data/sumneko-lua-ls/meta/Lua%205.4%20en-us%20utf8/utf8.lua , size = 2.352 KB
+[00:58:07.066][info] [#0:script/workspace/workspace.lua:249]: ++++As library of:	/home/braxton/.config/coc/extensions/coc-lua-data/sumneko-lua-ls/meta/Lua 5.4 en-us utf8
+[00:58:07.067][info] [#0:script/workspace/workspace.lua:247]: Preload file at: file:///home/braxton/.config/coc/extensions/coc-lua-data/sumneko-lua-ls/meta/Lua%205.4%20en-us%20utf8/package.lua , size = 2.937 KB
+[00:58:07.067][info] [#0:script/workspace/workspace.lua:249]: ++++As library of:	/home/braxton/.config/coc/extensions/coc-lua-data/sumneko-lua-ls/meta/Lua 5.4 en-us utf8
+[00:58:07.070][info] [#0:script/workspace/workspace.lua:247]: Preload file at: file:///home/braxton/.config/coc/extensions/coc-lua-data/sumneko-lua-ls/meta/Lua%205.4%20en-us%20utf8/io.lua , size = 6.375 KB
+[00:58:07.070][info] [#0:script/workspace/workspace.lua:249]: ++++As library of:	/home/braxton/.config/coc/extensions/coc-lua-data/sumneko-lua-ls/meta/Lua 5.4 en-us utf8
+[00:58:07.075][info] [#0:script/workspace/workspace.lua:247]: Preload file at: file:///home/braxton/.config/coc/extensions/coc-lua-data/sumneko-lua-ls/meta/Lua%205.4%20en-us%20utf8/string.lua , size = 6.207 KB
+[00:58:07.075][info] [#0:script/workspace/workspace.lua:249]: ++++As library of:	/home/braxton/.config/coc/extensions/coc-lua-data/sumneko-lua-ls/meta/Lua 5.4 en-us utf8
+[00:58:07.079][info] [#0:script/workspace/workspace.lua:247]: Preload file at: file:///home/braxton/.config/lvim/plugin/packer_compiled.lua , size = 17.997 KB
+[00:58:07.087][info] [#0:script/workspace/workspace.lua:247]: Preload file at: file:///home/braxton/.config/lvim/config.lua , size = 7.584 KB
+[00:58:07.849][info] [#0:script/workspace/workspace.lua:372]: Loaded 13/13 files
+[00:58:07.849][info] [#0:script/workspace/workspace.lua:381]: Preload finish.
+[00:58:07.849][debug][#0:script/provider/provider.lua:213]: didOpen	file:///home/braxton/.config/lvim/config.lua
+[00:58:08.858][debug][#0:script/provider/diagnostic.lua:253]: publishDiagnostics	file:///home/braxton/.config/lvim/config.lua	48
+[00:58:08.866][debug][#0:script/provider/diagnostic.lua:253]: publishDiagnostics	file:///home/braxton/.config/lvim/plugin/packer_compiled.lua	16
+[00:58:08.866][debug][#0:script/provider/diagnostic.lua:371]: 全文诊断耗时：	0.007716
+[00:58:18.863][debug][#0:script/provider/provider.lua:223]: didClose	file:///home/braxton/.config/lvim/config.lua

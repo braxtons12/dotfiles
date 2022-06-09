@@ -14,7 +14,7 @@ font:
         family: Hack Nerd Font Mono
     bold_italic:
         family: Hack Nerd Font Mono
-    size: 13
+    size: 12.5
     tabspaces: 4
 colors:
     primary:
