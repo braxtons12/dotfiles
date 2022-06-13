@@ -537,7 +537,7 @@ packer.use { "akinsho/bufferline.nvim",
 }
 packer.use { "rcarriga/nvim-notify",
 	config = function()
-		notify = require("notify")
+		local notify = require("notify")
 		vim.notify = notify
 		notify.setup(
 			{
@@ -713,16 +713,6 @@ packer.use { "neovim/nvim-lspconfig",
 			require("aerial").on_attach(client, buffer_num)
 			vim.api.nvim_buf_set_option(buffer_num, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
-			local map = function(mode, lhs, rhs, opts)
-				vim.keymap.set(mode, lhs, rhs, opts)
-			end
-
-			local nmap = function(lhs, rhs, options)
-				map("n", lhs, rhs, options)
-			end
-
-			local opts = { noremap = true, silent = true, buffer = buffer_num }
-
 			if client.resolved_capabilities.document_highlight then
 				vim.cmd([[
 					augroup lsp_document_highlight
@@ -754,15 +744,15 @@ packer.use { "neovim/nvim-lspconfig",
 		}
 
 		local semantic_token_handlers = {
-			['workspace/semanticTokens/refresh'] = function(err, params, ctx, config)
+			['workspace/semanticTokens/refresh'] = function(_, _, _, _)
 				vim.lsp.buf_request(0, 'textDocument/semanticTokens/full',
 					{
-						textDocument = vim.lsp.util.make_text_document_params(),
+						textDocument = vim.lsp.util.make_text_document_params(nil),
 						tick = vim.api.nvim_buf_get_changedtick(0)
 					}, nil)
 				return vim.NIL
 			end,
-			['textDocument/semanticTokens/full'] = function(err, response, ctx, config)
+			['textDocument/semanticTokens/full'] = function(err, response, ctx, _)
 				local client = vim.lsp.get_client_by_id(ctx.client_id)
 
 				if not client then

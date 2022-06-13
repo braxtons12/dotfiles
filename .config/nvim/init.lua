@@ -1,6 +1,7 @@
 --vim.cmd [[packadd nvim-lspconfig]]
 local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+local packer_bootstrap = nil
+if vim.fn.empty(vim.fn.glob(install_path, nil, nil, nil)) > 0 then
 	packer_bootstrap = vim.fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim',
 		install_path })
 end
@@ -11,7 +12,7 @@ end
 require('packer').startup(function(use)
 	use "wbthomason/packer.nvim"
 
-	if packer_bootstrap then
+	if packer_bootstrap ~= nil then
 		require('packer').sync()
 	end
 end)
@@ -524,7 +525,7 @@ vim.cmd("hi! link AerialTypeParameterIcon LspSemantic_typeParameter")
 -- KEYMAPS
 ----------------------------------------------
 
-function map(mode, lhs, rhs, description, opts)
+local function map(mode, lhs, rhs, description, opts)
 	local options = {
 		noremap = true,
 		silent = true
@@ -549,11 +550,11 @@ function map(mode, lhs, rhs, description, opts)
 	}, wk_options)
 end
 
-function nmap(lhs, rhs, options)
+local function nmap(lhs, rhs, options)
 	map("n", lhs, rhs, options)
 end
 
-function tmap(lhs, rhs, options)
+local function tmap(lhs, rhs, options)
 	map("t", lhs, rhs, options)
 end
 
