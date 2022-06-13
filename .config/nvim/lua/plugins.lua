@@ -1,7 +1,6 @@
 ----------------------------------------------
 -- PLUGINS IN USE
 ----------------------------------------------
-
 local packer = require('packer')
 packer.use "vim-scripts/DoxygenToolkit.vim"
 packer.use "kyazdani42/nvim-web-devicons"
@@ -1061,9 +1060,9 @@ packer.use { "hrsh7th/nvim-cmp",
 			--	end
 			--end, { "i", "s" })
 			sources = cmp.config.sources({
+				{ name = "nvim_lsp_signature_help" },
 				{ name = "nvim_lsp" },
 				{ name = "vsnip" },
-				{ name = "nvim_lsp_signature_help" },
 				{ name = "crates" },
 				{ name = "cmp_zsh" },
 			},
