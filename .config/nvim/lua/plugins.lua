@@ -25,6 +25,12 @@ packer.use { "braxtons12/blame_line.nvim",
 }
 packer.use "cespare/vim-toml"
 packer.use "HerringtonDarkholme/yats.vim"
+packer.use { "gfeiyou/command-center.nvim",
+	requires = { "nvim-telescope/telescope.nvim" },
+	config = function()
+		require("telescope").load_extension("command_center")
+	end
+}
 -- for mouse draggable scrollbar
 packer.use { "dstein64/nvim-scrollview",
 	branch = "main",
