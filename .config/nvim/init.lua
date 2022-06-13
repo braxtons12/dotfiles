@@ -180,7 +180,8 @@ vim.cmd("hi DiagnosticVirtualTextWarn guifg=#d29767")
 vim.cmd("hi DiagnosticVirtualTextHint guifg=#9daaaa")
 vim.cmd("hi DiagnosticVirtualTextInfo guifg=#61afef")
 
-vim.cmd("hi BlameLineNvim guifg=#202020")
+--vim.cmd("hi BlameLineNvim guifg=#202020")
+vim.cmd("hi GitSignsCurrentLineBlame guifg=#202020")
 ----------------------------------------------
 -- HIGHLIGHTING FOR NVIM-TREE
 ----------------------------------------------

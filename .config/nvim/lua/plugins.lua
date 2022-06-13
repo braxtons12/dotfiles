@@ -17,12 +17,12 @@ packer.use { "phaazon/hop.nvim",
 	end
 }
 packer.use "tpope/vim-fugitive"
-packer.use { "braxtons12/blame_line.nvim",
-	config = function()
-		require("blame_line").setup {
-		}
-	end
-}
+--packer.use { "braxtons12/blame_line.nvim",
+--	config = function()
+--		require("blame_line").setup {
+--		}
+--	end
+--}
 packer.use "cespare/vim-toml"
 packer.use "HerringtonDarkholme/yats.vim"
 packer.use { "gfeiyou/command-center.nvim",
@@ -482,7 +482,13 @@ packer.use { "kyazdani42/nvim-tree.lua",
 }
 packer.use { "lewis6991/gitsigns.nvim",
 	config = function()
-		require("gitsigns").setup()
+		require("gitsigns").setup {
+			current_line_blame = true,
+			current_line_blame_formatter = " <author> • <author_time:%R> • <summary>",
+			current_line_blame_opts = {
+				delay = 0
+			}
+		}
 	end
 }
 packer.use { "folke/trouble.nvim",
