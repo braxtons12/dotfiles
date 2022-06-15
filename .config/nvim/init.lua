@@ -570,7 +570,7 @@ local function tmap(lhs, rhs, options)
 end
 
 vim.g.mapleader = ' '
-nmap("<S-p>", "<cmd>Telescope command_center<CR>", "Open Command Center")
+nmap("<S-A-p>", "<cmd>Telescope command_center<CR>", "Open Command Center")
 nmap("<S-f>", "<cmd>lua require(\"telescope.builtin\").find_files(require(\"telescope.themes\").get_dropdown({}))<CR>",
 	"Telescope Find Files")
 nmap("<S-A-g>", "<cmd>lua require(\"telescope.builtin\").live_grep(require(\"telescope.themes\").get_dropdown({}))<CR>",
