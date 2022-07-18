@@ -138,7 +138,8 @@ packer.use { "stevearc/aerial.nvim",
 			icons = require("lspkind_icons"),
 			open_automatic = true,
 			max_width = { 30, 0.2 },
-			min_width = 20
+			min_width = 20,
+			show_guides = true,
 		}
 	end
 }
@@ -725,7 +726,29 @@ packer.use { "neovim/nvim-lspconfig",
 			require("aerial").on_attach(client, buffer_num)
 			vim.api.nvim_buf_set_option(buffer_num, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
-			if client.resolved_capabilities.document_highlight then
+			if client.server_capabilities.documentHighlightProvider
+				or client.server_capabilities.semanticTokensProvider then
+				-- when support gets merged into mainline
+				--vim.lsp.with(
+				--	"textDocument/semanticTokens/full",
+				--	{
+				--		on_token = function(ctx, token)
+				--			local ns = vim.api.nvim_create_namespace('nvim-lsp-semantic')
+				--			local byte_start = vim.str_byteindex(token.line, token.start_char)
+				--			local byte_end = vim.str_byteindex(token.line, token.start_char + token.length)
+				--			vim.api.nvim_buf_add_highlight(ctx.bufnr, ns, 'LspSemantic_' .. token.type, token.line, byte_start, byte_end)
+				--			for idx = 1, #token.modifiers do
+				--				vim.api.nvim_buf_add_highlight(ctx.bufnr, ns, 'LspSemantic_' .. token.modifiers[idx], token.line, byte_start, byte_end)
+				--			end
+				--		end,
+				--		on_invalidate_range = function(ctx, line_start, line_end)
+				--			local ns = vim.api.nvim_create_namespace('nvim-lsp-semantic')
+				--			vim.api.nvim_buf_clear_namespace(ctx.bufnr, ns, line_start, line_end)
+				--		end
+				--	})
+
+			 	--when support gets merged into mainline, add this into augroup below
+			 	--autocmd BufEnter,BufRead,BufWrite,ColorScheme,InsertChange,WinClosed,CursorHold <buffer> lua require("vim.lsp.semantic_tokens").refresh(vim.api.nvim_get_current_buf())
 				vim.cmd([[
 					augroup lsp_document_highlight
 					  autocmd BufEnter,BufRead,BufWrite,ColorScheme,InsertChange,WinClosed,CursorHold <buffer> lua vim.lsp.buf.document_highlight()
@@ -797,39 +820,11 @@ packer.use { "neovim/nvim-lspconfig",
 					return modifiers
 				end
 
-				-- use to print the tokens or modifiers to a new window
-				-- local print_tokens = function(token_types)
-				-- 	local width = 200
-				-- 	local height = 50
-				-- 	local buf = vim.api.nvim_create_buf(false, true)
-				-- 	local types = {}
-				-- 	for i = 1, #token_types do
-				-- 		table.insert(types, i, "LspSemantic_" .. token_types[i])
-				-- 	end
-				-- 	vim.api.nvim_buf_set_lines(buf, 0, #types, false, types)
-
-				-- 	local ui = vim.api.nvim_list_uis()[1]
-				-- 	local opts = {
-				-- 		relative = "editor",
-				-- 		width = width,
-				-- 		height = height,
-				-- 		col = (ui.width / 2) - (width / 2),
-				-- 		row = (ui.height / 2) - (height / 2),
-				-- 		anchor = "NW",
-				-- 		style = "minimal",
-				-- 	}
-
-				-- 	local win = vim.api.nvim_open_win(buf, 1, opts)
-				-- end
-
 				local bufnr = ctx.bufnr
 				local legend = client.server_capabilities.semanticTokensProvider.legend
 				local token_types = legend.tokenTypes
 				local token_modifiers = legend.tokenModifiers
 				local data = response.data
-
-				-- print_tokens(token_types)
-				-- print_tokens(token_modifiers)
 
 				local ns = vim.api.nvim_create_namespace('nvim-lsp-semantic')
 				vim.api.nvim_buf_clear_namespace(bufnr, ns, 0, -1)
@@ -858,7 +853,6 @@ packer.use { "neovim/nvim-lspconfig",
 					for idx = 1, #modifiers do
 						vim.api.nvim_buf_add_highlight(bufnr, ns, 'LspSemantic_' .. modifiers[idx], line, byte_start, byte_end)
 					end
-					-- require('vim.lsp.log').debug(bufnr, ns, 'LspSemantic_' .. token_type, prev_line, byte_start, byte_end)
 				end
 			end
 		}
@@ -873,6 +867,12 @@ packer.use { "neovim/nvim-lspconfig",
 					on_attach = on_attach,
 					flags = {
 						debounce_text_changes = 150,
+					},
+					cmd = {
+						"clangd",
+						"--background-index",
+						"--suggest-missing-includes",
+						"--enable-config"
 					},
 					handlers = semantic_token_handlers,
 				}
@@ -890,6 +890,7 @@ packer.use { "neovim/nvim-lspconfig",
 							},
 						},
 					},
+					handlers = semantic_token_handlers
 				}
 			elseif lsp == "sumneko_lua" then
 				local lua_dev = require("lua-dev").setup({
@@ -899,7 +900,8 @@ packer.use { "neovim/nvim-lspconfig",
 						flags = {
 							debounce_text_changes = 150,
 						},
-					}
+					},
+					handlers = semantic_token_handlers
 				})
 				require("lspconfig")[lsp].setup(lua_dev)
 			else
@@ -908,6 +910,7 @@ packer.use { "neovim/nvim-lspconfig",
 					flags = {
 						debounce_text_changes = 150,
 					},
+					handlers = semantic_token_handlers
 				}
 			end
 		end
@@ -1024,7 +1027,7 @@ packer.use { "hrsh7th/nvim-cmp",
 					elseif vim.fn["vsnip#available"](1) == 1 then
 						feedkey("<Plug>(vsnip-expand-or-jump)", "")
 					elseif has_words_before() then
-						cmp.complete()
+						cmp.complete(nil)
 					else
 						fallback()
 					end

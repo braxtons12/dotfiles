@@ -72,7 +72,7 @@ vim.opt.hidden = true
 vim.opt.backup = false
 vim.opt.writebackup = false
 vim.opt.cmdheight = 2
-vim.opt.updatetime = 1000
+vim.opt.updatetime = 2000
 vim.o.timeoutlen = 2000
 vim.cmd("set shortmess+=c")
 
@@ -128,31 +128,30 @@ vim.api.nvim_create_autocmd(
 	}
 )
 
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-	vim.lsp.handlers.hover, { focusable = false }
-)
-
 vim.api.nvim_create_autocmd(
 	"CursorHold",
 	{
 		pattern = { "*" },
 		callback = function()
+			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+				vim.lsp.handlers.hover, { focusable = false }
+			)
 			local cmp = require("cmp")
 			if not cmp.visible() then
-				local hover_fixed = function()
-					vim.cmd("set eventignore=CursorHold")
-					vim.lsp.buf.hover()
-					vim.api.nvim_create_autocmd("CursorMoved",
-						{
-							pattern = {"*"},
-							once = true,
-							callback = function()
-								vim.cmd("set eventignore=\"\"")
-							end
-						}
-					)
-				end
-				hover_fixed()
+				vim.cmd("set eventignore=CursorHold")
+				vim.lsp.buf.hover()
+				vim.api.nvim_create_autocmd("CursorMoved",
+					{
+						pattern = {"*"},
+						once = true,
+						callback = function()
+							vim.cmd("set eventignore=\"\"")
+							vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+								vim.lsp.handlers.hover, { focusable = true }
+							)
+						end
+					}
+				)
 			end
 		end,
 	}
@@ -319,6 +318,11 @@ vim.cmd("hi! link cCustomFunc Function")
 vim.cmd("hi! link CCustomMemVar Property")
 vim.cmd("hi! link cppSTLnamespace Namespace")
 vim.cmd("hi! link cppSTLType Type")
+vim.cmd("hi! link cppSTLtype Type")
+vim.cmd("hi! link cppSTLFunction Normal")
+vim.cmd("hi! link cppSTLfunction Normal")
+vim.cmd("hi! link cppCast Keyword")
+vim.cmd("hi! link cppAccess Keyword")
 vim.cmd("hi! link cCustomClass Namespace")
 
 ----------------------------------------------------
@@ -436,7 +440,8 @@ vim.cmd("hi! link LspSemantic_label Label")
 vim.cmd("hi! link LspSemantic_lifetime Property")
 vim.cmd("hi! link LspSemantic_parameter Parameter")
 vim.cmd("hi! link LspSemantic_parameterReference Parameter")
-vim.cmd("hi LspSemantic_usedAsMutableReference guifg=#6090a4")
+--vim.cmd("hi LspSemantic_usedAsMutableReference guifg=#6090a4")
+vim.cmd("hi! link LspSemantic_usedAsMutableReference Normal")
 vim.cmd("hi! link LspSemantic_property Property")
 vim.cmd("hi! link LspSemantic_field Property")
 vim.cmd("hi! link LspSemantic_member Property")
@@ -570,7 +575,7 @@ local function tmap(lhs, rhs, options)
 end
 
 vim.g.mapleader = ' '
-nmap("<S-A-p>", "<cmd>Telescope command_center<CR>", "Open Command Center")
+nmap("<S-p>", "<cmd>Telescope command_center<CR>", "Open Command Center")
 nmap("<S-f>", "<cmd>lua require(\"telescope.builtin\").find_files(require(\"telescope.themes\").get_dropdown({}))<CR>",
 	"Telescope Find Files")
 nmap("<S-A-g>", "<cmd>lua require(\"telescope.builtin\").live_grep(require(\"telescope.themes\").get_dropdown({}))<CR>",
@@ -618,7 +623,7 @@ nmap("<C-h>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Signature Help")
 nmap("<Leader>rn", "<cmd>lua require(\"cosmic-ui\").rename()<CR>", "Rename")
 nmap("<A-CR>", "<cmd>lua require(\"cosmic-ui\").code_actions()<CR>", "Code Actions")
 nmap("<S-c>", "<cmd>lua require(\"cosmic-ui\").code_actions()<CR>", "Code Actions")
-nmap("<C-A-l>", "<cmd>lua vim.lsp.buf.formatting()<CR>", "Format Document")
+nmap("<C-A-l>", "<cmd>lua vim.lsp.buf.format {async = true}<CR>", "Format Document")
 
 nmap("<C-d>", "<cmd>lua vim.diagnostic.config({virtual_lines = { prefix = \"🔥\"}})<CR>", "Show Diagnostic Text")
 nmap("<C-S-d>", "<cmd>lua vim.diagnostic.config({virtual_lines = false})<CR>", "Hide Diagnostic Text")
