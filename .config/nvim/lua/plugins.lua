@@ -17,7 +17,8 @@ packer.use { "phaazon/hop.nvim",
 	end
 }
 packer.use "tpope/vim-fugitive"
---packer.use { "braxtons12/blame_line.nvim",
+--packer.use { "/home/braxton/git/blame_line.nvim",
+--	as = "blame_line.nvim",
 --	config = function()
 --		require("blame_line").setup {
 --		}
@@ -747,8 +748,8 @@ packer.use { "neovim/nvim-lspconfig",
 				--		end
 				--	})
 
-			 	--when support gets merged into mainline, add this into augroup below
-			 	--autocmd BufEnter,BufRead,BufWrite,ColorScheme,InsertChange,WinClosed,CursorHold <buffer> lua require("vim.lsp.semantic_tokens").refresh(vim.api.nvim_get_current_buf())
+				--when support gets merged into mainline, add this into augroup below
+				--autocmd BufEnter,BufRead,BufWrite,ColorScheme,InsertChange,WinClosed,CursorHold <buffer> lua require("vim.lsp.semantic_tokens").refresh(vim.api.nvim_get_current_buf())
 				vim.cmd([[
 					augroup lsp_document_highlight
 					  autocmd BufEnter,BufRead,BufWrite,ColorScheme,InsertChange,WinClosed,CursorHold <buffer> lua vim.lsp.buf.document_highlight()

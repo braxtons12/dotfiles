@@ -179,7 +179,7 @@ vim.cmd("hi DiagnosticVirtualTextWarn guifg=#d29767")
 vim.cmd("hi DiagnosticVirtualTextHint guifg=#9daaaa")
 vim.cmd("hi DiagnosticVirtualTextInfo guifg=#61afef")
 
---vim.cmd("hi BlameLineNvim guifg=#202020")
+vim.cmd("hi BlameLineNvim guifg=#202020")
 vim.cmd("hi GitSignsCurrentLineBlame guifg=#202020")
 ----------------------------------------------
 -- HIGHLIGHTING FOR NVIM-TREE
@@ -615,6 +615,7 @@ tmap("<S-t>", "<cmd>lua require(\"nvterm.terminal\").toggle \"horizontal\"<CR>",
 tmap("<T>", "<cmd>lua require(\"nvterm.terminal\").toggle \"horizontal\"<CR>", "Close NvTerm")
 tmap("<C-S-t>", "<cmd>lua require(\"nvterm.terminal\").toggle \"float\"<CR>", "Close NvTerm")
 
+nmap("<S-A-d>", "<cmd>lua package.loaded.gitsigns.diffthis()<CR>", "Show git diff for file")
 nmap("gd", "<cmd>lua vim.lsp.buf.definition()<CR>", "Go to Defintion")
 nmap("gc", "<cmd>lua vim.lsp.buf.declaration()<CR>", "Go to Declaration")
 nmap("gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", "Go to Implementation")
