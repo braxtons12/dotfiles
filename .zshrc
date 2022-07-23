@@ -127,7 +127,7 @@ PATH=/home/braxton/.local/share/gem/ruby/2.7.0:$PATH
 PATH=/var/lib/gems/2.7.0:$PATH
 PATH=/home/braxton/JUCE/extras/AudioPluginHost/Builds/LinuxMakefile/build:$PATH
 PATH=/home/braxton/.local/bin/:$PATH
-PATH=/home/braxton/llvm14/bin:$PATH
+PATH=/home/braxton/git/vcpkg/:$PATH
 export PATH
 
 PICO_SDK_PATH=/home/braxton/git/pico/pico-sdk
@@ -200,3 +200,9 @@ VISUAL=nvim
 EDITOR="$VISUAL"
 export VISUAL
 export EDITOR
+
+#  xmake completion
+export XMAKE_ROOTDIR="/usr/bin"
+export PATH="$XMAKE_ROOTDIR:$PATH"
+[[ -s "/usr/share/xmake/scripts/profile-unix.sh" ]] && source "/usr/share/xmake/scripts/profile-unix.sh"
+#  xmake completion
