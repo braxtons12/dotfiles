@@ -66,6 +66,7 @@ vim.opt.mouse = "a"
 vim.opt.clipboard = "unnamedplus"
 vim.opt.wrap = false
 vim.cmd("set colorcolumn=101")
+vim.opt.expandtab = true
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.hidden = true
@@ -174,10 +175,10 @@ vim.cmd("hi DiagnosticSignError guifg=#c65156")
 vim.cmd("hi DiagnosticSignWarn guifg=#d29767")
 vim.cmd("hi DiagnosticSignHint guifg=#9daaaa")
 vim.cmd("hi DiagnosticSignInfo guifg=#61afef")
-vim.cmd("hi DiagnosticVirtualTextError guifg=#c65156")
-vim.cmd("hi DiagnosticVirtualTextWarn guifg=#d29767")
-vim.cmd("hi DiagnosticVirtualTextHint guifg=#9daaaa")
-vim.cmd("hi DiagnosticVirtualTextInfo guifg=#61afef")
+vim.cmd("hi DiagnosticVirtualTextError guibg=#2d2d36 guifg=#c65156")
+vim.cmd("hi DiagnosticVirtualTextWarn guibg=#2c2e33 guifg=#d29767")
+vim.cmd("hi DiagnosticVirtualTextHint guibg=#292f37 guifg=#9daaaa")
+vim.cmd("hi DiagnosticVirtualTextInfo guibg=#262d33 guifg=#61afef")
 
 vim.cmd("hi BlameLineNvim guifg=#202020")
 vim.cmd("hi GitSignsCurrentLineBlame guifg=#202020")

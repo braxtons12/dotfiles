@@ -184,19 +184,19 @@ packer.use { "lukas-reineke/virt-column.nvim",
 		}
 	end
 }
---packer.use {"https://git.sr.ht/~whynothugo/lsp_lines.nvim",
--- 	as = "lsp_lines.nvim",
--- 	requires = "nvim-lspconfig",
--- 	config = function()
--- 		require("lsp_lines").register_lsp_virtual_lines()
--- 		vim.diagnostic.config({
--- 			virtual_text = true,
--- 			virtual_lines = {
--- 				prefix = "🔥",
--- 			},
--- 		})
--- 	end
--- }
+packer.use {"https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+ 	as = "lsp_lines.nvim",
+ 	requires = "nvim-lspconfig",
+ 	config = function()
+ 		require("lsp_lines").register_lsp_virtual_lines()
+ 		vim.diagnostic.config({
+ 			virtual_text = false,
+ 			virtual_lines = {
+ 				prefix = "🔥",
+ 			},
+ 		})
+ 	end
+ }
 packer.use { "CosmicNvim/cosmic-ui",
 	requires = {
 		"MunifTanjim/nui.nvim",
