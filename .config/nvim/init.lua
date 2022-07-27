@@ -1,6 +1,7 @@
 --vim.cmd [[packadd nvim-lspconfig]]
 local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 local packer_bootstrap = nil
+---@diagnostic disable-next-line: param-type-mismatch
 if vim.fn.empty(vim.fn.glob(install_path, nil, nil, nil)) > 0 then
 	packer_bootstrap = vim.fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim',
 		install_path })
@@ -538,15 +539,19 @@ local function map(mode, lhs, rhs, description, opts)
 		silent = true
 	}
 	if opts then
+---@diagnostic disable-next-line: cast-local-type
 		options = vim.tbl_extend("force", options, opts)
 	end
 	local wk_options = {
 		mode = mode,
 		prefix = "",
 		buffer = nil,
+---@diagnostic disable-next-line: need-check-nil
 		noremap = options.noremap,
+---@diagnostic disable-next-line: need-check-nil
 		silent = options.silent,
 	}
+---@diagnostic disable-next-line: param-type-mismatch
 	vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 	local wk = require("which-key")
 	wk.register({
@@ -559,12 +564,12 @@ local function map(mode, lhs, rhs, description, opts)
 	local command_center = require("command_center")
 	command_center.add({
 		{
-			description = description,
+			desc = description,
 			cmd = rhs,
-			keybindings = {mode, lhs, options},
+			keys = {mode, lhs, options},
 			mode = command_center.mode.ADD_ONLY,
 		}
-	}, command_center.mode.ADD_ONLY)
+	}, {command_center.mode.ADD_ONLY})
 end
 
 local function nmap(lhs, rhs, options)
@@ -576,7 +581,7 @@ local function tmap(lhs, rhs, options)
 end
 
 vim.g.mapleader = ' '
-nmap("<S-p>", "<cmd>Telescope command_center<CR>", "Open Command Center")
+nmap("<A-S-p>", "<cmd>Telescope command_center<CR>", "Open Command Center")
 nmap("<S-f>", "<cmd>lua require(\"telescope.builtin\").find_files(require(\"telescope.themes\").get_dropdown({}))<CR>",
 	"Telescope Find Files")
 nmap("<S-A-g>", "<cmd>lua require(\"telescope.builtin\").live_grep(require(\"telescope.themes\").get_dropdown({}))<CR>",
