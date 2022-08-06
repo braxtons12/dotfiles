@@ -141,6 +141,13 @@ packer.use { "stevearc/aerial.nvim",
             max_width = { 30, 0.2 },
             min_width = 20,
             show_guides = true,
+            placement_editor_edge = true,
+            float = {
+                border = "square",
+                relative = "win",
+                max_height = 1.0,
+                min_height = {1.0, 1.0},
+            },
         }
     end
 }
@@ -305,6 +312,7 @@ packer.use { "lukas-reineke/indent-blankline.nvim",
     config = function()
         require("indent_blankline").setup {
         }
+        vim.g.indent_blankline_show_trailing_blankline_indent = false
     end
 }
 packer.use "Raimondi/delimitMate"

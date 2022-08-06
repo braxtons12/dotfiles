@@ -104,7 +104,7 @@ end
 vim.api.nvim_create_autocmd(
 	{ "BufRead", "BufNewFile" },
 	{
-		pattern = { "*.clang-tidy", "*.clang-format", "*.clangd" },
+		pattern = { "*.clang-tidy", "*.clang-format", "*.clangd", "*.cmake-format", "*.cmake-lint" },
 		callback = function()
 			vim.cmd("setfiletype yaml")
 		end,
@@ -561,23 +561,25 @@ local function map(mode, lhs, rhs, description, opts)
 		},
 	}, wk_options)
 
-	local command_center = require("command_center")
-	command_center.add({
-		{
-			desc = description,
-			cmd = rhs,
-			keys = {mode, lhs, options},
-			mode = command_center.mode.ADD_ONLY,
-		}
-	}, {command_center.mode.ADD_ONLY})
+    if mode ~= "t" then
+        local command_center = require("command_center")
+        command_center.add({
+            {
+                desc = description,
+                cmd = rhs,
+                keys = {mode, lhs, options},
+                mode = command_center.mode.ADD,
+            }
+        }, {command_center.mode.ADD})
+    end
 end
 
-local function nmap(lhs, rhs, options)
-	map("n", lhs, rhs, options)
+local function nmap(lhs, rhs, description, options)
+	map("n", lhs, rhs, description, options)
 end
 
-local function tmap(lhs, rhs, options)
-	map("t", lhs, rhs, options)
+local function tmap(lhs, rhs, description, options)
+	map("t", lhs, rhs, description, options)
 end
 
 vim.g.mapleader = ' '
