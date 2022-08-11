@@ -3,19 +3,19 @@ local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.n
 local packer_bootstrap = nil
 ---@diagnostic disable-next-line: param-type-mismatch
 if vim.fn.empty(vim.fn.glob(install_path, nil, nil, nil)) > 0 then
-	packer_bootstrap = vim.fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim',
-		install_path })
+    packer_bootstrap = vim.fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim',
+        install_path })
 end
 
 ----------------------------------------------
 -- PLUGINS
 ----------------------------------------------
 require('packer').startup(function(use)
-	use "wbthomason/packer.nvim"
+    use "wbthomason/packer.nvim"
 
-	if packer_bootstrap ~= nil then
-		require('packer').sync()
-	end
+    if packer_bootstrap ~= nil then
+        require('packer').sync()
+    end
 end)
 
 vim.cmd("autocmd ColorScheme * hi PMenu ctermbg=darkgrey guibg=#262b33, guifg=#9daaaa")
@@ -25,29 +25,29 @@ vim.cmd("autocmd ColorScheme * hi FloatBorder guifg=#9daaaa guibg=#262b33")
 vim.cmd("autocmd ColorScheme * hi TreesitterContext guibg=#383d48")
 
 local border = {
-	--{ "┌", "FloatBorder" },
-	--{ "─", "FloatBorder" },
-	--{ "┐", "FloatBorder" },
-	--{ "│", "FloatBorder" },
-	--{ "┘", "FloatBorder" },
-	--{ "─", "FloatBorder" },
-	--{ "└", "FloatBorder" },
-	--{ "│", "FloatBorder" },
-	{ "╭", "FloatBorder" },
-	{ "─", "FloatBorder" },
-	{ "╮", "FloatBorder" },
-	{ "│", "FloatBorder" },
-	{ "╯", "FloatBorder" },
-	{ "─", "FloatBorder" },
-	{ "╰", "FloatBorder" },
-	{ "│", "FloatBorder" },
+    --{ "┌", "FloatBorder" },
+    --{ "─", "FloatBorder" },
+    --{ "┐", "FloatBorder" },
+    --{ "│", "FloatBorder" },
+    --{ "┘", "FloatBorder" },
+    --{ "─", "FloatBorder" },
+    --{ "└", "FloatBorder" },
+    --{ "│", "FloatBorder" },
+    { "╭", "FloatBorder" },
+    { "─", "FloatBorder" },
+    { "╮", "FloatBorder" },
+    { "│", "FloatBorder" },
+    { "╯", "FloatBorder" },
+    { "─", "FloatBorder" },
+    { "╰", "FloatBorder" },
+    { "│", "FloatBorder" },
 }
 
 local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
 function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-	opts = opts or {}
-	opts.border = opts.border or border
-	return orig_util_open_floating_preview(contents, syntax, opts, ...)
+    opts = opts or {}
+    opts.border = opts.border or border
+    return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
 
 require("plugins")
@@ -84,79 +84,89 @@ vim.opt.wildmenu = true
 vim.cmd("set inccommand:nosplit")
 
 vim.diagnostic.config({
-	underline = true,
-	signs = true,
-	virtual_text = {
-		prefix = "",
-	},
-	update_in_insert = true,
+    underline = true,
+    signs = true,
+    virtual_text = {
+        prefix = "",
+    },
+    update_in_insert = true,
 })
 
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 for type, icon in pairs(signs) do
-	local hl = "DiagnosticSign" .. type
-	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "DiagnosticDefault" .. type })
+    local hl = "DiagnosticSign" .. type
+    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "DiagnosticDefault" .. type })
 end
 
 ----------------------------------------------
 -- AUTOCOMMANDS
 ----------------------------------------------
 vim.api.nvim_create_autocmd(
-	{ "BufRead", "BufNewFile" },
-	{
-		pattern = { "*.clang-tidy", "*.clang-format", "*.clangd", "*.cmake-format", "*.cmake-lint" },
-		callback = function()
-			vim.cmd("setfiletype yaml")
-		end,
-	}
+    { "BufRead", "BufNewFile" },
+    {
+        pattern = { "*.clang-tidy", "*.clang-format", "*.clangd", "*.cmake-format", "*.cmake-lint" },
+        callback = function()
+            vim.cmd("setfiletype yaml")
+        end,
+    }
 )
 vim.api.nvim_create_autocmd(
-	{ "BufRead", "BufNewFile" },
-	{
-		pattern = { "CMakeLists.txt", "CMakeLists.text", "*.cmake" },
-		callback = function()
-			vim.cmd("setfiletype cmake")
-		end,
-	}
-)
-
-vim.api.nvim_create_autocmd(
-	{ "FileType" },
-	{
-		pattern = { "qf" },
-		callback = function()
-			vim.cmd("nnoremap <silent> <buffer> <CR> <CR>:cclose<CR>")
-		end,
-	}
+    { "BufRead", "BufNewFile" },
+    {
+        pattern = { "CMakeLists.txt", "CMakeLists.text", "*.cmake" },
+        callback = function()
+            vim.cmd("setfiletype cmake")
+        end,
+    }
 )
 
 vim.api.nvim_create_autocmd(
-	"CursorHold",
-	{
-		pattern = { "*" },
-		callback = function()
-			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-				vim.lsp.handlers.hover, { focusable = false }
-			)
-			local cmp = require("cmp")
-			if not cmp.visible() then
-				vim.cmd("set eventignore=CursorHold")
-				vim.lsp.buf.hover()
-				vim.api.nvim_create_autocmd("CursorMoved",
-					{
-						pattern = {"*"},
-						once = true,
-						callback = function()
-							vim.cmd("set eventignore=\"\"")
-							vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-								vim.lsp.handlers.hover, { focusable = true }
-							)
-						end
-					}
-				)
-			end
-		end,
-	}
+    { "FileType" },
+    {
+        pattern = { "qf" },
+        callback = function()
+            vim.cmd("nnoremap <silent> <buffer> <CR> <CR>:cclose<CR>")
+        end,
+    }
+)
+
+vim.api.nvim_create_autocmd(
+    { "FileType" },
+    {
+        pattern = { "aerial" },
+        callback = function()
+            vim.cmd("set winhl=Normal:AerialNormal")
+        end,
+    }
+)
+
+vim.api.nvim_create_autocmd(
+    "CursorHold",
+    {
+        pattern = { "*" },
+        callback = function()
+            vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+                vim.lsp.handlers.hover, { focusable = false }
+            )
+            local cmp = require("cmp")
+            if not cmp.visible() then
+                vim.cmd("set eventignore=CursorHold")
+                vim.lsp.buf.hover()
+                vim.api.nvim_create_autocmd("CursorMoved",
+                    {
+                        pattern = { "*" },
+                        once = true,
+                        callback = function()
+                            vim.cmd("set eventignore=\"\"")
+                            vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+                                vim.lsp.handlers.hover, { focusable = true }
+                            )
+                        end
+                    }
+                )
+            end
+        end,
+    }
 )
 
 ----------------------------------------------
@@ -167,7 +177,6 @@ vim.cmd("set background=dark")
 vim.g.one_allow_italics = 1
 vim.cmd("colorscheme one")
 --vim.cmd("hi ColourColumn ctermbg=darkgrey guibg=#262b33 ctermfg=lightgrey guifg=#383d48")
-vim.cmd("hi Normal ctermbg=darkgrey guibg=#262b33")
 vim.cmd("hi VertSplit ctermbg=darkgrey guibg=#262b33 ctermfg=lightgrey guifg=#383d48")
 vim.cmd("hi VirtColumn guifg=#383d48")
 vim.cmd("let $NVIM_TUI_ENABLE_TRUE_COLOR=1")
@@ -187,33 +196,33 @@ vim.cmd("hi GitSignsCurrentLineBlame guifg=#202020")
 -- HIGHLIGHTING FOR NVIM-TREE
 ----------------------------------------------
 
-vim.cmd("hi Directory guibg=#21252b guifg=#61afef")
-vim.cmd("hi NvimTreeNormal guibg=#21252b guifg=#9daaaa")
+vim.cmd("hi Directory guibg=#23282e guifg=#61afef")
+vim.cmd("hi NvimTreeNormal guibg=#23282e guifg=#9daaaa")
 vim.cmd("hi NvimTreeCursorLine guibg=#383d48 guifg=#9daaaa")
-vim.cmd("hi NvimTreeSymlink guibg=#21252b guifg=#dbba75")
-vim.cmd("hi NvimTreeFolderName guibg=#21252b guifg=#61afef")
-vim.cmd("hi NvimTreeEmptyFolderName guibg=#21252b guifg=#61afef")
-vim.cmd("hi NvimTreeOpenedFolderName guibg=#21252b guifg=#61afef")
-vim.cmd("hi NvimTreeFolderIcon guibg=#21252b guifg=#61afef")
-vim.cmd("hi NvimTreeRootFolder guibg=#21252b guifg=#61afef")
-vim.cmd("hi NvimTreeFileIcon guibg=#21252b guifg=#9daaaa")
-vim.cmd("hi NvimTreeExecFile guibg=#21252b guifg=#9daaaa")
-vim.cmd("hi NvimTreeOpenedFile guibg=#21252b guifg=#9daaaa")
-vim.cmd("hi NvimTreeSpecialFile guibg=#21252b guifg=#9daaaa")
-vim.cmd("hi NvimTreeImageFile guibg=#21252b guifg=#9daaaa")
-vim.cmd("hi NvimTreeIndentMarker guibg=#21252b guifg=#9daaaa")
+vim.cmd("hi NvimTreeSymlink guibg=#23282e guifg=#dbba75")
+vim.cmd("hi NvimTreeFolderName guibg=#23282e guifg=#61afef")
+vim.cmd("hi NvimTreeEmptyFolderName guibg=#23282e guifg=#61afef")
+vim.cmd("hi NvimTreeOpenedFolderName guibg=#23282e guifg=#61afef")
+vim.cmd("hi NvimTreeFolderIcon guibg=#23282e guifg=#61afef")
+vim.cmd("hi NvimTreeRootFolder guibg=#23282e guifg=#61afef")
+vim.cmd("hi NvimTreeFileIcon guibg=#23282e guifg=#9daaaa")
+vim.cmd("hi NvimTreeExecFile guibg=#23282e guifg=#9daaaa")
+vim.cmd("hi NvimTreeOpenedFile guibg=#23282e guifg=#9daaaa")
+vim.cmd("hi NvimTreeSpecialFile guibg=#23282e guifg=#9daaaa")
+vim.cmd("hi NvimTreeImageFile guibg=#23282e guifg=#9daaaa")
+vim.cmd("hi NvimTreeIndentMarker guibg=#23282e guifg=#9daaaa")
 
 vim.cmd("hi LspDiagnosticsError guifg=#c65156")
 vim.cmd("hi LspDiagnosticsWarn guifg=#d29767")
 vim.cmd("hi LspDiagnosticsHint guifg=#9daaaa")
 vim.cmd("hi LspDiagnosticsInformation guifg=#61afef")
 
-vim.cmd("hi NvimTreeGitDirty guibg=#21252b guifg=#dbba75")
-vim.cmd("hi NvimTreeGitStaged guibg=#21252b guifg=#83a76e")
-vim.cmd("hi NvimTreeGitMerge guibg=#21252b guifg=#c67ada")
-vim.cmd("hi NvimTreeGitRenamed guibg=#21252b guifg=#dbba75")
-vim.cmd("hi NvimTreeGitNew guibg=#21252b guifg=#686e78")
-vim.cmd("hi NvimTreeGitDeleted guibg=#21252b guifg=#c65156")
+vim.cmd("hi NvimTreeGitDirty guibg=#23282e guifg=#dbba75")
+vim.cmd("hi NvimTreeGitStaged guibg=#23282e guifg=#83a76e")
+vim.cmd("hi NvimTreeGitMerge guibg=#23282e guifg=#c67ada")
+vim.cmd("hi NvimTreeGitRenamed guibg=#23282e guifg=#dbba75")
+vim.cmd("hi NvimTreeGitNew guibg=#23282e guifg=#686e78")
+vim.cmd("hi NvimTreeGitDeleted guibg=#23282e guifg=#c65156")
 
 ----------------------------------------------
 -- HIGHLIGHTING FOR NVIM NOTIFY
@@ -293,7 +302,7 @@ vim.cmd("hi Keyword guifg=#c67ada cterm=none gui=none")
 vim.cmd("hi Comment guifg=#686e78 cterm=none gui=none")
 vim.cmd("hi String guifg=#83a76e cterm=none gui=none")
 vim.cmd("hi Number guifg=#d29767 cterm=none gui=none")
-vim.cmd("hi Normal guifg=#9daaaa cterm=none gui=none")
+vim.cmd("hi Normal ctermbg=darkgrey guibg=#262b33 guifg=#9daaaa cterm=none gui=none")
 vim.cmd("hi Variable guifg=#9daaaa cterm=none gui=none")
 vim.cmd("hi Field guifg=#c65156 cterm=none gui=none")
 vim.cmd("hi Property guifg=#c65156 cterm=none gui=none")
@@ -476,90 +485,102 @@ vim.cmd("hi doxygenSpecial guifg=#8278b4 cterm=italic,bold gui=italic,bold")
 ----------------------------------------------
 -- AERIAL.NVIM HIGHLIGHTING
 ----------------------------------------------
-vim.cmd("hi!  AerialFile guifg=#00997b")
-vim.cmd("hi!  AerialFileIcon guifg=#00997b")
-vim.cmd("hi! link AerialModule Namespace")
-vim.cmd("hi! link AerialModuleIcon Namespace")
-vim.cmd("hi! link AerialNamespace Namespace")
-vim.cmd("hi! link AerialNamespaceIcon Namespace")
-vim.cmd("hi! link AerialPackage Namespace")
-vim.cmd("hi! link AerialPackageIcon Namespace")
-vim.cmd("hi! link AerialClass Type")
-vim.cmd("hi! link AerialClassIcon Type")
-vim.cmd("hi! link AerialMethod Function")
-vim.cmd("hi! link AerialMethodIcon Function")
-vim.cmd("hi! link AerialProperty Property")
-vim.cmd("hi! link AerialPropertyIcon Property")
-vim.cmd("hi! link AerialField Property")
-vim.cmd("hi! link AerialFieldIcon Property")
-vim.cmd("hi! link AerialConstructor Type")
-vim.cmd("hi! link AerialConstructorIcon Type")
-vim.cmd("hi! link AerialEnum Enum")
-vim.cmd("hi! link AerialEnumIcon Enum")
-vim.cmd("hi! link AerialInterface Type")
-vim.cmd("hi! link AerialInterfaceIcon Type")
-vim.cmd("hi! link AerialFunction Function")
-vim.cmd("hi! link AerialFunctionIcon Function")
-vim.cmd("hi! link AerialVariable Variable")
-vim.cmd("hi! link AerialVariableIcon Variable")
-vim.cmd("hi! link AerialConstant Variable")
-vim.cmd("hi! link AerialConstantIcon Variable")
-vim.cmd("hi! link AerialString String")
-vim.cmd("hi! link AerialStringIcon String")
-vim.cmd("hi! link AerialNumber Number")
-vim.cmd("hi! link AerialNumberIcon Number")
-vim.cmd("hi! link AerialBoolean Keyword")
-vim.cmd("hi! link AerialBooleanIcon Keyword")
-vim.cmd("hi! link AerialArray Variable")
-vim.cmd("hi! link AerialArrayIcon Variable")
-vim.cmd("hi! link AerialObject Variable")
-vim.cmd("hi! link AerialObjectIcon Variable")
-vim.cmd("hi! link AerialKey String")
-vim.cmd("hi! link AerialKeyIcon String")
-vim.cmd("hi! link AerialNull Keyword")
-vim.cmd("hi! link AerialNullIcon Keyword")
-vim.cmd("hi! link AerialEnumMember LspSemantic_enumMember")
-vim.cmd("hi! link AerialEnumMemberIcon LspSemantic_enumMember")
-vim.cmd("hi! link AerialStruct Type")
-vim.cmd("hi! link AerialStructIcon Type")
-vim.cmd("hi! link AerialEvent Type")
-vim.cmd("hi! link AerialEventIcon Type")
-vim.cmd("hi! link AerialOperator Normal")
-vim.cmd("hi! link AerialOperatorIcon Normal")
-vim.cmd("hi! link AerialTypeParameter LspSemantic_typeParameter")
-vim.cmd("hi! link AerialTypeParameterIcon LspSemantic_typeParameter")
+vim.cmd("hi  AerialFile guibg=#23282e guifg=#00997b")
+vim.cmd("hi! link AerialFileIcon AerialFile")
+vim.cmd("hi AerialNamespace guibg=#23282e guifg=#00997b")
+vim.cmd("hi! link AerialNamespaceIcon AerialNamespace")
+vim.cmd("hi! link AerialModule AerialNamespace")
+vim.cmd("hi! link AerialModuleIcon AerialNamespace")
+vim.cmd("hi! link AerialPackage AerialNamespace")
+vim.cmd("hi! link AerialPackageIcon AerialNamespace")
+
+vim.cmd("hi AerialClass guibg=#23282e guifg=#dbba75")
+vim.cmd("hi! link AerialClassIcon AerialType")
+vim.cmd("hi! link AerialConstructor AerialType")
+vim.cmd("hi! link AerialConstructorIcon AerialType")
+vim.cmd("hi! link AerialInterface AerialType")
+vim.cmd("hi! link AerialInterfaceIcon AerialType")
+vim.cmd("hi! link AerialStruct AerialType")
+vim.cmd("hi! link AerialStructIcon AerialType")
+vim.cmd("hi! link AerialEvent AerialType")
+vim.cmd("hi! link AerialEventIcon AerialType")
+vim.cmd("hi! link AerialEnum AerialType")
+vim.cmd("hi! link AerialEnumIcon AerialType")
+
+vim.cmd("hi AerialFunction guibg=#23282e guifg=#61afef")
+vim.cmd("hi! link AerialFunctionIcon AerialFunction")
+vim.cmd("hi! link AerialMethod AerialFunction")
+vim.cmd("hi! link AerialMethodIcon AerialFunction")
+
+vim.cmd("hi AerialProperty guibg=#23282e guifg=#c65156")
+vim.cmd("hi! link AerialPropertyIcon AerialProperty")
+vim.cmd("hi! link AerialField AerialProperty")
+vim.cmd("hi! link AerialFieldIcon AerialProperty")
+
+
+vim.cmd("hi AerialVariable guibg=#23282e guifg=#9daaaa")
+vim.cmd("hi! link AerialVariableIcon AerialVariable")
+vim.cmd("hi! link AerialConstant AerialVariable")
+vim.cmd("hi! link AerialConstantIcon AerialVariable")
+vim.cmd("hi! link AerialArray AerialVariable")
+vim.cmd("hi! link AerialArrayIcon AerialVariable")
+vim.cmd("hi! link AerialObject AerialVariable")
+vim.cmd("hi! link AerialObjectIcon AerialVariable")
+vim.cmd("hi! link AerialOperator AerialVariable")
+vim.cmd("hi! link AerialOperatorIcon AerialVariable")
+
+vim.cmd("hi AerialString guibg=#23282e guifg=#83a76e")
+vim.cmd("hi! link AerialStringIcon AerialString")
+vim.cmd("hi! link AerialKey AerialString")
+vim.cmd("hi! link AerialKeyIcon AerialString")
+
+vim.cmd("hi AerialNumber guibg=#23282e guifg=#d29767")
+vim.cmd("hi! link AerialNumberIcon AerialNumber")
+
+vim.cmd("hi AerialBoolean guibg=#23282e guifg=#c67ada")
+vim.cmd("hi! link AerialBooleanIcon AerialKeyword")
+vim.cmd("hi! link AerialNull AerialKeyword")
+vim.cmd("hi! link AerialNullIcon AerialKeyword")
+
+vim.cmd("hi! link AerialEnumMember AerialNamespace")
+vim.cmd("hi! link AerialEnumMemberIcon AerialNamespace")
+vim.cmd("hi! link AerialTypeParameter AerialNamespace")
+vim.cmd("hi! link AerialTypeParameterIcon AerialNamespace")
+
+vim.cmd("hi AerialGuide guibg=#23282e guifg=#686e78")
+vim.cmd("hi AerialNormal guibg=#23282e guifg=#9daaaa")
 
 ----------------------------------------------
 -- KEYMAPS
 ----------------------------------------------
 
 local function map(mode, lhs, rhs, description, opts)
-	local options = {
-		noremap = true,
-		silent = true
-	}
-	if opts then
----@diagnostic disable-next-line: cast-local-type
-		options = vim.tbl_extend("force", options, opts)
-	end
-	local wk_options = {
-		mode = mode,
-		prefix = "",
-		buffer = nil,
----@diagnostic disable-next-line: need-check-nil
-		noremap = options.noremap,
----@diagnostic disable-next-line: need-check-nil
-		silent = options.silent,
-	}
----@diagnostic disable-next-line: param-type-mismatch
-	vim.api.nvim_set_keymap(mode, lhs, rhs, options)
-	local wk = require("which-key")
-	wk.register({
-		[lhs] = {
-			rhs,
-			description,
-		},
-	}, wk_options)
+    local options = {
+        noremap = true,
+        silent = true
+    }
+    if opts then
+        ---@diagnostic disable-next-line: cast-local-type
+        options = vim.tbl_extend("force", options, opts)
+    end
+    local wk_options = {
+        mode = mode,
+        prefix = "",
+        buffer = nil,
+        ---@diagnostic disable-next-line: need-check-nil
+        noremap = options.noremap,
+        ---@diagnostic disable-next-line: need-check-nil
+        silent = options.silent,
+    }
+    ---@diagnostic disable-next-line: param-type-mismatch
+    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+    local wk = require("which-key")
+    wk.register({
+        [lhs] = {
+            rhs,
+            description,
+        },
+    }, wk_options)
 
     if mode ~= "t" then
         local command_center = require("command_center")
@@ -567,27 +588,27 @@ local function map(mode, lhs, rhs, description, opts)
             {
                 desc = description,
                 cmd = rhs,
-                keys = {mode, lhs, options},
+                keys = { mode, lhs, options },
                 mode = command_center.mode.ADD,
             }
-        }, {command_center.mode.ADD})
+        }, { command_center.mode.ADD })
     end
 end
 
 local function nmap(lhs, rhs, description, options)
-	map("n", lhs, rhs, description, options)
+    map("n", lhs, rhs, description, options)
 end
 
 local function tmap(lhs, rhs, description, options)
-	map("t", lhs, rhs, description, options)
+    map("t", lhs, rhs, description, options)
 end
 
 vim.g.mapleader = ' '
 nmap("<A-S-p>", "<cmd>Telescope command_center<CR>", "Open Command Center")
 nmap("<S-f>", "<cmd>lua require(\"telescope.builtin\").find_files(require(\"telescope.themes\").get_dropdown({}))<CR>",
-	"Telescope Find Files")
+    "Telescope Find Files")
 nmap("<S-A-g>", "<cmd>lua require(\"telescope.builtin\").live_grep(require(\"telescope.themes\").get_dropdown({}))<CR>",
-	"Telescope Live Grep")
+    "Telescope Live Grep")
 nmap("<C-t>", "<cmd>NvimTreeToggle<CR>", "Toggle NvimTree")
 nmap("<S-D>", "<cmd>Dox<CR>", "Create a Doxygen Comment")
 nmap("<C-p>", "<cmd>BufferLineCyclePrev<CR>", "Previous Buffer")
@@ -640,8 +661,8 @@ nmap("<C-S-d>", "<cmd>lua vim.diagnostic.config({virtual_lines = false})<CR>", "
 nmap("<S-m>", "<cmd>AerialToggle!<CR>", "Toggles the Aerial Overview")
 
 nmap("<F10>",
-	":echo \"hi<\" . synIDattr(synID(line(\".\"),col(\".\"),1),\"name\") . '> trans<'\
+    ":echo \"hi<\" . synIDattr(synID(line(\".\"),col(\".\"),1),\"name\") . '> trans<'\
 				. synIDattr(synID(line(\".\"),col(\".\"),0),\"name\") . \"> lo<\"\
 				. synIDattr(synIDtrans(synID(line(\".\"),col(\".\"),1)),\"name\") . \">\"<CR>",
-	"Show Highlight Group For Token"
+    "Show Highlight Group For Token"
 )
