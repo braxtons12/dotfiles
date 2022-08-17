@@ -1089,7 +1089,7 @@ packer.use { "hrsh7th/nvim-cmp",
             view = {
                 entries = {
                     name = "custom",
-                    selection_order = "near_cursor",
+                    --selection_order = "near_cursor",
                 },
             },
             mapping = cmp.mapping.preset.insert({
