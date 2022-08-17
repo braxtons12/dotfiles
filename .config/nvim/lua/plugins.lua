@@ -18,11 +18,11 @@ packer.use { "phaazon/hop.nvim",
 }
 packer.use "tpope/vim-fugitive"
 --packer.use { "/home/braxton/git/blame_line.nvim",
---	as = "blame_line.nvim",
---	config = function()
---		require("blame_line").setup {
---		}
---	end
+--    as = "blame_line.nvim",
+--    config = function()
+--    	require("blame_line").setup {
+--    	}
+--    end
 --}
 packer.use "cespare/vim-toml"
 packer.use "HerringtonDarkholme/yats.vim"
@@ -137,13 +137,13 @@ packer.use { "stevearc/aerial.nvim",
             highlight_closest = true,
             highlight_on_hover = true,
             icons = require("lspkind_icons"),
-            open_automatic = true,
+            open_automatic = false,
             max_width = { 30, 0.2 },
             min_width = 20,
             show_guides = true,
             placement_editor_edge = true,
             float = {
-                border = "square",
+                border = "single",
                 relative = "win",
                 max_height = 1.0,
                 min_height = {1.0, 1.0},
