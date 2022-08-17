@@ -1061,16 +1061,27 @@ packer.use { "hrsh7th/nvim-cmp",
                 --documentation = cmp.config.window.bordered("square"),
                 completion = {
                     border = border,
+                    col_offset = -3,
+                    side_padding = 0,
                 },
                 documentation = {
+                    winhighlight = "Normal:Float,FloatBorder:FloatBorder",
                     border = border,
                 },
             },
             formatting = {
+                fields = {
+                    "kind",
+                    "abbr",
+                    "menu",
+                },
                 format = function(_, vim_item)
                     local icons = require("lspkind_icons")
-                    vim_item.kind = string.format("%s %s", icons[vim_item.kind], vim_item.kind)
+                    local icon = icons[vim_item.kind]
+                    local menu = vim_item.kind
+                    vim_item.kind = icon
                     vim_item.abbr = string.sub(vim_item.abbr, 1, 75)
+                    vim_item.menu = "   (" .. menu .. ")"
 
                     return vim_item
                 end,
@@ -1078,6 +1089,7 @@ packer.use { "hrsh7th/nvim-cmp",
             view = {
                 entries = {
                     name = "custom",
+                    selection_order = "near_cursor",
                 },
             },
             mapping = cmp.mapping.preset.insert({
