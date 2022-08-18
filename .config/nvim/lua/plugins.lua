@@ -146,7 +146,7 @@ packer.use { "stevearc/aerial.nvim",
                 border = "single",
                 relative = "win",
                 max_height = 1.0,
-                min_height = {1.0, 1.0},
+                min_height = { 1.0, 1.0 },
             },
         }
     end
@@ -584,7 +584,41 @@ packer.use { "rcarriga/nvim-notify",
                 max_width = 60,
                 render = "default",
                 stages = "fade_in_slide_out",
-                timeout = 2500
+                timeout = 2500,
+                on_open = function(win)
+                    if vim.api.nvim_win_is_valid(win) then
+                        local border = {
+                            --{ "┏", },
+                            --{ "━", },
+                            --{ "┓", },
+                            --{ "┃", },
+                            --{ "┛", },
+                            --{ "━", },
+                            --{ "┗", },
+                            --{ "┃", },
+                            --
+                            { "┌", },
+                            { "─", },
+                            { "┐", },
+                            { "│", },
+                            { "┘", },
+                            { "─", },
+                            { "└", },
+                            { "│", },
+                            --
+                            --{ "╭", },
+                            --{ "─", },
+                            --{ "╮", },
+                            --{ "│", },
+                            --{ "╯", },
+                            --{ "─", },
+                            --{ "╰", },
+                            --{ "│", },
+                        }
+                        vim.api.nvim_win_set_config(win, { border = border })
+                    end
+
+                end,
             })
     end
 }
@@ -862,7 +896,7 @@ LSP_SEM_TOKEN_HANDLERS = {
     end
 }
 
-packer.use {"p00f/clangd_extensions.nvim",
+packer.use { "p00f/clangd_extensions.nvim",
     after = "nvim-lspconfig",
     config = function()
         local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -922,20 +956,20 @@ packer.use { "neovim/nvim-lspconfig",
 
         for _, lsp in pairs(servers) do
             if lsp == "clangd" then
-               --require("lspconfig")[lsp].setup {
-               --    capabilities = capabilities,
-               --    on_attach = LSP_SEM_HL_ON_ATTACH,
-               --    flags = {
-               --        debounce_text_changes = 150,
-               --    },
-               --    cmd = {
-               --        "clangd",
-               --        "--background-index",
-               --        "--suggest-missing-includes",
-               --        "--enable-config"
-               --    },
-               --    handlers = LSP_SEM_TOKEN_HANDLERS,
-               --}
+                --require("lspconfig")[lsp].setup {
+                --    capabilities = capabilities,
+                --    on_attach = LSP_SEM_HL_ON_ATTACH,
+                --    flags = {
+                --        debounce_text_changes = 150,
+                --    },
+                --    cmd = {
+                --        "clangd",
+                --        "--background-index",
+                --        "--suggest-missing-includes",
+                --        "--enable-config"
+                --    },
+                --    handlers = LSP_SEM_TOKEN_HANDLERS,
+                --}
             elseif lsp == "rust_analyzer" then
                 require("lspconfig")[lsp].setup {
                     capabilities = capabilities,
@@ -1031,6 +1065,15 @@ packer.use { "hrsh7th/nvim-cmp",
         end
 
         local border = {
+            { "┏", "FloatBorder" },
+            { "━", "FloatBorder" },
+            { "┓", "FloatBorder" },
+            { "┃", "FloatBorder" },
+            { "┛", "FloatBorder" },
+            { "━", "FloatBorder" },
+            { "┗", "FloatBorder" },
+            { "┃", "FloatBorder" },
+            --
             --{ "┌", "FloatBorder" },
             --{ "─", "FloatBorder" },
             --{ "┐", "FloatBorder" },
@@ -1039,14 +1082,15 @@ packer.use { "hrsh7th/nvim-cmp",
             --{ "─", "FloatBorder" },
             --{ "└", "FloatBorder" },
             --{ "│", "FloatBorder" },
-            { "╭", "FloatBorder" },
-            { "─", "FloatBorder" },
-            { "╮", "FloatBorder" },
-            { "│", "FloatBorder" },
-            { "╯", "FloatBorder" },
-            { "─", "FloatBorder" },
-            { "╰", "FloatBorder" },
-            { "│", "FloatBorder" },
+            --
+            --{ "╭", "FloatBorder" },
+            --{ "─", "FloatBorder" },
+            --{ "╮", "FloatBorder" },
+            --{ "│", "FloatBorder" },
+            --{ "╯", "FloatBorder" },
+            --{ "─", "FloatBorder" },
+            --{ "╰", "FloatBorder" },
+            --{ "│", "FloatBorder" },
         }
 
         local cmp = require("cmp")

@@ -26,6 +26,15 @@ vim.cmd("autocmd ColorScheme * hi FloatBorder guifg=#181818 guibg=#252a33")
 vim.cmd("autocmd ColorScheme * hi TreesitterContext guibg=#383d48")
 
 local border = {
+    { "┏", "FloatBorder" },
+    { "━", "FloatBorder" },
+    { "┓", "FloatBorder" },
+    { "┃", "FloatBorder" },
+    { "┛", "FloatBorder" },
+    { "━", "FloatBorder" },
+    { "┗", "FloatBorder" },
+    { "┃", "FloatBorder" },
+    --
     --{ "┌", "FloatBorder" },
     --{ "─", "FloatBorder" },
     --{ "┐", "FloatBorder" },
@@ -34,14 +43,15 @@ local border = {
     --{ "─", "FloatBorder" },
     --{ "└", "FloatBorder" },
     --{ "│", "FloatBorder" },
-    { "╭", "FloatBorder" },
-    { "─", "FloatBorder" },
-    { "╮", "FloatBorder" },
-    { "│", "FloatBorder" },
-    { "╯", "FloatBorder" },
-    { "─", "FloatBorder" },
-    { "╰", "FloatBorder" },
-    { "│", "FloatBorder" },
+    --
+    --{ "╭", "FloatBorder" },
+    --{ "─", "FloatBorder" },
+    --{ "╮", "FloatBorder" },
+    --{ "│", "FloatBorder" },
+    --{ "╯", "FloatBorder" },
+    --{ "─", "FloatBorder" },
+    --{ "╰", "FloatBorder" },
+    --{ "│", "FloatBorder" },
 }
 
 local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
