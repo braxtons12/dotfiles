@@ -775,6 +775,105 @@ packer.use { "williamboman/mason-lspconfig.nvim",
         })
     end,
 }
+packer.use { "mfussenegger/nvim-dap",
+    after = "mason.nvim",
+    config = function()
+        local path_sep = function()
+            return package.config:sub(1, 1)
+        end
+        local dap = require("dap")
+        dap.adapters.codelldb = {
+            type = "server",
+            port = "${port}",
+            executable = {
+                command = vim.fn.stdpath("data") .. path_sep() .. "mason" .. path_sep() .. "bin"
+                    .. path_sep() .. "codelldb",
+                args = { "--port", "${port}" },
+            },
+        }
+        dap.configurations.cpp = {
+            {
+                name = "Debug",
+                type = "codelldb",
+                request = "launch",
+                program = function()
+                    return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+                end,
+                cwd = "${workspaceFolder}",
+                stopOnEntry = true,
+            }
+        }
+        dap.configurations.c = dap.configurations.cpp
+        dap.configurations.rust = dap.configurations.cpp
+        vim.fn.sign_define("DapBreakpoint", { text = "●", texthl = "Field" })
+        vim.fn.sign_define("DapBreakpointRejected", { text = "○", texthl = "Field" })
+    end
+}
+
+packer.use { "rcarriga/nvim-dap-ui",
+    after = "nvim-dap",
+    config = function()
+        local dapui = require("dapui")
+        dapui.setup {
+            -- Layouts define sections of the screen to place windows.
+            -- The position can be "left", "right", "top" or "bottom".
+            -- The size specifies the height/width depending on position. It can be an Int
+            -- or a Float. Integer specifies height/width directly (i.e. 20 lines/columns) while
+            -- Float value specifies percentage (i.e. 0.3 - 30% of available lines/columns)
+            -- Elements are the elements shown in the layout (in order).
+            -- Layouts are opened in order so that earlier layouts take priority in window sizing.
+            layouts = {
+                {
+                    elements = {
+                        -- Elements can be strings or table with id and size keys.
+                        { id = "stacks", size = 0.2 },
+                        { id = "breakpoints", size = 0.2 },
+                        --"watches",
+                        { id = "scopes", size = 0.6 },
+                    },
+                    size = 40, -- 40 columns
+                    position = "left",
+                },
+                {
+                    elements = {
+                        "repl",
+                        "console",
+                    },
+                    size = 0.25, -- 25% of total lines
+                    position = "bottom",
+                },
+            },
+        }
+        local dap = require("dap")
+        dap.listeners.after.event_initialized["dapui_config"] = function()
+            dapui.open {}
+            vim.cmd("DapVirtualTextEnable")
+            dap.repl.close()
+        end
+        dap.listeners.before.event_initialized["dapui_config"] = function()
+            dapui.close {}
+            vim.cmd("DapVirtualTextDisable")
+            dap.repl.close()
+        end
+        dap.listeners.before.event_exited["dapui_config"] = function()
+            --dapui.close{}
+            vim.cmd("DapVirtualTextDisable")
+            dap.repl.close()
+        end
+        dap.listeners.after.event_stopped["dapui_config"] = function()
+            dap.repl.close()
+        end
+        dap.listeners.after.event_output["dapui_config"] = function()
+            dap.repl.close()
+        end
+    end
+}
+packer.use { "theHamsta/nvim-dap-virtual-text",
+    after = "nvim-dap",
+    config = function()
+        require("nvim-dap-virtual-text").setup {}
+    end
+}
 LSP_SEM_HL_ON_ATTACH = function(client, buffer_num)
     require("aerial").on_attach(client, buffer_num)
     vim.api.nvim_buf_set_option(buffer_num, "omnifunc", "v:lua.vim.lsp.omnifunc")

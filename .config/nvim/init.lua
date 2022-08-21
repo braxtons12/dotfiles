@@ -144,7 +144,13 @@ vim.api.nvim_create_autocmd(
 vim.api.nvim_create_autocmd(
     { "FileType" },
     {
-        pattern = { "aerial" },
+        pattern = {
+            "aerial",
+            "dapui_scopes",
+            "dapui_breakpoints",
+            "dapui_stacks",
+            "dapui_console"
+        },
         callback = function()
             vim.cmd("set winhl=Normal:AerialNormal")
         end,
@@ -203,6 +209,45 @@ vim.cmd("hi DiagnosticVirtualTextInfo guibg=#262d33 guifg=#61afef")
 
 vim.cmd("hi BlameLineNvim guifg=#202020")
 vim.cmd("hi GitSignsCurrentLineBlame guifg=#202020")
+
+----------------------------------------------
+-- GENERIC HIGHLIGHTING
+----------------------------------------------
+vim.cmd("hi Type ctermfg=29 guifg=#dbba75 cterm=none gui=none")
+vim.cmd("hi Macro guifg=#9c80ff cterm=none gui=none")
+vim.cmd("hi Function guifg=#61afef cterm=none gui=none")
+vim.cmd("hi Keyword guifg=#c67ada cterm=none gui=none")
+vim.cmd("hi Comment guifg=#686e78 cterm=none gui=none")
+vim.cmd("hi String guifg=#83a76e cterm=none gui=none")
+vim.cmd("hi Number guifg=#d29767 cterm=none gui=none")
+vim.cmd("hi Normal ctermbg=darkgrey guibg=#262b33 guifg=#9daaaa cterm=none gui=none")
+vim.cmd("hi Variable guifg=#9daaaa cterm=none gui=none")
+vim.cmd("hi Field guifg=#c65156 cterm=none gui=none")
+vim.cmd("hi Property guifg=#c65156 cterm=none gui=none")
+vim.cmd("hi Namespace guifg=#00997b cterm=italic gui=italic")
+
+----------------------------------------------
+-- HIGHLIGHTING FOR DAP-UI
+----------------------------------------------
+vim.cmd("hi! link DapUIType Type")
+vim.cmd("hi! link DapUIValue Number")
+vim.cmd("hi! link DapUIModifiedValue Field")
+vim.cmd("hi! link DapUIScope Namespace")
+vim.cmd("hi! link DapUIDecoration Macro")
+vim.cmd("hi! link DapUILineNumber Field")
+vim.cmd("hi! link DapUIThread Namespace")
+vim.cmd("hi! link DapUIStoppedThread Namespace")
+vim.cmd("hi! link DapUISource Namespace")
+vim.cmd("hi! link DapUIFrameName Namespace")
+vim.cmd("hi! link DapUIWatchesEmpy Normal")
+vim.cmd("hi! link DapUIWatchesValue Number")
+vim.cmd("hi! link DapUIWatchesError Field")
+vim.cmd("hi! link DapUIBreakPointsPath String")
+vim.cmd("hi! link DapUIBreakPointsInfo Normal")
+vim.cmd("hi! link DapUIBreakPointsCurrentLine Function")
+vim.cmd("hi! link DapUIBreakPointsLine Field")
+vim.cmd("hi! link DapUIBreakPointsDisabledLine Normal")
+
 ----------------------------------------------
 -- HIGHLIGHTING FOR NVIM-TREE
 ----------------------------------------------
@@ -311,22 +356,6 @@ vim.cmd("hi! link CmpItemKindTypeParameter CmpItemKindModule")
 vim.cmd("hi CmpItemKindString guifg=#202020 guibg=#83a76e")
 vim.cmd("hi! link CmpItemKindCalendar CmpItemKindString")
 vim.cmd("hi! link CmpItemKindWatch CmpItemKindString")
-
-----------------------------------------------
--- GENERIC HIGHLIGHTING
-----------------------------------------------
-vim.cmd("hi Type ctermfg=29 guifg=#dbba75 cterm=none gui=none")
-vim.cmd("hi Macro guifg=#9c80ff cterm=none gui=none")
-vim.cmd("hi Function guifg=#61afef cterm=none gui=none")
-vim.cmd("hi Keyword guifg=#c67ada cterm=none gui=none")
-vim.cmd("hi Comment guifg=#686e78 cterm=none gui=none")
-vim.cmd("hi String guifg=#83a76e cterm=none gui=none")
-vim.cmd("hi Number guifg=#d29767 cterm=none gui=none")
-vim.cmd("hi Normal ctermbg=darkgrey guibg=#262b33 guifg=#9daaaa cterm=none gui=none")
-vim.cmd("hi Variable guifg=#9daaaa cterm=none gui=none")
-vim.cmd("hi Field guifg=#c65156 cterm=none gui=none")
-vim.cmd("hi Property guifg=#c65156 cterm=none gui=none")
-vim.cmd("hi Namespace guifg=#00997b cterm=italic gui=italic")
 
 ----------------------------------------------
 -- C/CPP HIGHLIGHTING
@@ -623,6 +652,10 @@ local function tmap(lhs, rhs, description, options)
     map("t", lhs, rhs, description, options)
 end
 
+local function vmap(lhs, rhs, description, options)
+    map("v", lhs, rhs, description, options)
+end
+
 vim.g.mapleader = ' '
 nmap("<A-S-p>", "<cmd>Telescope command_center<CR>", "Open Command Center")
 nmap("<S-f>", "<cmd>lua require(\"telescope.builtin\").find_files(require(\"telescope.themes\").get_dropdown({}))<CR>",
@@ -639,6 +672,27 @@ nmap("<C-c>", "<cmd>Bdelete<CR>", "Delete Current Buffer")
 nmap("<C-s>", "<cmd>vsplit<CR>", "Vertical Split")
 nmap("s", "", "")
 nmap("<leader>s", "<cmd>vsplit<CR>", "Vertical Split")
+START_DEBUGGER = function()
+    local dap = require("dap")
+    dap.continue()
+    dap.repl.close()
+end
+nmap("<leader>debug", "<cmd>lua START_DEBUGGER()<CR>", "Start debugging application")
+nmap("<leader>exit", "<cmd>lua require(\"dap\").terminate()<CR>", "Terminate debugging")
+nmap("<leader>td", "<cmd>lua require(\"dapui\").toggle()<CR>", "Toggle Debugger UI")
+nmap("<leader>eval", "<cmd>lua require(\"dapui\").eval()<CR>", "Debugger Evaluate Expression")
+vmap("<leader>eval", "<cmd>lua require(\"dapui\").eval()<CR>", "Debugger Evaluate Expression")
+nmap("<S-e>", "<cmd>lua require(\"dapui\").eval()<CR>", "Debugger Evaluate Expression")
+vmap("<S-e>", "<cmd>lua require(\"dapui\").eval()<CR>", "Debugger Evaluate Expression")
+nmap("<S-b>", "<cmd>lua require(\"dap\").toggle_breakpoint()<CR>", "Toggle Breakpoint")
+nmap("<F1>", "<cmd>lua START_DEBUGGER()<CR>", "Debug Continue")
+nmap("<F2>", "<cmd>lua require(\"dap\").step_back()<CR>", "Debug Step Back")
+nmap("<F3>", "<cmd>lua require(\"dap\").step_out()<CR>", "Debug Step Out")
+nmap("<F4>", "<cmd>lua require(\"dap\").step_over()<CR>", "Debug Step Over")
+nmap("<F5>", "<cmd>lua require(\"dap\").step_into()<CR>", "Debug Step Into")
+nmap("<F6>", "<cmd>lua require(\"dap\").run_to_cursor()<CR>", "Terminate debugging")
+nmap("<F7>", "<cmd>lua require(\"dap\").terminate()<CR>", "Terminate debugging")
+
 
 vim.cmd("map <A-CR>=^[^M", "")
 nmap("<A-h>", "0", "Go to Start of Line")
