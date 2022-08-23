@@ -1309,35 +1309,68 @@ packer.use { "hrsh7th/nvim-cmp",
                 {
                     { name = "buffer" },
                 }),
+            sorting = {
+                comparators = {
+                    cmp.config.compare.score,
+                    cmp.config.compare.locality,
+                    cmp.config.compare.recently_used,
+                    cmp.config.compare.scopes,
+                    cmp.config.compare.kind,
+                    cmp.config.compare.offset,
+                }
+            },
         })
 
         cmp.setup.filetype("lua", {
             sources = cmp.config.sources({
                 { name = "nvim_lsp" },
                 { name = "cmp_nvim_lua" },
+                { name = "buffer" },
+            }),
+            sorting = {
+                comparators = {
+                    cmp.config.compare.score,
+                    cmp.config.compare.locality,
+                    cmp.config.compare.recently_used,
+                    cmp.config.compare.scopes,
+                    cmp.config.compare.kind,
+                    cmp.config.compare.offset,
+                }
             },
-                {
-                    { name = "buffer" },
-                }),
         })
 
         cmp.setup.cmdline("/", {
             mapping = cmp.mapping.preset.cmdline(),
             sources = cmp.config.sources({
                 { name = "nvim_lsp_document_symbol" },
+                { name = "buffer" },
+            }),
+            sorting = {
+                comparators = {
+                    cmp.config.compare.score,
+                    cmp.config.compare.locality,
+                    cmp.config.compare.recently_used,
+                    cmp.config.compare.scopes,
+                    cmp.config.compare.kind,
+                    cmp.config.compare.offset,
+                }
             },
-                {
-                    { name = "buffer" },
-                }),
         })
 
         cmp.setup.cmdline(":", {
             mapping = cmp.mapping.preset.cmdline(),
             sources = cmp.config.sources({
                 { name = "fuzzy_path" },
-            }, {
                 { name = "cmdline" },
-            })
+            }),
+            sorting = {
+                comparators = {
+                    cmp.config.compare.score,
+                    cmp.config.compare.sort_text,
+                    cmp.config.compare.length,
+                    cmp.config.compare.offset,
+                }
+            },
         })
 
         --local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
