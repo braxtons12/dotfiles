@@ -1235,6 +1235,16 @@ packer.use { "hrsh7th/nvim-cmp",
                     --selection_order = "near_cursor",
                 },
             },
+            sorting = {
+                comparators = {
+                    cmp.config.compare.score,
+                    cmp.config.compare.locality,
+                    cmp.config.compare.recently_used,
+                    cmp.config.compare.scopes,
+                    cmp.config.compare.kind,
+                    cmp.config.compare.offset,
+                }
+            },
             mapping = cmp.mapping.preset.insert({
                 ["<C-space>"] = cmp.mapping.complete(),
                 ["<Tab>"] = cmp.mapping(function(fallback)
