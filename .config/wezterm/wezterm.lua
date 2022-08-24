@@ -101,12 +101,17 @@ return {
         {
             key = "n",
             mods = "CTRL|SHIFT",
-            action = wezterm.action.ActivateTabRelative(1)
+            action = wezterm.action.ActivateTabRelative(1),
         },
         {
             key = "p",
             mods = "CTRL|SHIFT",
-            action = wezterm.action.ActivateTabRelative(-1)
+            action = wezterm.action.ActivateTabRelative(-1),
+        },
+        {
+            key = "Enter",
+            mods = "ALT",
+            action = "DisableDefaultAssignment",
         },
     }
 }
