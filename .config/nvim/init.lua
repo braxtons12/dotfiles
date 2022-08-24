@@ -18,8 +18,7 @@ require('packer').startup(function(use)
     end
 end)
 
-vim.cmd("autocmd ColorScheme * hi Pmenu ctermbg=darkgrey guibg=#262b33, guifg=#9daaaa")
---vim.cmd("autocmd ColorScheme * hi Pmenu ctermbg=lightgrey guibg=#292f37 guifg=#9daaaa")
+vim.cmd("autocmd ColorScheme * hi Pmenu ctermbg=darkgrey guibg=#262b33 guifg=#9daaaa")
 vim.cmd("autocmd ColorScheme * hi PmenuSel ctermbg=darkgrey ctermfg=lightblue guibg=#202020 guifg=#61afef")
 vim.cmd("autocmd ColorScheme * hi Float guibg=#262b33")
 vim.cmd("autocmd ColorScheme * hi FloatBorder guifg=#181818 guibg=#252a33")
@@ -283,11 +282,11 @@ vim.cmd("hi NvimTreeGitDeleted guibg=#23282e guifg=#c65156")
 ----------------------------------------------
 -- HIGHLIGHTING FOR NVIM NOTIFY
 ----------------------------------------------
-vim.cmd("hi NotifyERRORBorder guifg=#c65156")
-vim.cmd("hi NotifyWARNBorder guifg=#dbba75")
-vim.cmd("hi NotifyINFOBorder guifg=#61afef")
-vim.cmd("hi NotifyDEBUGBorder guifg=#00997b")
-vim.cmd("hi NotifyTRACEBorder guifg=#9daaaa")
+vim.cmd("hi NotifyERRORBorder guifg=#181818 guifg=#c65156")
+vim.cmd("hi NotifyWARNBorder guifg=#181818 guifg=#dbba75")
+vim.cmd("hi NotifyINFOBorder guifg=#181818 guifg=#61afef")
+vim.cmd("hi NotifyDEBUGBorder guifg=#181818 guifg=#00997b")
+vim.cmd("hi NotifyTRACEBorder guifg=#181818 guifg=#9daaaa")
 vim.cmd("hi NotifyERRORIcon guifg=#c65156")
 vim.cmd("hi NotifyWARNIcon guifg=#dbba75")
 vim.cmd("hi NotifyINFOIcon guifg=#61afef")

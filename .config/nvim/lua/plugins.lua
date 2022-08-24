@@ -917,10 +917,17 @@ packer.use { "theHamsta/nvim-semantic-tokens",
         highlighters.token_map["selfKeyword"] = "LspSelfKeyword"
         highlighters.token_map["thisKeyword"] = "LspThisKeyword"
 
+        highlighters.reset()
+
         require("nvim-semantic-tokens").setup({
             preset = "default",
             highlighters = { highlighters }
         })
+
+        vim.lsp.handlers["workspace/semanticTokens/refresh"] = vim.lsp.with(
+            require("nvim-semantic-tokens.semantic_tokens").on_refresh,
+            {}
+        )
     end
 }
 
@@ -949,6 +956,38 @@ LSP_ON_ATTACH = function(client, buffer_num)
                 end
             }
         )
+        if capabilities.document_highlight then
+            vim.api.nvim_create_autocmd(
+                {
+                    "BufEnter",
+                    "BufRead",
+                    "BufWrite",
+                    "CursorHold",
+                    "InsertChange",
+                    "ColorScheme",
+                    "WinClosed",
+                },
+                {
+                    group = lsp_group,
+                    buffer = buffer_num,
+                    callback = function()
+                        vim.lsp.buf.document_highlight()
+                    end
+                }
+            )
+            vim.api.nvim_create_autocmd(
+                {
+                    "CursorMoved",
+                },
+                {
+                    group = lsp_group,
+                    buffer = buffer_num,
+                    callback = function()
+                        vim.lsp.buf.clear_references()
+                    end
+                }
+            )
+        end
     end
 end
 
@@ -1162,6 +1201,7 @@ packer.use { "hrsh7th/nvim-cmp",
                     border = border,
                     col_offset = -3,
                     side_padding = 0,
+                    winhighlight = "Normal:Pmenu,CursorLine:PmenuSel,FloatBorder:FloatBorder,Search:None",
                 },
                 documentation = {
                     winhighlight = "Normal:Float,FloatBorder:FloatBorder",
