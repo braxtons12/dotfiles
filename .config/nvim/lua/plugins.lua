@@ -126,7 +126,7 @@ packer.use { "m-demare/hlargs.nvim",
     requires = "nvim-treesitter",
     config = function()
         require("hlargs").setup {
-            color = "#6090a4",
+            color = "#588496",
             excluded_argnames = {
                 declarations = {
                     python = { "self", "cls" },
