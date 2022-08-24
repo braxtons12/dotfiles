@@ -874,159 +874,86 @@ packer.use { "theHamsta/nvim-dap-virtual-text",
         require("nvim-dap-virtual-text").setup {}
     end
 }
-LSP_SEM_HL_ON_ATTACH = function(client, buffer_num)
+
+packer.use { "theHamsta/nvim-semantic-tokens",
+    config = function()
+        local highlighters = require("nvim-semantic-tokens.table-highlighter")
+        highlighters.token_map["attribute"] = "LspAttribute"
+        highlighters.token_map["derive"] = "LspDerive"
+        highlighters.token_map["concept"] = "LspConcept"
+        highlighters.token_map["trait"] = "LspTrait"
+        highlighters.token_map["typeAlias"] = "LspTypeAlias"
+        highlighters.token_map["constructor"] = "LspConstructor"
+        highlighters.token_map["union"] = "LspUnion"
+        highlighters.token_map["typedef"] = "LspTypedef"
+        highlighters.token_map["boolean"] = "LspBoolean"
+        highlighters.token_map["character"] = "LspCharacter"
+        highlighters.token_map["escapeSequence"] = "LspEscapeSequence"
+        highlighters.token_map["formatSpecifier"] = "LspFormatSpecifier"
+        highlighters.token_map["arithmetic"] = "LspArithmetic"
+        highlighters.token_map["bitwise"] = "LspBitwise"
+        highlighters.token_map["comparison"] = "LspBitwise"
+        highlighters.token_map["logical"] = "LspLogical"
+        highlighters.token_map["punctuation"] = "LspPunctuation"
+        highlighters.token_map["attributeBracket"] = "LspAttributeBracket"
+        highlighters.token_map["angle"] = "LspAngle"
+        highlighters.token_map["brace"] = "LspBrace"
+        highlighters.token_map["bracket"] = "LspBracket"
+        highlighters.token_map["parenthesis"] = "LspParenthesis"
+        highlighters.token_map["colon"] = "LspColon"
+        highlighters.token_map["comma"] = "LspComma"
+        highlighters.token_map["semi"] = "LspSemi"
+        highlighters.token_map["builtinAttribute"] = "LspBuiltinAttribute"
+        highlighters.token_map["builtinType"] = "LspBuiltinType"
+        highlighters.token_map["builtinFunction"] = "LspBuiltinFunction"
+        highlighters.token_map["builtinVariable"] = "LspBuiltinVariable"
+        highlighters.token_map["builtin"] = "LspBuiltin"
+        highlighters.token_map["label"] = "LspLabel"
+        highlighters.token_map["parameterReference"] = "LspParameterReference"
+        highlighters.token_map["field"] = "LspField"
+        highlighters.token_map["member"] = "LspMember"
+        highlighters.token_map["structMember"] = "LspStructMember"
+        highlighters.token_map["staticProperty"] = "LspStaticProperty"
+        highlighters.token_map["selfKeyword"] = "LspSelfKeyword"
+        highlighters.token_map["thisKeyword"] = "LspThisKeyword"
+
+        require("nvim-semantic-tokens").setup({
+            preset = "default",
+            highlighters = { highlighters  }
+        })
+    end
+}
+
+LSP_ON_ATTACH = function(client, buffer_num)
     require("aerial").on_attach(client, buffer_num)
     vim.api.nvim_buf_set_option(buffer_num, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
-    if client.server_capabilities.documentHighlightProvider
-        or client.server_capabilities.semanticTokensProvider then
-        -- when support gets merged into mainline
-        --vim.lsp.with(
-        --	"textDocument/semanticTokens/full",
-        --	{
-        --		on_token = function(ctx, token)
-        --			local ns = vim.api.nvim_create_namespace('nvim-lsp-semantic')
-        --			local byte_start = vim.str_byteindex(token.line, token.start_char)
-        --			local byte_end = vim.str_byteindex(token.line, token.start_char + token.length)
-        --			vim.api.nvim_buf_add_highlight(ctx.bufnr, ns, 'LspSemantic_' .. token.type, token.line, byte_start, byte_end)
-        --			for idx = 1, #token.modifiers do
-        --				vim.api.nvim_buf_add_highlight(ctx.bufnr, ns, 'LspSemantic_' .. token.modifiers[idx], token.line, byte_start, byte_end)
-        --			end
-        --		end,
-        --		on_invalidate_range = function(ctx, line_start, line_end)
-        --			local ns = vim.api.nvim_create_namespace('nvim-lsp-semantic')
-        --			vim.api.nvim_buf_clear_namespace(ctx.bufnr, ns, line_start, line_end)
-        --		end
-        --	})
-
-        --when support gets merged into mainline, add this into augroup below
-        --autocmd BufEnter,BufRead,BufWrite,ColorScheme,InsertChange,WinClosed,CursorHold <buffer> lua require("vim.lsp.semantic_tokens").refresh(vim.api.nvim_get_current_buf())
-        local lsp_group = vim.api.nvim_create_augroup("lsp_document_highlight", {})
+    local capabilities = client.server_capabilities
+    if capabilities.semanticTokensProvider and capabilities.semanticTokensProvider.full then
+        local lsp_group = vim.api.nvim_create_augroup("lsp_semantic_highlighting", {})
         vim.api.nvim_create_autocmd(
-            {
-                "BufEnter",
-                "BufRead",
-                "BufWrite",
-                "ColorScheme",
-                "InsertChange",
-                "WinClosed",
-                "CursorHold"
-            },
+            { "BufEnter", "BufRead", "BufWrite", "CursorHold", "InsertChange" },
             {
                 group = lsp_group,
                 buffer = buffer_num,
                 callback = function()
-                    vim.lsp.buf.document_highlight()
-                end
-            }
-        )
-        vim.api.nvim_create_autocmd(
-            { "CursorMoved" },
-            {
-                group = lsp_group,
-                buffer = buffer_num,
-                callback = function()
-                    vim.lsp.buf.clear_references()
+                    vim.lsp.buf.semantic_tokens_full()
                 end
             }
         )
     end
 end
 
-LSP_SEM_TOKEN_HANDLERS = {
-    ['workspace/semanticTokens/refresh'] = function(_, _, _, _)
-        vim.lsp.buf_request(0, 'textDocument/semanticTokens/full',
-            {
-                ---@diagnostic disable-next-line: param-type-mismatch
-                textDocument = vim.lsp.util.make_text_document_params(nil),
-                tick = vim.api.nvim_buf_get_changedtick(0)
-                ---@diagnostic disable-next-line: param-type-mismatch
-            }, nil)
-        return vim.NIL
-    end,
-    ['textDocument/semanticTokens/full'] = function(err, response, ctx, _)
-        local client = vim.lsp.get_client_by_id(ctx.client_id)
-
-        if not client then
-            return
-        end
-
-        if err or not response or ctx.params.tick ~= vim.api.nvim_buf_get_changedtick(ctx.bufnr) then
-            return
-        end
-
-        -- temporary handler until native support lands
-        local function get_bit(n, k)
-            --todo(theHamsta): remove once `bit` module is available for non-LuaJIT
-            if _G.bit then
-                return _G.bit.band(_G.bit.rshift(n, k), 1)
-            else
-                return math.floor((n / math.pow(2, k)) % 2)
-            end
-        end
-
-        local modifiers_from_number = function(x, modifiers_table)
-            local modifiers = {}
-            for i = 0, #modifiers_table - 1 do
-                local bit = get_bit(x, i)
-                if bit == 1 then
-                    table.insert(modifiers, 1, modifiers_table[i + 1])
-                end
-            end
-
-            return modifiers
-        end
-
-        local bufnr = ctx.bufnr
-        local legend = client.server_capabilities.semanticTokensProvider.legend
-        local token_types = legend.tokenTypes
-        local token_modifiers = legend.tokenModifiers
-        local data = response.data
-
-        local ns = vim.api.nvim_create_namespace('nvim-lsp-semantic')
-        vim.api.nvim_buf_clear_namespace(bufnr, ns, 0, -1)
-        local line
-        local start_char = 0
-        for i = 1, #data, 5 do
-            local delta_line = data[i]
-            line = line and line + delta_line or delta_line
-            local delta_start = data[i + 1]
-            start_char = delta_line == 0 and start_char + delta_start or delta_start
-            local token_type = token_types[data[i + 3] + 1]
-            local modifiers = modifiers_from_number(data[i + 4], token_modifiers)
-            ---@diagnostic disable-next-line: param-type-mismatch
-            local token_line = vim.api.nvim_buf_get_lines(bufnr, line, line + 1, false)[1]
-            local tok_len = string.len(token_line)
-            local str_start_pos = start_char
-            if not (str_start_pos < tok_len) then
-                str_start_pos = tok_len
-            end
-            local str_end_pos = start_char + data[i + 2]
-            if not (str_end_pos <= tok_len) then
-                str_end_pos = tok_len
-            end
-            local byte_start = vim.str_byteindex(token_line, str_start_pos)
-            local byte_end = vim.str_byteindex(token_line, str_end_pos)
-            ---@diagnostic disable-next-line: param-type-mismatch
-            vim.api.nvim_buf_add_highlight(bufnr, ns, 'LspSemantic_' .. token_type, line, byte_start, byte_end)
-            for idx = 1, #modifiers do
-                ---@diagnostic disable-next-line: param-type-mismatch
-                vim.api.nvim_buf_add_highlight(bufnr, ns, 'LspSemantic_' .. modifiers[idx], line, byte_start, byte_end)
-            end
-        end
-    end
-}
-
 packer.use { "p00f/clangd_extensions.nvim",
-    after = "nvim-lspconfig",
+    after = {"nvim-lspconfig", "nvim-semantic-tokens",},
     config = function()
-        local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-        capabilities['workspace']['semanticTokens'] = { refreshSupport = true }
+       local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+       --capabilities['workspace']['semanticTokens'] = { refreshSupport = true }
 
         require("clangd_extensions").setup {
             server = {
                 capabilities = capabilities,
-                on_attach = LSP_SEM_HL_ON_ATTACH,
+                on_attach = LSP_ON_ATTACH,
                 flags = {
                     debounce_text_changes = 150,
                 },
@@ -1036,7 +963,6 @@ packer.use { "p00f/clangd_extensions.nvim",
                     "--suggest-missing-includes",
                     "--enable-config"
                 },
-                handlers = LSP_SEM_TOKEN_HANDLERS,
             },
             extensions = {
                 inlay_hints = {
@@ -1050,7 +976,8 @@ packer.use { "p00f/clangd_extensions.nvim",
 packer.use { "neovim/nvim-lspconfig",
     after = {
         "lua-dev.nvim",
-        "aerial.nvim"
+        "aerial.nvim",
+        "nvim-semantic-tokens",
     },
     config = function()
         local servers = {
@@ -1073,13 +1000,13 @@ packer.use { "neovim/nvim-lspconfig",
         }
 
         local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-        capabilities['workspace']['semanticTokens'] = { refreshSupport = true }
+        --capabilities['workspace']['semanticTokens'] = { refreshSupport = true }
 
         for _, lsp in pairs(servers) do
             if lsp == "clangd" then
                 --require("lspconfig")[lsp].setup {
                 --    capabilities = capabilities,
-                --    on_attach = LSP_SEM_HL_ON_ATTACH,
+                --    on_attach = LSP_ON_ATTACH,
                 --    flags = {
                 --        debounce_text_changes = 150,
                 --    },
@@ -1094,7 +1021,7 @@ packer.use { "neovim/nvim-lspconfig",
             elseif lsp == "rust_analyzer" then
                 require("lspconfig")[lsp].setup {
                     capabilities = capabilities,
-                    on_attach = LSP_SEM_HL_ON_ATTACH,
+                    on_attach = LSP_ON_ATTACH,
                     flags = {
                         debounce_text_changes = 150,
                     },
@@ -1105,29 +1032,26 @@ packer.use { "neovim/nvim-lspconfig",
                             },
                         },
                     },
-                    handlers = LSP_SEM_TOKEN_HANDLERS
                 }
             elseif lsp == "sumneko_lua" then
                 local lua_dev = require("lua-dev").setup({
                     capabilities = capabilities,
                     runtime_path = true,
                     lspconfig = {
-                        on_attach = LSP_SEM_HL_ON_ATTACH,
+                        on_attach = LSP_ON_ATTACH,
                         flags = {
                             debounce_text_changes = 150,
                         },
                     },
-                    handlers = LSP_SEM_TOKEN_HANDLERS
                 })
                 require("lspconfig")[lsp].setup(lua_dev)
             else
                 require("lspconfig")[lsp].setup {
                     capabilities = capabilities,
-                    on_attach = LSP_SEM_HL_ON_ATTACH,
+                    on_attach = LSP_ON_ATTACH,
                     flags = {
                         debounce_text_changes = 150,
                     },
-                    handlers = LSP_SEM_TOKEN_HANDLERS
                 }
             end
         end
