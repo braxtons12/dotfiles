@@ -1396,5 +1396,14 @@ packer.use { "hrsh7th/nvim-cmp",
         --end
     end
 }
+packer.use { "kosayoda/nvim-lightbulb",
+    config = function()
+        require("nvim-lightbulb").setup({
+            autocmd = {
+                enabled = true
+            }
+        })
+    end
+}
 
 vim.cmd [[packadd nvim-lspconfig]]
