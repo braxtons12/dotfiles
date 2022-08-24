@@ -15,10 +15,12 @@ return {
     font_size = 13,
     line_height = 1.0,
     cell_width = 1.0,
-    color_scheme = "OneDark (Gogh)",
+    --color_scheme = "OneDark (Gogh)",
     colors = {
         foreground = "#cbced3",
         background = "#20242a",
+        cursor_fg = "#20242a",
+        cursor_bg = "#cbced3",
         ansi = {
             --black =
             '#20242a',
