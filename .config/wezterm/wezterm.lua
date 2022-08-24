@@ -12,7 +12,7 @@ return {
     }),
     font_size = 13,
     line_height = 1.0,
-    cell_width = 0.90,
+    cell_width = 1.0,
     color_scheme = "OneDark (Gogh)",
     colors = {
         foreground = "#cbced3",
