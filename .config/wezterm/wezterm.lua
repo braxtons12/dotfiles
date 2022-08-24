@@ -10,6 +10,7 @@ return {
             harfbuzz_features = { "calt=1", "clig=1", "liga=1" }
         },
     }),
+    window_close_confirmation = "NeverPrompt",
     scrollback_lines = 1000,
     font_size = 13,
     line_height = 1.0,
