@@ -901,12 +901,34 @@ LSP_SEM_HL_ON_ATTACH = function(client, buffer_num)
 
         --when support gets merged into mainline, add this into augroup below
         --autocmd BufEnter,BufRead,BufWrite,ColorScheme,InsertChange,WinClosed,CursorHold <buffer> lua require("vim.lsp.semantic_tokens").refresh(vim.api.nvim_get_current_buf())
-        vim.cmd([[
-            augroup lsp_document_highlight
-              autocmd BufEnter,BufRead,BufWrite,ColorScheme,InsertChange,WinClosed,CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-					  autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-					augroup END
-					]]
+        local lsp_group = vim.api.nvim_create_augroup("lsp_document_highlight", {})
+        vim.api.nvim_create_autocmd(
+            {
+                "BufEnter",
+                "BufRead",
+                "BufWrite",
+                "ColorScheme",
+                "InsertChange",
+                "WinClosed",
+                "CursorHold"
+            },
+            {
+                group = lsp_group,
+                buffer = buffer_num,
+                callback = function()
+                    vim.lsp.buf.document_highlight()
+                end
+            }
+        )
+        vim.api.nvim_create_autocmd(
+            { "CursorMoved" },
+            {
+                group = lsp_group,
+                buffer = buffer_num,
+                callback = function()
+                    vim.lsp.buf.clear_references()
+                end
+            }
         )
     end
 end
@@ -1087,6 +1109,7 @@ packer.use { "neovim/nvim-lspconfig",
                 }
             elseif lsp == "sumneko_lua" then
                 local lua_dev = require("lua-dev").setup({
+                    capabilities = capabilities,
                     runtime_path = true,
                     lspconfig = {
                         on_attach = LSP_SEM_HL_ON_ATTACH,
@@ -1099,6 +1122,7 @@ packer.use { "neovim/nvim-lspconfig",
                 require("lspconfig")[lsp].setup(lua_dev)
             else
                 require("lspconfig")[lsp].setup {
+                    capabilities = capabilities,
                     on_attach = LSP_SEM_HL_ON_ATTACH,
                     flags = {
                         debounce_text_changes = 150,
