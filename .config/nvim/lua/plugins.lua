@@ -6,7 +6,6 @@ packer.use "vim-scripts/DoxygenToolkit.vim"
 packer.use "kyazdani42/nvim-web-devicons"
 packer.use "leafgarland/typescript-vim"
 packer.use "vim-autoformat/vim-autoformat"
---packer.use "easymotion/vim-easymotion"
 packer.use { "phaazon/hop.nvim",
     config = function()
         require("hop").setup {
@@ -111,6 +110,41 @@ packer.use { "j-hui/fidget.nvim",
         }
     end
 }
+
+BORDER = {
+    { "┏", "FloatBorder" },
+    { "━", "FloatBorder" },
+    { "┓", "FloatBorder" },
+    { "┃", "FloatBorder" },
+    { "┛", "FloatBorder" },
+    { "━", "FloatBorder" },
+    { "┗", "FloatBorder" },
+    { "┃", "FloatBorder" },
+}
+
+packer.use { "m-demare/hlargs.nvim",
+    requires = "nvim-treesitter",
+    config = function()
+        require("hlargs").setup {
+            color = "#6090a4",
+            excluded_argnames = {
+                declarations = {
+                    python = { "self", "cls" },
+                    lua = { "self" },
+                    rust = { "self" },
+                    cpp = { "this", "self" }
+                },
+                usages = {
+                    python = { "self", "cls" },
+                    lua = { "self" },
+                    rust = { "self" },
+                    cpp = { "this", "self" }
+                }
+            }
+        }
+    end
+}
+
 packer.use { "stevearc/aerial.nvim",
     requires = "nvim-treesitter",
     config = function()
@@ -143,7 +177,7 @@ packer.use { "stevearc/aerial.nvim",
             show_guides = true,
             placement_editor_edge = true,
             float = {
-                border = "single",
+                border = BORDER,
                 relative = "win",
                 max_height = 1.0,
                 min_height = { 1.0, 1.0 },
@@ -217,7 +251,7 @@ packer.use { "folke/which-key.nvim",
     config = function()
         require("which-key").setup {
             window = {
-                border = "single",
+                border = BORDER,
                 margin = { 2, 2, 2, 2 },
                 winblend = 1
             },
@@ -316,20 +350,6 @@ packer.use { "lukas-reineke/indent-blankline.nvim",
     end
 }
 packer.use "Raimondi/delimitMate"
---packer.use { "windwp/nvim-autopairs",
--- 	config = function()
--- 		require("nvim-autopairs").setup {
--- 			disable_filetype = { "TelescopePrompt" },
--- 			disable_in_macro = true,
--- 			disable_in_visualblock = true,
--- 			enable_moveright = false,
--- 			map_cr = false,
--- 			map_bs = true,
--- 			map_c_h = false,
--- 			map_c_w = false,
--- 		}
--- 	end
---}
 packer.use { "NvChad/nvterm",
     config = function()
         require("nvterm").setup({
@@ -342,7 +362,7 @@ packer.use { "NvChad/nvterm",
                         col = 0.25,
                         width = 0.6,
                         height = 0.3,
-                        border = "single",
+                        border = BORDER,
                     },
                     horizontal = {
                         location = "below",
@@ -403,6 +423,19 @@ packer.use { "nvim-treesitter/nvim-treesitter",
                 enable = true,
                 additional_vim_regex_highlighting = true,
             },
+        }
+    end
+}
+packer.use { "nvim-treesitter/playground",
+    config = function()
+        require("nvim-treesitter.configs").setup {
+            playground = {
+                enabled = true,
+                disable = {},
+                updatetime = 25,
+                persist_queries = false,
+                keybindings = {},
+            }
         }
     end
 }
@@ -587,16 +620,7 @@ packer.use { "rcarriga/nvim-notify",
                 timeout = 2500,
                 on_open = function(win)
                     if vim.api.nvim_win_is_valid(win) then
-                        local border = {
-                            --{ "┏", },
-                            --{ "━", },
-                            --{ "┓", },
-                            --{ "┃", },
-                            --{ "┛", },
-                            --{ "━", },
-                            --{ "┗", },
-                            --{ "┃", },
-                            --
+                        local notify_border = {
                             { "┌", },
                             { "─", },
                             { "┐", },
@@ -605,17 +629,8 @@ packer.use { "rcarriga/nvim-notify",
                             { "─", },
                             { "└", },
                             { "│", },
-                            --
-                            --{ "╭", },
-                            --{ "─", },
-                            --{ "╮", },
-                            --{ "│", },
-                            --{ "╯", },
-                            --{ "─", },
-                            --{ "╰", },
-                            --{ "│", },
                         }
-                        vim.api.nvim_win_set_config(win, { border = border })
+                        vim.api.nvim_win_set_config(win, { border = notify_border })
                     end
 
                 end,
@@ -832,7 +847,7 @@ packer.use { "rcarriga/nvim-dap-ui",
                         { id = "scopes", size = 0.6 },
                     },
                     size = 40, -- 40 columns
-                    position = "left",
+                    position = "right",
                 },
                 {
                     elements = {
@@ -1051,20 +1066,7 @@ packer.use { "neovim/nvim-lspconfig",
 
         for _, lsp in pairs(servers) do
             if lsp == "clangd" then
-                --require("lspconfig")[lsp].setup {
-                --    capabilities = capabilities,
-                --    on_attach = LSP_ON_ATTACH,
-                --    flags = {
-                --        debounce_text_changes = 150,
-                --    },
-                --    cmd = {
-                --        "clangd",
-                --        "--background-index",
-                --        "--suggest-missing-includes",
-                --        "--enable-config"
-                --    },
-                --    handlers = LSP_SEM_TOKEN_HANDLERS,
-                --}
+                -- handled in clangd_extensions setup
             elseif lsp == "rust_analyzer" then
                 require("lspconfig")[lsp].setup {
                     capabilities = capabilities,
@@ -1158,7 +1160,8 @@ packer.use { "hrsh7th/nvim-cmp",
             vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
         end
 
-        local border = {
+        local cmp = require("cmp")
+        local cmp_border = {
             { "┏", "FloatBorder" },
             { "━", "FloatBorder" },
             { "┓", "FloatBorder" },
@@ -1167,27 +1170,8 @@ packer.use { "hrsh7th/nvim-cmp",
             { "━", "FloatBorder" },
             { "┗", "FloatBorder" },
             { "┃", "FloatBorder" },
-            --
-            --{ "┌", "FloatBorder" },
-            --{ "─", "FloatBorder" },
-            --{ "┐", "FloatBorder" },
-            --{ "│", "FloatBorder" },
-            --{ "┘", "FloatBorder" },
-            --{ "─", "FloatBorder" },
-            --{ "└", "FloatBorder" },
-            --{ "│", "FloatBorder" },
-            --
-            --{ "╭", "FloatBorder" },
-            --{ "─", "FloatBorder" },
-            --{ "╮", "FloatBorder" },
-            --{ "│", "FloatBorder" },
-            --{ "╯", "FloatBorder" },
-            --{ "─", "FloatBorder" },
-            --{ "╰", "FloatBorder" },
-            --{ "│", "FloatBorder" },
         }
 
-        local cmp = require("cmp")
         cmp.setup({
             snippet = {
                 expand = function(args)
@@ -1195,17 +1179,15 @@ packer.use { "hrsh7th/nvim-cmp",
                 end,
             },
             window = {
-                --completion = cmp.config.window.bordered("square"),
-                --documentation = cmp.config.window.bordered("square"),
                 completion = {
-                    border = border,
+                    border = BORDER,
                     col_offset = -3,
                     side_padding = 0,
                     winhighlight = "Normal:Pmenu,CursorLine:PmenuSel,FloatBorder:FloatBorder,Search:None",
                 },
                 documentation = {
                     winhighlight = "Normal:Float,FloatBorder:FloatBorder",
-                    border = border,
+                    border = BORDER,
                 },
             },
             formatting = {
@@ -1228,7 +1210,6 @@ packer.use { "hrsh7th/nvim-cmp",
             view = {
                 entries = {
                     name = "custom",
-                    --selection_order = "near_cursor",
                 },
             },
             sorting = {
@@ -1266,26 +1247,6 @@ packer.use { "hrsh7th/nvim-cmp",
                 end, { "i", "s" }),
                 ["<CR>"] = cmp.mapping.confirm({ select = false })
             }),
-            --cmp.mapping(function()
-            --	if cmp.visible() then
-            --		if vim.fn["vsnip#available"](1) == 1 then
-            --			feedkey("<Plug>(vsnip-expand-or-jump)", "")
-            --			return true
-            --		else
-            --			cmp.mapping.confirm({ select = false })()
-            --			return true
-            --		end
-            --	else
-            --		if vim.loop.os_uname().sysname == "Windows" then
-            --			vim.api.nvim_feedkeys("\r\n", "t", false)
-            --		else
-            --			vim.api.nvim_feedkeys("\n", "t", false)
-            --		end
-            --		return true
-
-            --		--fallback()
-            --	end
-            --end, { "i", "s" })
             sources = cmp.config.sources({
                 { name = "nvim_lsp_signature_help" },
                 { name = "nvim_lsp" },
@@ -1368,32 +1329,6 @@ packer.use { "hrsh7th/nvim-cmp",
                 }
             },
         })
-
-        --local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
-
-        --local servers = {
-        --	"asm_lsp",
-        --	"bashls",
-        --	"clangd",
-        --	--"ccls",
-        --	"omnisharp",
-        --	"cmake",
-        --	"cssls",
-        --	"gopls",
-        --	"html",
-        --	"rust_analyzer",
-        --	"ltex",
-        --	"marksman",
-        --	"pyright",
-        --	"taplo",
-        --	"tsserver",
-        --	"sumneko_lua",
-        --}
-        --for _, lsp in pairs(servers) do
-        --	require("lspconfig")[lsp].setup {
-        --		capabilities = capabilities
-        --	}
-        --end
     end
 }
 packer.use { "kosayoda/nvim-lightbulb",

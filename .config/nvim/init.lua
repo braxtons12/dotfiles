@@ -24,39 +24,21 @@ vim.cmd("autocmd ColorScheme * hi Float guibg=#262b33")
 vim.cmd("autocmd ColorScheme * hi FloatBorder guifg=#181818 guibg=#252a33")
 vim.cmd("autocmd ColorScheme * hi TreesitterContext guibg=#383d48")
 
-local border = {
-    { "┏", "FloatBorder" },
-    { "━", "FloatBorder" },
-    { "┓", "FloatBorder" },
-    { "┃", "FloatBorder" },
-    { "┛", "FloatBorder" },
-    { "━", "FloatBorder" },
-    { "┗", "FloatBorder" },
-    { "┃", "FloatBorder" },
-    --
-    --{ "┌", "FloatBorder" },
-    --{ "─", "FloatBorder" },
-    --{ "┐", "FloatBorder" },
-    --{ "│", "FloatBorder" },
-    --{ "┘", "FloatBorder" },
-    --{ "─", "FloatBorder" },
-    --{ "└", "FloatBorder" },
-    --{ "│", "FloatBorder" },
-    --
-    --{ "╭", "FloatBorder" },
-    --{ "─", "FloatBorder" },
-    --{ "╮", "FloatBorder" },
-    --{ "│", "FloatBorder" },
-    --{ "╯", "FloatBorder" },
-    --{ "─", "FloatBorder" },
-    --{ "╰", "FloatBorder" },
-    --{ "│", "FloatBorder" },
-}
-
 local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
 function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+    local border = {
+        { "┏", "FloatBorder" },
+        { "━", "FloatBorder" },
+        { "┓", "FloatBorder" },
+        { "┃", "FloatBorder" },
+        { "┛", "FloatBorder" },
+        { "━", "FloatBorder" },
+        { "┗", "FloatBorder" },
+        { "┃", "FloatBorder" },
+    }
+
     opts = opts or {}
-    opts.border = opts.border or border
+    opts.border = border
     return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
 
@@ -317,7 +299,6 @@ vim.cmd("hi! link CmpItemKindVariable CmpItemKindText")
 vim.cmd("hi! link CmpItemKindSnippet CmpItemKindText")
 vim.cmd("hi! link CmpItemKindConstant CmpItemKindText")
 
---vim.cmd("hi CmpItemKindClass guibg=NONE guifg=#dbba75")
 vim.cmd("hi CmpItemKindType guifg=#202020 guibg=#dbba75")
 vim.cmd("hi! link CmpItemKindClass CmpItemKindType")
 vim.cmd("hi! link CmpItemKindConstructor CmpItemKindType")
@@ -326,32 +307,26 @@ vim.cmd("hi! link CmpItemKindEnum CmpItemKindType")
 vim.cmd("hi! link CmpItemKindStruct CmpItemKindType")
 vim.cmd("hi! link CmpItemKindEvent CmpItemKindType")
 
---vim.cmd("hi CmpItemKindValue guibg=NONE guifg=#d29767")
 vim.cmd("hi CmpItemKindValue guifg=#202020 guibg=#d29767")
 vim.cmd("hi! link CmpItemKindNumber CmpItemKindValue")
 
---vim.cmd("hi CmpItemKindFunction guibg=NONE guifg=#61afef")
 vim.cmd("hi CmpItemKindFunction guifg=#202020 guibg=#61afef")
 vim.cmd("hi! link CmpItemKindMethod CmpItemKindFunction")
 vim.cmd("hi! link CmpItemKindOperator CmpItemKindFunction")
 
---vim.cmd("hi CmpItemKindKeyword guibg=NONE guifg=#c67ada")
 vim.cmd("hi CmpItemKindKeyword guifg=#202020 guibg=#c67ada")
 vim.cmd("hi! link CmpItemKindObject CmpItemKindKeyword")
 vim.cmd("hi! link CmpItemKindTag CmpItemKindKeyword")
 vim.cmd("hi! link CmpItemKindBoolean CmpItemKindKeyword")
 
---vim.cmd("hi CmpItemKindProperty guibg=NONE guifg=#c65156")
 vim.cmd("hi CmpItemKindProperty guifg=#202020 guibg=#c65156")
 vim.cmd("hi! link CmpItemKindField CmpItemKindProperty")
 
---vim.cmd("hi CmpItemKindModule guibg=NONE guifg=#00997b")
 vim.cmd("hi CmpItemKindModule guifg=#202020 guibg=#00997b")
 vim.cmd("hi! link CmpItemKindUnit CmpItemKindModule")
 vim.cmd("hi! link CmpItemKindEnumMember CmpItemKindModule")
 vim.cmd("hi! link CmpItemKindTypeParameter CmpItemKindModule")
 
---vim.cmd("hi CmpItemKindString guibg=NONE guifg=#83a76e")
 vim.cmd("hi CmpItemKindString guifg=#202020 guibg=#83a76e")
 vim.cmd("hi! link CmpItemKindCalendar CmpItemKindString")
 vim.cmd("hi! link CmpItemKindWatch CmpItemKindString")
@@ -493,13 +468,13 @@ vim.cmd("hi! link LspBuiltin Keyword")
 vim.cmd("hi! link LspComment Comment")
 vim.cmd("hi! link LspConstParameter Parameter")
 vim.cmd("hi LspEnumMember guifg=#00997b")
--- vim.(" [[hi link LspGeneric Variable")
+-- vim.("hi! link LspGeneric Variable")
 vim.cmd("hi! link LspKeyword Keyword")
 vim.cmd("hi! link LspLabel Label")
 vim.cmd("hi! link LspLifetime Property")
 vim.cmd("hi! link LspParameter Parameter")
 vim.cmd("hi! link LspParameterReference Parameter")
---vim.cmd("hi LspUsedAsMutableReference guifg=#6090a4")
+-- vim.cmd("hi LspUsedAsMutableReference guifg=#6090a4")
 vim.cmd("hi! link LspUsedAsMutableReference Normal")
 vim.cmd("hi! link LspProperty Property")
 vim.cmd("hi! link LspField Property")
@@ -508,10 +483,10 @@ vim.cmd("hi! link LspStructMember Property")
 vim.cmd("hi LspStaticProperty guifg=#c65156 gui=bold cterm=bold")
 vim.cmd("hi! link LspSelfKeyword Keyword")
 vim.cmd("hi! link LspThisKeyword Keyword")
--- vim.cmd("hi link LspToolModule  ")
+-- vim.cmd("hi! link LspToolModule  ")
 vim.cmd("hi LspTypeParameter guifg=#00997b")
--- vim.cmd("hi link LspUnresolvedReference Unresolved")
---vim.cmd("hi! link LspVariable Variable")
+-- vim.cmd("hi! link LspUnresolvedReference Unresolved")
+-- vim.cmd("hi! link LspVariable Variable")
 vim.cmd("hi LspStatic gui=bold")
 
 vim.cmd("hi LspReferenceText cterm=underline gui=underline")
@@ -734,8 +709,6 @@ nmap("<C-S-d>", "<cmd>lua vim.diagnostic.config({virtual_lines = false})<CR>", "
 nmap("<S-m>", "<cmd>AerialToggle!<CR>", "Toggles the Aerial Overview")
 
 nmap("<F10>",
-    ":echo \"hi<\" . synIDattr(synID(line(\".\"),col(\".\"),1),\"name\") . '> trans<'\
-				. synIDattr(synID(line(\".\"),col(\".\"),0),\"name\") . \"> lo<\"\
-				. synIDattr(synIDtrans(synID(line(\".\"),col(\".\"),1)),\"name\") . \">\"<CR>",
+    "<cmd>TSHighlightCapturesUnderCursor<CR>",
     "Show Highlight Group For Token"
 )
