@@ -919,7 +919,7 @@ packer.use { "theHamsta/nvim-semantic-tokens",
 
         require("nvim-semantic-tokens").setup({
             preset = "default",
-            highlighters = { highlighters  }
+            highlighters = { highlighters }
         })
     end
 }
@@ -932,7 +932,15 @@ LSP_ON_ATTACH = function(client, buffer_num)
     if capabilities.semanticTokensProvider and capabilities.semanticTokensProvider.full then
         local lsp_group = vim.api.nvim_create_augroup("lsp_semantic_highlighting", {})
         vim.api.nvim_create_autocmd(
-            { "BufEnter", "BufRead", "BufWrite", "CursorHold", "InsertChange" },
+            {
+                "BufEnter",
+                "BufRead",
+                "BufWrite",
+                "CursorHold",
+                "InsertChange",
+                "ColorScheme",
+                "WinClosed",
+            },
             {
                 group = lsp_group,
                 buffer = buffer_num,
@@ -945,10 +953,10 @@ LSP_ON_ATTACH = function(client, buffer_num)
 end
 
 packer.use { "p00f/clangd_extensions.nvim",
-    after = {"nvim-lspconfig", "nvim-semantic-tokens",},
+    after = { "nvim-lspconfig", "nvim-semantic-tokens", },
     config = function()
-       local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-       --capabilities['workspace']['semanticTokens'] = { refreshSupport = true }
+        local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+        capabilities['workspace']['semanticTokens'] = { refreshSupport = true }
 
         require("clangd_extensions").setup {
             server = {
@@ -1000,7 +1008,7 @@ packer.use { "neovim/nvim-lspconfig",
         }
 
         local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-        --capabilities['workspace']['semanticTokens'] = { refreshSupport = true }
+        capabilities['workspace']['semanticTokens'] = { refreshSupport = true }
 
         for _, lsp in pairs(servers) do
             if lsp == "clangd" then
