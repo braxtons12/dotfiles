@@ -23,6 +23,8 @@ packer.use "tpope/vim-fugitive"
 --    	}
 --    end
 --}
+packer.use { "barreiroleo/ltex-extra.nvim",
+}
 packer.use "cespare/vim-toml"
 packer.use "HerringtonDarkholme/yats.vim"
 packer.use { "gfeiyou/command-center.nvim",
@@ -790,19 +792,21 @@ packer.use { "williamboman/mason-lspconfig.nvim",
         })
     end,
 }
+
+PATH_SEP = function()
+    return package.config:sub(1, 1)
+end
+
 packer.use { "mfussenegger/nvim-dap",
     after = "mason.nvim",
     config = function()
-        local path_sep = function()
-            return package.config:sub(1, 1)
-        end
         local dap = require("dap")
         dap.adapters.codelldb = {
             type = "server",
             port = "${port}",
             executable = {
-                command = vim.fn.stdpath("data") .. path_sep() .. "mason" .. path_sep() .. "bin"
-                    .. path_sep() .. "codelldb",
+                command = vim.fn.stdpath("data") .. PATH_SEP() .. "mason" .. PATH_SEP() .. "bin"
+                    .. PATH_SEP() .. "codelldb",
                 args = { "--port", "${port}" },
             },
         }
@@ -1094,6 +1098,30 @@ packer.use { "neovim/nvim-lspconfig",
                     },
                 })
                 require("lspconfig")[lsp].setup(lua_dev)
+            elseif lsp == "ltex" then
+                require("lspconfig").ltex.setup {
+                    capabilities = capabilities,
+                    on_attach = function(client, buffer_num)
+                        LSP_ON_ATTACH(client, buffer_num)
+                        require("ltex_extra").setup {
+                            load_langs = { "en-US" },
+                            init_check = true,
+                            --path = vim.fn.stdpath("data") ..
+                            --    PATH_SEP() ..
+                            --    "ltex" .. PATH_SEP() .. "en-US" .. PATH_SEP(),
+                            path = ".ltex",
+                            log_level = "none",
+                        }
+                    end,
+                    flags = {
+                        debounce_text_changes = 150,
+                    },
+                    settings = {
+                        ltex = {
+                            language = "en-US"
+                        }
+                    }
+                }
             else
                 require("lspconfig")[lsp].setup {
                     capabilities = capabilities,
