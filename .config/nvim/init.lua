@@ -111,6 +111,16 @@ vim.api.nvim_create_autocmd(
         end,
     }
 )
+vim.api.nvim_create_autocmd(
+    { "BufRead", "BufNewFile" },
+    {
+        pattern = { "*.gradle" },
+        callback = function()
+            vim.cmd("setfiletype groovy")
+        end,
+    }
+)
+
 
 vim.api.nvim_create_autocmd(
     { "FileType" },
@@ -487,7 +497,7 @@ vim.cmd("hi! link LspThisKeyword Keyword")
 -- vim.cmd("hi! link LspToolModule  ")
 vim.cmd("hi LspTypeParameter guifg=#00997b")
 -- vim.cmd("hi! link LspUnresolvedReference Unresolved")
--- vim.cmd("hi! link LspVariable Variable")
+vim.cmd("hi! link LspVariable Variable")
 vim.cmd("hi LspStatic gui=bold")
 
 vim.cmd("hi LspReferenceText cterm=underline gui=underline")
