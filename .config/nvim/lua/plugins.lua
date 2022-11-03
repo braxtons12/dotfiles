@@ -15,6 +15,7 @@ packer.use { "phaazon/hop.nvim",
         }
     end
 }
+packer.use "mfussenegger/nvim-jdtls"
 packer.use "tpope/vim-fugitive"
 --packer.use { "/home/braxton/git/blame_line.nvim",
 --    as = "blame_line.nvim",
@@ -156,7 +157,7 @@ packer.use { "stevearc/aerial.nvim",
                 "lsp",
                 "markdown",
             },
-            close_behavior = "global",
+            attach_mode = "global",
             default_bindings = true,
             default_direction = "right",
             filter_kind = {
@@ -287,10 +288,9 @@ packer.use { "numToStr/Comment.nvim",
         })
     end
 }
-packer.use { "folke/lua-dev.nvim",
+packer.use { "folke/neodev.nvim",
     config = function()
-        require("lua-dev").setup({
-            runtime_path = true,
+        require("neodev").setup({
         })
     end
 }
@@ -783,6 +783,7 @@ packer.use { "williamboman/mason-lspconfig.nvim",
                 "html",
                 "rust_analyzer",
                 "ltex",
+                "jdtls",
                 "marksman",
                 "pyright",
                 "sumneko_lua",
@@ -896,62 +897,69 @@ packer.use { "theHamsta/nvim-dap-virtual-text",
 
 packer.use { "theHamsta/nvim-semantic-tokens",
     config = function()
-        local highlighters = require("nvim-semantic-tokens.table-highlighter")
-        highlighters.token_map["attribute"] = "LspAttribute"
-        highlighters.token_map["derive"] = "LspDerive"
-        highlighters.token_map["concept"] = "LspConcept"
-        highlighters.token_map["trait"] = "LspTrait"
-        highlighters.token_map["typeAlias"] = "LspTypeAlias"
-        highlighters.token_map["constructor"] = "LspConstructor"
-        highlighters.token_map["union"] = "LspUnion"
-        highlighters.token_map["typedef"] = "LspTypedef"
-        highlighters.token_map["boolean"] = "LspBoolean"
-        highlighters.token_map["character"] = "LspCharacter"
-        highlighters.token_map["escapeSequence"] = "LspEscapeSequence"
-        highlighters.token_map["formatSpecifier"] = "LspFormatSpecifier"
-        highlighters.token_map["arithmetic"] = "LspArithmetic"
-        highlighters.token_map["bitwise"] = "LspBitwise"
-        highlighters.token_map["comparison"] = "LspBitwise"
-        highlighters.token_map["logical"] = "LspLogical"
-        highlighters.token_map["punctuation"] = "LspPunctuation"
-        highlighters.token_map["attributeBracket"] = "LspAttributeBracket"
-        highlighters.token_map["angle"] = "LspAngle"
-        highlighters.token_map["brace"] = "LspBrace"
-        highlighters.token_map["bracket"] = "LspBracket"
-        highlighters.token_map["parenthesis"] = "LspParenthesis"
-        highlighters.token_map["colon"] = "LspColon"
-        highlighters.token_map["comma"] = "LspComma"
-        highlighters.token_map["semi"] = "LspSemi"
-        highlighters.token_map["builtinAttribute"] = "LspBuiltinAttribute"
-        highlighters.token_map["builtinType"] = "LspBuiltinType"
-        highlighters.token_map["builtinFunction"] = "LspBuiltinFunction"
-        highlighters.token_map["builtinVariable"] = "LspBuiltinVariable"
-        highlighters.token_map["builtin"] = "LspBuiltin"
-        highlighters.token_map["label"] = "LspLabel"
-        highlighters.token_map["parameterReference"] = "LspParameterReference"
-        highlighters.token_map["field"] = "LspField"
-        highlighters.token_map["member"] = "LspMember"
-        highlighters.token_map["structMember"] = "LspStructMember"
-        highlighters.token_map["staticProperty"] = "LspStaticProperty"
-        highlighters.token_map["selfKeyword"] = "LspSelfKeyword"
-        highlighters.token_map["thisKeyword"] = "LspThisKeyword"
+        local function get_highlighters()
+            local highlighters = require("nvim-semantic-tokens.table-highlighter")
+            highlighters.token_map["annotation"] = "LspAnnotation"
+            highlighters.token_map["attribute"] = "LspAttribute"
+            highlighters.token_map["derive"] = "LspDerive"
+            highlighters.token_map["concept"] = "LspConcept"
+            highlighters.token_map["trait"] = "LspTrait"
+            highlighters.token_map["typeAlias"] = "LspTypeAlias"
+            highlighters.token_map["constructor"] = "LspConstructor"
+            highlighters.token_map["union"] = "LspUnion"
+            highlighters.token_map["typedef"] = "LspTypedef"
+            highlighters.token_map["boolean"] = "LspBoolean"
+            highlighters.token_map["character"] = "LspCharacter"
+            highlighters.token_map["escapeSequence"] = "LspEscapeSequence"
+            highlighters.token_map["formatSpecifier"] = "LspFormatSpecifier"
+            highlighters.token_map["arithmetic"] = "LspArithmetic"
+            highlighters.token_map["bitwise"] = "LspBitwise"
+            highlighters.token_map["comparison"] = "LspBitwise"
+            highlighters.token_map["logical"] = "LspLogical"
+            highlighters.token_map["punctuation"] = "LspPunctuation"
+            highlighters.token_map["attributeBracket"] = "LspAttributeBracket"
+            highlighters.token_map["angle"] = "LspAngle"
+            highlighters.token_map["brace"] = "LspBrace"
+            highlighters.token_map["bracket"] = "LspBracket"
+            highlighters.token_map["parenthesis"] = "LspParenthesis"
+            highlighters.token_map["colon"] = "LspColon"
+            highlighters.token_map["comma"] = "LspComma"
+            highlighters.token_map["semi"] = "LspSemi"
+            highlighters.token_map["builtinAttribute"] = "LspBuiltinAttribute"
+            highlighters.token_map["builtinType"] = "LspBuiltinType"
+            highlighters.token_map["builtinFunction"] = "LspBuiltinFunction"
+            highlighters.token_map["builtinVariable"] = "LspBuiltinVariable"
+            highlighters.token_map["builtin"] = "LspBuiltin"
+            highlighters.token_map["label"] = "LspLabel"
+            highlighters.token_map["parameterReference"] = "LspParameterReference"
+            highlighters.token_map["parameter"] = "LspParameter"
+            highlighters.token_map["field"] = "LspField"
+            highlighters.token_map["member"] = "LspMember"
+            highlighters.token_map["structMember"] = "LspStructMember"
+            highlighters.token_map["staticProperty"] = "LspStaticProperty"
+            highlighters.token_map["selfKeyword"] = "LspSelfKeyword"
+            highlighters.token_map["thisKeyword"] = "LspThisKeyword"
 
-        highlighters.reset()
+            highlighters.reset()
+
+            return highlighters
+        end
 
         require("nvim-semantic-tokens").setup({
             preset = "default",
-            highlighters = { highlighters }
+            highlighters = { get_highlighters() }
         })
 
         vim.lsp.handlers["workspace/semanticTokens/refresh"] = vim.lsp.with(
             require("nvim-semantic-tokens.semantic_tokens").on_refresh,
             {}
         )
+
+        get_highlighters()
     end
 }
 
 LSP_ON_ATTACH = function(client, buffer_num)
-    require("aerial").on_attach(client, buffer_num)
     vim.api.nvim_buf_set_option(buffer_num, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
     local capabilities = client.server_capabilities
@@ -1013,8 +1021,9 @@ end
 packer.use { "p00f/clangd_extensions.nvim",
     after = { "nvim-lspconfig", "nvim-semantic-tokens", },
     config = function()
-        local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-        capabilities['workspace']['semanticTokens'] = { refreshSupport = true }
+        local capabilities = require('cmp_nvim_lsp').default_capabilities()
+        capabilities.workspace = { semanticTokens = { refreshSupport = true } }
+        --capabilities['workspace']['semanticTokens'] = { refreshSupport = true }
 
         require("clangd_extensions").setup {
             server = {
@@ -1041,7 +1050,7 @@ packer.use { "p00f/clangd_extensions.nvim",
 }
 packer.use { "neovim/nvim-lspconfig",
     after = {
-        "lua-dev.nvim",
+        "neodev.nvim",
         "aerial.nvim",
         "nvim-semantic-tokens",
     },
@@ -1065,8 +1074,9 @@ packer.use { "neovim/nvim-lspconfig",
             "sumneko_lua",
         }
 
-        local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-        capabilities['workspace']['semanticTokens'] = { refreshSupport = true }
+        local capabilities = require('cmp_nvim_lsp').default_capabilities()
+        capabilities.workspace = { semanticTokens = { refreshSupport = true } }
+        --capabilities['workspace']['semanticTokens'] = { refreshSupport = true }
 
         for _, lsp in pairs(servers) do
             if lsp == "clangd" then
@@ -1087,7 +1097,7 @@ packer.use { "neovim/nvim-lspconfig",
                     },
                 }
             elseif lsp == "sumneko_lua" then
-                local lua_dev = require("lua-dev").setup({
+                require("lspconfig")[lsp].setup {
                     capabilities = capabilities,
                     runtime_path = true,
                     lspconfig = {
@@ -1095,9 +1105,8 @@ packer.use { "neovim/nvim-lspconfig",
                         flags = {
                             debounce_text_changes = 150,
                         },
-                    },
-                })
-                require("lspconfig")[lsp].setup(lua_dev)
+                    }
+                }
             elseif lsp == "ltex" then
                 require("lspconfig").ltex.setup {
                     capabilities = capabilities,
