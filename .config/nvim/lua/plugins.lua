@@ -135,14 +135,23 @@ packer.use { "m-demare/hlargs.nvim",
                     python = { "self", "cls" },
                     lua = { "self" },
                     rust = { "self" },
-                    cpp = { "this", "self" }
+                    cpp = { "this",}
                 },
                 usages = {
                     python = { "self", "cls" },
                     lua = { "self" },
                     rust = { "self" },
-                    cpp = { "this", "self" }
+                    cpp = { "this", }
                 }
+            },
+            paint_arg_declarations = true,
+            paint_arg_usages = true,
+            paint_catch_blocks = {
+                declarations = true,
+                usages = true,
+            },
+            extras = {
+                named_parameters = true
             }
         }
     end
@@ -941,6 +950,23 @@ packer.use { "theHamsta/nvim-semantic-tokens",
             highlighters.token_map["staticProperty"] = "LspStaticProperty"
             highlighters.token_map["selfKeyword"] = "LspSelfKeyword"
             highlighters.token_map["thisKeyword"] = "LspThisKeyword"
+            highlighters.modifiers_map["static"] = {
+                field = "LspStaticField",
+                property = "LspStaticProperty",
+                variable = "LspStaticVariable"
+            }
+            highlighters.modifiers_map["classScope"] = {
+                variable = "LspStaticProperty"
+            }
+            highlighters.modifiers_map["functionScope"] = {
+                declaration = {
+                    parameter = "LspParameter"
+                },
+                parameter = "LspParameterReference"
+            }
+            highlighters.modifiers_map["declaration"] = {
+                parameter = "LspParameter"
+            }
 
             highlighters.reset()
 
