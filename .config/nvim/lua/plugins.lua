@@ -628,7 +628,7 @@ packer.use { "rcarriga/nvim-notify",
                 max_width = 60,
                 render = "default",
                 stages = "fade_in_slide_out",
-                timeout = 2500,
+                timeout = 3500,
                 on_open = function(win)
                     if vim.api.nvim_win_is_valid(win) then
                         local notify_border = {
