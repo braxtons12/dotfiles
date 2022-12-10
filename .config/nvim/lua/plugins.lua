@@ -611,7 +611,13 @@ packer.use { "akinsho/bufferline.nvim",
 packer.use { "rcarriga/nvim-notify",
     config = function()
         local notify = require("notify")
-        vim.notify = notify
+        vim.notify = function(msg, ...) 
+            if msg:match("warning: multiple different client offset_encodings") then
+                return
+            end
+
+            notify(msg, ...)
+        end
         notify.setup(
             {
                 background_colour = "Normal",
@@ -1154,6 +1160,9 @@ packer.use { "neovim/nvim-lspconfig",
                     end,
                     flags = {
                         debounce_text_changes = 150,
+                    },
+                    filetypes = {
+                        "tex", "ltex", "latex", "markdown", "plaintex"
                     },
                     settings = {
                         ltex = {
