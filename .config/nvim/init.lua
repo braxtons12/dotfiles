@@ -96,6 +96,15 @@ end
 vim.api.nvim_create_autocmd(
     { "BufRead", "BufNewFile" },
     {
+        pattern = { "*.cppm", "*.mpp"},
+        callback = function()
+            vim.cmd("setfiletype cpp")
+        end,
+    }
+)
+vim.api.nvim_create_autocmd(
+    { "BufRead", "BufNewFile" },
+    {
         pattern = { "*.clang-tidy", "*.clang-format", "*.clangd", "*.cmake-format", "*.cmake-lint" },
         callback = function()
             vim.cmd("setfiletype yaml")
