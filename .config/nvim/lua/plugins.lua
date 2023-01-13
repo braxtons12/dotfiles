@@ -6,6 +6,16 @@ packer.use "vim-scripts/DoxygenToolkit.vim"
 packer.use "kyazdani42/nvim-web-devicons"
 packer.use "leafgarland/typescript-vim"
 packer.use "vim-autoformat/vim-autoformat"
+packer.use {
+    "luukvbaal/statuscol.nvim",
+    after = "nvim-dap",
+    config = function()
+        require("statuscol").setup {
+            relculright = true,
+            setopt = true,
+        }
+    end,
+}
 packer.use { "phaazon/hop.nvim",
     config = function()
         require("hop").setup {
@@ -611,7 +621,7 @@ packer.use { "akinsho/bufferline.nvim",
 packer.use { "rcarriga/nvim-notify",
     config = function()
         local notify = require("notify")
-        vim.notify = function(msg, ...) 
+        vim.notify = function(msg, ...)
             if msg:match("warning: multiple different client offset_encodings") then
                 return
             end
