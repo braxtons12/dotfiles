@@ -38,7 +38,7 @@ packer.use { "barreiroleo/ltex-extra.nvim",
 }
 packer.use "cespare/vim-toml"
 packer.use "HerringtonDarkholme/yats.vim"
-packer.use { "gfeiyou/command-center.nvim",
+packer.use { "FeiyouG/command_center.nvim",
     requires = { "nvim-telescope/telescope.nvim" },
     config = function()
         require("telescope").load_extension("command_center")
