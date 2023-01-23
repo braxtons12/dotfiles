@@ -32,6 +32,8 @@ packer.use {
                 "WinScrolled",
                 "BufWinEnter",
                 "CursorHold",
+                "CursorMoved",
+                "CursorMovedI",
                 "InsertLeave",
                 "BufWritePost",
                 "TextChanged",
