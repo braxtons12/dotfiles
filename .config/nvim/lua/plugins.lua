@@ -20,6 +20,9 @@ packer.use {
         require("barbecue").setup {
             attach_navic = false,
             show_modified = true,
+            symbols = {
+                separator = "",
+            },
             create_autocmd = false,
             kinds = require("lspkind_icons"),
             theme = {
