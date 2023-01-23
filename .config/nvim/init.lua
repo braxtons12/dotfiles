@@ -65,7 +65,7 @@ vim.opt.shiftwidth = 4
 vim.opt.hidden = true
 vim.opt.backup = false
 vim.opt.writebackup = false
-vim.opt.cmdheight = 2
+vim.opt.cmdheight = 0
 vim.opt.updatetime = 2000
 vim.o.timeoutlen = 2000
 vim.cmd("set shortmess+=c")
@@ -96,7 +96,7 @@ end
 vim.api.nvim_create_autocmd(
     { "BufRead", "BufNewFile" },
     {
-        pattern = { "*.cppm", "*.mpp"},
+        pattern = { "*.cppm", "*.mpp" },
         callback = function()
             vim.cmd("setfiletype cpp")
         end,
@@ -131,15 +131,15 @@ vim.api.nvim_create_autocmd(
 )
 
 
-vim.api.nvim_create_autocmd(
-    { "FileType" },
-    {
-        pattern = { "qf" },
-        callback = function()
-            vim.cmd("nnoremap <silent> <buffer> <CR> <CR>:cclose<CR>")
-        end,
-    }
-)
+--vim.api.nvim_create_autocmd(
+--   { "FileType" },
+--   {
+--       pattern = { "qf" },
+--       callback = function()
+--           vim.cmd("nnoremap <silent> <buffer> <CR><Space><CR>:cclose<CR>")
+--       end,
+--   }
+--)
 
 vim.api.nvim_create_autocmd(
     { "FileType" },
@@ -659,7 +659,7 @@ local function vmap(lhs, rhs, description, options)
     map("v", lhs, rhs, description, options)
 end
 
-vim.g.mapleader = ' '
+vim.g.mapleader = " "
 nmap("<A-S-p>", "<cmd>Telescope command_center<CR>", "Open Command Center")
 nmap("<S-f>", "<cmd>lua require(\"telescope.builtin\").find_files(require(\"telescope.themes\").get_dropdown({}))<CR>",
     "Telescope Find Files")
@@ -673,7 +673,7 @@ nmap("<C-m><C-p>", "<cmd>BufferLineMovePrev<CR>", "Move Buffer Back One")
 nmap("<C-m><C-n>", "<cmd>BufferLineMoveNext<CR>", "Move Buffer Forward One")
 nmap("<C-c>", "<cmd>Bdelete<CR>", "Delete Current Buffer")
 nmap("<C-s>", "<cmd>vsplit<CR>", "Vertical Split")
-nmap("s", "", "")
+nmap("s", "m", "")
 nmap("<leader>s", "<cmd>vsplit<CR>", "Vertical Split")
 START_DEBUGGER = function()
     local dap = require("dap")
@@ -696,8 +696,7 @@ nmap("<F5>", "<cmd>lua require(\"dap\").step_into()<CR>", "Debug Step Into")
 nmap("<F6>", "<cmd>lua require(\"dap\").run_to_cursor()<CR>", "Terminate debugging")
 nmap("<F7>", "<cmd>lua require(\"dap\").terminate()<CR>", "Terminate debugging")
 
-
-vim.cmd("map <A-CR>=^[^M", "")
+vim.cmd("map <A-CR>=^[^M\", \"")
 nmap("<A-h>", "0", "Go to Start of Line")
 nmap("<A-l>", "$", "Go to End of Line")
 
@@ -714,11 +713,11 @@ nmap("<C-l>", "<cmd>Trouble document_diagnostics<CR>", "Show Diagnostics")
 nmap("<C-l><C-k>", "<cmd>TroubleClose<CR>", "Close Diagnostics")
 
 nmap("<S-t>", "<cmd>lua require(\"nvterm.terminal\").toggle \"horizontal\"<CR>", "Open NvTerm")
-nmap("<T>", "<cmd>lua require(\"nvterm.terminal\").toggle \"horizontal\"<CR>", "Open NvTerm")
+--nmap("<T>", "<cmd>lua require(\"nvterm.terminal\").toggle \"horizontal\"<CR>", "Open NvTerm")
 nmap("<C-S-t>", "<cmd>lua require(\"nvterm.terminal\").toggle \"float\"<CR>", "Open NvTerm in float")
 
 tmap("<S-t>", "<cmd>lua require(\"nvterm.terminal\").toggle \"horizontal\"<CR>", "Close NvTerm")
-tmap("<T>", "<cmd>lua require(\"nvterm.terminal\").toggle \"horizontal\"<CR>", "Close NvTerm")
+--tmap("<T>", "<cmd>lua require(\"nvterm.terminal\").toggle \"horizontal\"<CR>", "Close NvTerm")
 tmap("<C-S-t>", "<cmd>lua require(\"nvterm.terminal\").toggle \"float\"<CR>", "Close NvTerm")
 
 nmap("<S-A-d>", "<cmd>lua package.loaded.gitsigns.diffthis()<CR>", "Show git diff for file")
@@ -739,8 +738,8 @@ nmap("<S-m>", "<cmd>AerialToggle!<CR>", "Toggles the Aerial Overview")
 
 nmap("<F10>",
     "<cmd>TSHighlightCapturesUnderCursor<CR>",
-    "Show Highlight Group For Token"
-)
+    "Show Highlight Group For Token")
+
 
 local function handler(err, response, ctx, config)
     local function get_bit(n, k)
@@ -794,7 +793,7 @@ local function handler(err, response, ctx, config)
         if token.line == line - 1 then
             if token.start_char <= col and col <= token.start_char + token.length then
                 local mods = ""
-                for mod = 1, #token.modifiers  do
+                for mod = 1, #token.modifiers do
                     mods = mods .. token.modifiers[mod] .. ", "
                 end
                 vim.notify(token.type .. "\nmods: " .. mods, vim.log.levels.ERROR)
