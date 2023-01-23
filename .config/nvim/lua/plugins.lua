@@ -7,6 +7,45 @@ packer.use "kyazdani42/nvim-web-devicons"
 packer.use "leafgarland/typescript-vim"
 packer.use "vim-autoformat/vim-autoformat"
 packer.use {
+    "SmiteshP/nvim-navic",
+    requires = "neovim/nvim-lspconfig",
+}
+packer.use {
+    "utilyre/barbecue.nvim",
+    requires = {
+        "neovim/nvim-lspconfig",
+        "SmiteshP/nvim-navic",
+    },
+    config = function()
+        require("barbecue").setup {
+            attach_navic = false,
+            show_modified = true,
+            create_autocmd = false,
+            kinds = require("lspkind_icons"),
+            theme = {
+                normal = {fg = "#9daaaa", bg = "#24292f"}
+            },
+        }
+
+        vim.api.nvim_create_autocmd(
+            {
+                "WinScrolled",
+                "BufWinEnter",
+                "CursorHold",
+                "InsertLeave",
+                "BufWritePost",
+                "TextChanged",
+                "TextChangedI",
+            },
+            {
+                group = vim.api.nvim_create_augroup("barbecue#create_autocmd", {}),
+                callback = function()
+                    require("barbecue.ui").update()
+                end
+            })
+    end,
+}
+packer.use {
     "luukvbaal/statuscol.nvim",
     after = "nvim-dap",
     config = function()
@@ -145,7 +184,7 @@ packer.use { "m-demare/hlargs.nvim",
                     python = { "self", "cls" },
                     lua = { "self" },
                     rust = { "self" },
-                    cpp = { "this",}
+                    cpp = { "this", }
                 },
                 usages = {
                     python = { "self", "cls" },
@@ -327,16 +366,16 @@ packer.use { "nvim-telescope/telescope.nvim",
             defaults = {
                 mappings = {
                     i = {
-                        ["<S-A-j>"] = actions.move_selection_next,
-                        ["<S-A-k>"] = actions.move_selection_previous,
-                        ["<S-j>"] = actions.preview_scrolling_down,
-                        ["<S-k>"] = actions.preview_scrolling_up,
+                        ["<S-j>"] = actions.move_selection_next,
+                        ["<S-k>"] = actions.move_selection_previous,
+                        ["<S-A-j>"] = actions.preview_scrolling_down,
+                        ["<S-A-k>"] = actions.preview_scrolling_up,
                     },
                     n = {
-                        ["<S-A-j>"] = actions.move_selection_next,
-                        ["<S-A-k>"] = actions.move_selection_previous,
-                        ["<S-j>"] = actions.preview_scrolling_down,
-                        ["<S-k>"] = actions.preview_scrolling_up,
+                        ["<S-j>"] = actions.move_selection_next,
+                        ["<S-k>"] = actions.move_selection_previous,
+                        ["<S-A-j>"] = actions.preview_scrolling_down,
+                        ["<S-A-k>"] = actions.preview_scrolling_up,
                     },
                 },
                 vimgrep_arguments = {
@@ -1007,6 +1046,11 @@ LSP_ON_ATTACH = function(client, buffer_num)
     vim.api.nvim_buf_set_option(buffer_num, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
     local capabilities = client.server_capabilities
+
+    if capabilities.documentSymbolProvider then
+        require("nvim-navic").attach(client, buffer_num)
+    end
+
     if capabilities.semanticTokensProvider and capabilities.semanticTokensProvider.full then
         local lsp_group = vim.api.nvim_create_augroup("lsp_semantic_highlighting", {})
         vim.api.nvim_create_autocmd(
@@ -1309,7 +1353,7 @@ packer.use { "hrsh7th/nvim-cmp",
                 }
             },
             mapping = cmp.mapping.preset.insert({
-                ["<C-space>"] = cmp.mapping.complete(),
+                ["<C-Space>"] = cmp.mapping.complete(),
                 ["<Tab>"] = cmp.mapping(function(fallback)
                     if cmp.visible() then
                         cmp.select_next_item()
