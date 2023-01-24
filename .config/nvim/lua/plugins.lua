@@ -7,6 +7,27 @@ packer.use "kyazdani42/nvim-web-devicons"
 packer.use "leafgarland/typescript-vim"
 packer.use "vim-autoformat/vim-autoformat"
 packer.use {
+    "NvChad/nvim-colorizer.lua",
+    config = function()
+        require("colorizer").setup {
+            user_default_options = {
+                RGB = true,
+                RRGGBB = true,
+                names = true,
+                RRGGBBAA = true,
+                AARRGGBB = true,
+                css_fn = true,
+                sass = {
+                    enable = true,
+                    parsers = {
+                        "css"
+                    },
+                },
+            }
+        }
+    end
+}
+packer.use {
     "SmiteshP/nvim-navic",
     requires = "neovim/nvim-lspconfig",
 }
