@@ -2,10 +2,94 @@
 -- PLUGINS IN USE
 ----------------------------------------------
 local packer = require('packer')
+
 packer.use "vim-scripts/DoxygenToolkit.vim"
 packer.use "kyazdani42/nvim-web-devicons"
 packer.use "leafgarland/typescript-vim"
 packer.use "vim-autoformat/vim-autoformat"
+packer.use {
+    "folke/noice.nvim",
+    requires = {
+        "MunifTanjim/nui.nvim",
+        "rcarriga/nvim-notify"
+    },
+    config = function()
+        local noice_border = {
+            "┏",
+            "━",
+            "┓",
+            "┃",
+            "┛",
+            "━",
+            "┗",
+            "┃",
+        }
+        require("noice").setup {
+            lsp = {
+                -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+                override = {
+                    ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+                    ["vim.lsp.util.stylize_markdown"] = true,
+                    ["cmp.entry.get_documentation"] = true,
+                },
+                hover = {
+                    enabled = true,
+                },
+                signature = {
+                    enabled = true,
+                    auto_open = {
+                        enabled = true,
+                        trigger = true,
+                        luasnip = true,
+                        throttle = 40,
+
+                    },
+                },
+                progress = {
+                    enabled = true,
+                    throttle = 1000 / 24,
+                },
+            },
+            presets = {
+                bottom_search = false,
+                command_palette = true,
+                inc_rename = true,
+            },
+            views = {
+                cmdline_popup = {
+                    border = {
+                        style = noice_border,
+                        padding = { 0, 0 },
+                    },
+                    win_options = {
+                        winhighlight = "Normal:Pmenu,FloatBorder:FloatBorder",
+                    },
+                },
+                popupmenu = {
+                    border = {
+                        style = noice_border,
+                        padding = { 0, 0 },
+                    },
+                    win_options = {
+                        winhighlight = "Normal:Pmenu,FloatBorder:FloatBorder",
+                    },
+                },
+                hover = {
+                    border = {
+                        style = noice_border,
+                        padding = { 0, 0 },
+                    },
+                    win_options = {
+                        winhighlight = "Normal:Pmenu,FloatBorder:FloatBorder",
+                    },
+                },
+            },
+        }
+
+        vim.cmd("hi! link NoiceCmdlinePopupBorder FloatBorder")
+        vim.cmd("hi! link NoiceConfirmBorder FloatBorder")
+    end,
+}
 packer.use {
     "NvChad/nvim-colorizer.lua",
     config = function()
@@ -47,7 +131,7 @@ packer.use {
             create_autocmd = false,
             kinds = require("lspkind_icons"),
             theme = {
-                normal = {fg = "#9daaaa", bg = "#24292f"}
+                normal = { fg = "#9daaaa", bg = "#24292f" }
             },
         }
 
@@ -181,13 +265,6 @@ packer.use { "yamatsum/nvim-cursorline",
 packer.use "octol/vim-cpp-enhanced-highlight"
 packer.use "bfrg/vim-cpp-modern"
 packer.use "rakr/vim-one"
-packer.use { "j-hui/fidget.nvim",
-    config = function()
-        require("fidget").setup {
-            done = ""
-        }
-    end
-}
 
 BORDER = {
     { "┏", "FloatBorder" },
@@ -710,13 +787,7 @@ packer.use { "akinsho/bufferline.nvim",
 packer.use { "rcarriga/nvim-notify",
     config = function()
         local notify = require("notify")
-        vim.notify = function(msg, ...)
-            if msg:match("warning: multiple different client offset_encodings") then
-                return
-            end
-
-            notify(msg, ...)
-        end
+        --notify is routed with noice.nvim
         notify.setup(
             {
                 background_colour = "Normal",
@@ -1301,7 +1372,6 @@ packer.use { "hrsh7th/nvim-cmp",
         "nvim-lua/plenary.nvim",
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/cmp-nvim-lsp-document-symbol",
-        "hrsh7th/cmp-nvim-lsp-signature-help",
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
         "hrsh7th/cmp-git",
@@ -1435,7 +1505,6 @@ packer.use { "hrsh7th/nvim-cmp",
                 ["<CR>"] = cmp.mapping.confirm({ select = false })
             }),
             sources = cmp.config.sources({
-                { name = "nvim_lsp_signature_help" },
                 { name = "nvim_lsp" },
                 { name = "vsnip" },
                 { name = "crates" },

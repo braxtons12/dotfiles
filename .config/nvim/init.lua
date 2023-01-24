@@ -157,35 +157,6 @@ vim.api.nvim_create_autocmd(
     }
 )
 
-vim.api.nvim_create_autocmd(
-    "CursorHold",
-    {
-        pattern = { "*" },
-        callback = function()
-            vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-                vim.lsp.handlers.hover, { focusable = false }
-            )
-            local cmp = require("cmp")
-            if not cmp.visible() then
-                vim.cmd("set eventignore=CursorHold")
-                vim.lsp.buf.hover()
-                vim.api.nvim_create_autocmd("CursorMoved",
-                    {
-                        pattern = { "*" },
-                        once = true,
-                        callback = function()
-                            vim.cmd("set eventignore=\"\"")
-                            vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-                                vim.lsp.handlers.hover, { focusable = true }
-                            )
-                        end
-                    }
-                )
-            end
-        end,
-    }
-)
-
 ----------------------------------------------
 -- THEMEING
 ----------------------------------------------
