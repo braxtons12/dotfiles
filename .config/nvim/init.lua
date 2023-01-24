@@ -225,6 +225,7 @@ vim.cmd("hi Variable guifg=#9daaaa cterm=none gui=none")
 vim.cmd("hi Field guifg=#c65156 cterm=none gui=none")
 vim.cmd("hi Property guifg=#c65156 cterm=none gui=none")
 vim.cmd("hi Namespace guifg=#00997b cterm=italic gui=italic")
+vim.cmd("hi EndOfBuffer ctermfg=bg guifg=bg")
 
 ----------------------------------------------
 -- HIGHLIGHTING FOR DAP-UI
