@@ -437,7 +437,14 @@ packer.use { "lukas-reineke/indent-blankline.nvim",
         vim.g.indent_blankline_show_trailing_blankline_indent = false
     end
 }
-packer.use "Raimondi/delimitMate"
+--packer.use "Raimondi/delimitMate"
+packer.use {
+    "windwp/nvim-autopairs",
+    config = function()
+        require("nvim-autopairs").setup {
+        }
+    end
+}
 packer.use { "NvChad/nvterm",
     config = function()
         require("nvterm").setup({
