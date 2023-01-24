@@ -62,6 +62,7 @@ packer.use {
                         padding = { 0, 0 },
                     },
                     win_options = {
+                        winblend = 0,
                         winhighlight = "Normal:Pmenu,FloatBorder:FloatBorder",
                     },
                 },
@@ -71,15 +72,22 @@ packer.use {
                         padding = { 0, 0 },
                     },
                     win_options = {
+                        winblend = 0,
                         winhighlight = "Normal:Pmenu,FloatBorder:FloatBorder",
                     },
                 },
                 hover = {
+                    relative = "cursor",
+                    position = {
+                        row = 2,
+                        col = 2,
+                    },
                     border = {
                         style = noice_border,
                         padding = { 0, 0 },
                     },
                     win_options = {
+                        winblend = 0,
                         winhighlight = "Normal:Pmenu,FloatBorder:FloatBorder",
                     },
                 },
@@ -133,12 +141,20 @@ packer.use {
             theme = {
                 normal = { fg = "#9daaaa", bg = "#24292f" }
             },
+            exclude_filetypes = {
+                "gitcommit",
+                "toggleterm",
+                "aerial",
+                "neo-tree",
+                "terminal",
+            },
         }
 
         vim.api.nvim_create_autocmd(
             {
                 "WinScrolled",
                 "BufWinEnter",
+                "BufWinLeave",
                 "CursorHold",
                 "CursorMoved",
                 "CursorMovedI",
@@ -149,7 +165,7 @@ packer.use {
             },
             {
                 group = vim.api.nvim_create_augroup("barbecue#create_autocmd", {}),
-                callback = function()
+                callback = function(event)
                     require("barbecue.ui").update()
                 end
             })
@@ -611,85 +627,178 @@ packer.use { "nvim-treesitter/playground",
         }
     end
 }
-packer.use { "kyazdani42/nvim-tree.lua",
-    requires = "kyazdani42/nvim-web-devicons",
-    tag = "nightly",
+packer.use {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v2.x",
+    after = "barbecue.nvim",
+    requires = {
+        "nvim-lua/plenary.nvim",
+        "nvim-tree/nvim-web-devicons",
+        "MunifTanjim/nui.nvim",
+        {
+            -- only needed if you want to use the commands with "_with_window_picker" suffix
+            's1n7ax/nvim-window-picker',
+            tag = "v1.*",
+            config = function()
+                require 'window-picker'.setup({
+                    autoselect_one = false,
+                    include_current = false,
+                    filter_rules = {
+                        -- filter using buffer options
+                        bo = {
+                            -- if the file type is one of following, the window will be ignored
+                            filetype = {
+                                "neo-tree",
+                                "neo-tree-popup",
+                                "notify",
+                                "aerial",
+                                "packer"
+                            },
+                            -- if the buffer type is one of following, the window will be ignored
+                            buftype = {
+                                "terminal",
+                                "quickfix"
+                            },
+                        },
+                    },
+                    other_win_hl_color = "#61afef",
+                })
+            end,
+        }
+    },
     config = function()
-        require("nvim-tree").setup {
-            update_focused_file = {
-                enable = true,
-                update_cwd = false,
+        vim.cmd("let g:neo_tree_remove_legacy_commands = 1")
+
+        require("neo-tree").setup {
+            sources = {
+                "filesystem",
+                "git_status",
             },
-            respect_buf_cwd = true,
-            view = {
-                mappings = {
-                    list = {
-                        { key = "<C-t>", action = "close", mode = "n" },
-                        { key = "e", action = "edit", mode = "n" }
-                    }
+            source_selector = {
+                winbar = true,
+                statusline = false,
+                show_scrolled_off_parent_node = false,
+                content_layout = "start",
+                tab_labels = {
+                    filesystem = " File",
+                    buffers = " Buffer",
+                    git_status = " Git",
+                    diagnostics = "裂Lints"
                 }
             },
-            renderer = {
-                highlight_git = true,
-                highlight_opened_files = "all",
-                indent_markers = {
-                    enable = true,
-                    icons = {
-                        corner = "└ ",
-                        edge = "│ ",
-                        --item = "│ ",
-                        none = "  ",
-                    },
+            close_if_last_window = true,
+            popup_border_style = "rounded",
+            enable_git_status = true,
+            enable_diagnostics = true,
+            sort_case_insensitive = true,
+            default_component_configs = {
+                indent = {
+                    indent_size = 2,
+                    padding = 0,
+                    with_markers = true,
+                    indent_marker = "│",
+                    last_indent_marker = "└",
+                    highlight = "NeoTreeIndentMarker",
+                    with_expanders = true,
+                    expander_collapsed = "",
+                    expander_expanded = "",
+                    expander_highlight = "NeoTreeExpander",
                 },
-                icons = {
-                    webdev_colors = false,
-                    git_placement = "before",
-                    padding = " ",
-                    symlink_arrow = " ➛ ",
-                    show = {
-                        file = true,
-                        folder = true,
-                        folder_arrow = true,
-                        git = true,
-                    },
-                    glyphs = {
-                        default = "",
-                        symlink = "",
-                        folder = {
-                            arrow_closed = "",
-                            arrow_open = "",
-                            default = "",
-                            open = "",
-                            empty = "",
-                            empty_open = "",
-                            symlink = "",
-                            symlink_open = "",
-                        },
-                        git = {
-                            unstaged = "M",
-                            staged = "",
-                            unmerged = "",
-                            renamed = "➜",
-                            untracked = "U",
-                            deleted = "",
-                            ignored = "◌",
-                        },
+                icon = {
+                    folder_closed = "",
+                    folder_open = "",
+                    folder_empty = "",
+                    default = "",
+                },
+                name = {
+                    trailing_slash = false,
+                    use_git_status_colors = true,
+                },
+                git_status = {
+                    symbols = {
+                        added = "",
+                        deleted = "",
+                        modified = "",
+                        renamed = "➜",
+                        untracked = "★",
+                        ignored = "◌",
+                        unstaged = "✗",
+                        staged = "✓",
+                        conflict = "",
                     },
                 },
             },
-            diagnostics = {
-                enable = true,
-                show_on_dirs = false,
-                icons = {
-                    hint = "",
-                    info = "",
-                    warning = "",
-                    error = "",
+            window = {
+                position = "left",
+                width = 30,
+                mappings = {
+                    ["<2-LeftMouse>"] = "open",
+                    ["<cr>"] = "open",
+                    ["e"] = "open",
+                    ["s"] = "open_vsplit",
+                    ["R"] = "refresh",
+                    ["a"] = "add",
+                    ["d"] = "delete",
+                    ["r"] = "rename",
+                    ["y"] = "copy_to_clipboard",
+                    ["x"] = "cut_to_clipboard",
+                    ["p"] = "paste_from_clipboard",
+                    ["q"] = "close_window",
+                    ["<C-t>"] = "close_window",
                 },
             },
-            actions = {
-                change_dir = {
-                    enable = false,
+            filesystem = {
+                filtered_items = {
+                    visible = false,
+                    hide_dotfiles = false,
+                    hide_gitignored = false,
+                    hide_by_name = {
+                        ".DS_Store",
+                        "thumbs.db",
+                        "node_modules",
+                        "__pycache__",
+                    },
+                },
+                follow_current_file = true,
+                hijack_netrw_behavior = "open_current",
+                use_libuv_file_watcher = true,
+                window = {
+                    mappings = {
+                        ["H"] = "toggle_hidden",
+                        ["/"] = "filter_on_submit",
+                        ["<c-x>"] = "clear_filter",
+                    },
+                },
+            },
+            buffers = {
+                show_unloaded = true,
+                window = {
+                    mappings = {
+                        ["bd"] = "buffer_delete",
+                    },
+                },
+            },
+            git_status = {
+                window = {
+                    mappings = {
+                        ["A"] = "git_add_all",
+                        ["u"] = "git_unstage_file",
+                        ["a"] = "git_add_file",
+                        ["r"] = "git_revert_file",
+                        ["c"] = "git_commit",
+                        ["p"] = "git_push",
+                        ["cp"] = "git_commit_and_push",
+                    },
+                },
+            },
+            event_handlers = {
+                {
+                    event = "vim_buffer_enter",
+                    handler = function(_)
+                        if vim.bo.filetype == "neo-tree" then
+                            vim.wo.signcolumn = "auto"
+                        end
+                    end,
                 },
             },
         }
@@ -746,8 +855,8 @@ packer.use { "akinsho/bufferline.nvim",
                         text_align = "left",
                     },
                     {
-                        filetype = "NvimTree",
-                        text = "File Explorer",
+                        filetype = "neo-tree",
+                        text = "",
                         highlight = "Directory",
                         text_align = "left",
                     },
@@ -872,7 +981,7 @@ packer.use { "nvim-lualine/lualine.nvim",
                 'aerial',
                 'quickfix',
                 'fugitive',
-                'nvim-tree',
+                'neo-tree',
                 'nvim-dap-ui',
                 'toggleterm',
             },

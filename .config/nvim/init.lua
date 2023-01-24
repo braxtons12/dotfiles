@@ -637,7 +637,7 @@ nmap("<S-f>", "<cmd>lua require(\"telescope.builtin\").find_files(require(\"tele
     "Telescope Find Files")
 nmap("<S-A-g>", "<cmd>lua require(\"telescope.builtin\").live_grep(require(\"telescope.themes\").get_dropdown({}))<CR>",
     "Telescope Live Grep")
-nmap("<C-t>", "<cmd>NvimTreeToggle<CR>", "Toggle NvimTree")
+nmap("<C-t>", "<cmd>Neotree<CR>", "Toggle NeoTree")
 nmap("<S-D>", "<cmd>Dox<CR>", "Create a Doxygen Comment")
 nmap("<C-p>", "<cmd>BufferLineCyclePrev<CR>", "Previous Buffer")
 nmap("<C-n>", "<cmd>BufferLineCycleNext<CR>", "Next Buffer")
