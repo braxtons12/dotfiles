@@ -635,6 +635,12 @@ packer.use { "akinsho/bufferline.nvim",
             options = {
                 offsets = {
                     {
+                        filetype = "packer",
+                        text = "Packer",
+                        highlight = "Directory",
+                        text_align = "left",
+                    },
+                    {
                         filetype = "NvimTree",
                         text = "File Explorer",
                         highlight = "Directory",
@@ -657,9 +663,18 @@ packer.use { "akinsho/bufferline.nvim",
                 ---@diagnostic disable-next-line: assign-type-mismatch
                 diagnostics = "nvim_lsp",
                 diagnostics_update_in_insert = true,
+                color_icons = true,
                 show_buffer_icons = true,
+                show_tab_indicators = true,
                 separator_style = "thick",
                 always_show_bufferline = true,
+                hover = {
+                    enabled = true,
+                    delay = 200,
+                    reveal = {
+                        "close"
+                    },
+                },
             }
         }
     end
@@ -789,6 +804,9 @@ packer.use { "nvim-lualine/lualine.nvim",
                         cond = function()
                             return vim.bo.buftype == 'quickfix'
                         end,
+                    },
+                    {
+                        "searchcount",
                     },
                 },
                 lualine_c = {},
