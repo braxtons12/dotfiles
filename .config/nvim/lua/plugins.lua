@@ -125,6 +125,7 @@ packer.use {
 }
 packer.use {
     "braxtons12/barbecue.nvim",
+    --"utilyre/barbecue.nvim",
     branch = "patch-1",
     requires = {
         "neovim/nvim-lspconfig",
@@ -633,7 +634,6 @@ packer.use { "nvim-treesitter/playground",
 packer.use {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v2.x",
-    after = "barbecue.nvim",
     requires = {
         "nvim-lua/plenary.nvim",
         "nvim-tree/nvim-web-devicons",
@@ -683,13 +683,14 @@ packer.use {
                 show_scrolled_off_parent_node = false,
                 content_layout = "start",
                 tab_labels = {
-                    filesystem = " File",
+                    filesystem = "  File",
                     buffers = " Buffer",
                     git_status = " Git",
                     diagnostics = "裂Lints"
                 }
             },
             hide_root_node = true,
+            expand_all_nodes = false,
             close_if_last_window = true,
             popup_border_style = "rounded",
             enable_git_status = true,
@@ -698,7 +699,7 @@ packer.use {
             default_component_configs = {
                 indent = {
                     indent_size = 2,
-                    padding = 0,
+                    padding = 1,
                     with_markers = true,
                     indent_marker = "│",
                     last_indent_marker = "└",
@@ -749,6 +750,8 @@ packer.use {
                     ["p"] = "paste_from_clipboard",
                     ["q"] = "close_window",
                     ["<C-t>"] = "close_window",
+                    ["<"] = "prev_source",
+                    [">"] = "next_source",
                 },
             },
             filesystem = {
@@ -787,6 +790,7 @@ packer.use {
                 },
             },
             git_status = {
+                follow_current_file = true,
                 window = {
                     position = "left",
                     width = 30,
