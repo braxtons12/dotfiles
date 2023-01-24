@@ -221,36 +221,48 @@ vim.cmd("hi! link DapUIBreakPointsLine Field")
 vim.cmd("hi! link DapUIBreakPointsDisabledLine Normal")
 
 ----------------------------------------------
--- HIGHLIGHTING FOR NVIM-TREE
+-- HIGHLIGHTING FOR LSP DIAGNOSTICS
 ----------------------------------------------
-
-vim.cmd("hi Directory guibg=#23282e guifg=#61afef")
-vim.cmd("hi NvimTreeNormal guibg=#23282e guifg=#9daaaa")
-vim.cmd("hi NvimTreeCursorLine guibg=#383d48 guifg=#9daaaa")
-vim.cmd("hi NvimTreeSymlink guibg=#23282e guifg=#dbba75")
-vim.cmd("hi NvimTreeFolderName guibg=#23282e guifg=#61afef")
-vim.cmd("hi NvimTreeEmptyFolderName guibg=#23282e guifg=#61afef")
-vim.cmd("hi NvimTreeOpenedFolderName guibg=#23282e guifg=#61afef")
-vim.cmd("hi NvimTreeFolderIcon guibg=#23282e guifg=#61afef")
-vim.cmd("hi NvimTreeRootFolder guibg=#23282e guifg=#61afef")
-vim.cmd("hi NvimTreeFileIcon guibg=#23282e guifg=#9daaaa")
-vim.cmd("hi NvimTreeExecFile guibg=#23282e guifg=#9daaaa")
-vim.cmd("hi NvimTreeOpenedFile guibg=#23282e guifg=#9daaaa")
-vim.cmd("hi NvimTreeSpecialFile guibg=#23282e guifg=#9daaaa")
-vim.cmd("hi NvimTreeImageFile guibg=#23282e guifg=#9daaaa")
-vim.cmd("hi NvimTreeIndentMarker guibg=#23282e guifg=#9daaaa")
 
 vim.cmd("hi LspDiagnosticsError guifg=#c65156")
 vim.cmd("hi LspDiagnosticsWarn guifg=#d29767")
 vim.cmd("hi LspDiagnosticsHint guifg=#9daaaa")
 vim.cmd("hi LspDiagnosticsInformation guifg=#61afef")
 
-vim.cmd("hi NvimTreeGitDirty guibg=#23282e guifg=#dbba75")
-vim.cmd("hi NvimTreeGitStaged guibg=#23282e guifg=#83a76e")
-vim.cmd("hi NvimTreeGitMerge guibg=#23282e guifg=#c67ada")
-vim.cmd("hi NvimTreeGitRenamed guibg=#23282e guifg=#dbba75")
-vim.cmd("hi NvimTreeGitNew guibg=#23282e guifg=#686e78")
-vim.cmd("hi NvimTreeGitDeleted guibg=#23282e guifg=#c65156")
+----------------------------------------------
+-- HIGHLIGHTING FOR NEO-TREE
+----------------------------------------------
+
+vim.cmd("hi Directory guibg=#23282e guifg=#61afef")
+vim.cmd("hi NeoTreeNormal guibg=#23282e guifg=#9daaaa")
+vim.cmd("hi NeoTreeCursorLine guibg=#383d48 guifg=#9daaaa")
+vim.cmd("hi NeoTreeSymlink guibg=#23282e guifg=#dbba75")
+vim.cmd("hi link NeoTreeFileName NeoTreeNormal")
+vim.cmd("hi NeoTreeFolderName guibg=#23282e guifg=#61afef")
+vim.cmd("hi NeoTreeEmptyFolderName guibg=#23282e guifg=#61afef")
+vim.cmd("hi NeoTreeOpenedFolderName guibg=#23282e guifg=#61afef")
+vim.cmd("hi NeoTreeFolderIcon guibg=#23282e guifg=#61afef")
+vim.cmd("hi NeoTreeRootFolder guibg=#23282e guifg=#61afef")
+vim.cmd("hi link NeoTreeFileIcon NeoTreeNormal")
+vim.cmd("hi link NeoTreeExecFile NeoTreeNormal")
+vim.cmd("hi link NeoTreeOpenedFile  NeoTreeNormal")
+vim.cmd("hi link NeoTreeSpecialFile NeoTreeNormal")
+vim.cmd("hi link NeoTreeImageFile NeoTreeNormal")
+vim.cmd("hi link NeoTreeIndentMarker NeoTreeNormal")
+
+vim.cmd("hi NeoTreeExpander guibg=#23282e guifg=#686e78")
+vim.cmd("hi NeoTreeModified guibg=#23282e guifg=#dbba75")
+
+vim.cmd("hi NeoTreeGitModified guibg=#23282e guifg=#dbba75")
+vim.cmd("hi NeoTreeGitAdded guibg=#23282e guifg=#83a76e")
+vim.cmd("hi NeoTreeGitMerge guibg=#23282e guifg=#c67ada")
+vim.cmd("hi NeoTreeGitRenamed guibg=#23282e guifg=#dbba75")
+vim.cmd("hi NeoTreeGitUntracked guibg=#23282e guifg=#dbba75")
+vim.cmd("hi NeoTreeGitIgnored guibg=#23282e guifg=#686e78")
+vim.cmd("hi NeoTreeGitDeleted guibg=#23282e guifg=#c65156")
+vim.cmd("hi NeoTreeGitStaged guibg=#23282e guifg=#00997b")
+vim.cmd("hi NeoTreeGitUnstaged guibg=#23282e guifg=#d29767")
+vim.cmd("hi NeoTreeGitConflict guibg=#23282e guifg=#9c80ff")
 
 ----------------------------------------------
 -- HIGHLIGHTING FOR NVIM NOTIFY
@@ -637,7 +649,7 @@ nmap("<S-f>", "<cmd>lua require(\"telescope.builtin\").find_files(require(\"tele
     "Telescope Find Files")
 nmap("<S-A-g>", "<cmd>lua require(\"telescope.builtin\").live_grep(require(\"telescope.themes\").get_dropdown({}))<CR>",
     "Telescope Live Grep")
-nmap("<C-t>", "<cmd>Neotree<CR>", "Toggle NeoTree")
+nmap("<C-t>", "<cmd>Neotree toggle<CR>", "Toggle NeoTree")
 nmap("<S-D>", "<cmd>Dox<CR>", "Create a Doxygen Comment")
 nmap("<C-p>", "<cmd>BufferLineCyclePrev<CR>", "Previous Buffer")
 nmap("<C-n>", "<cmd>BufferLineCycleNext<CR>", "Next Buffer")

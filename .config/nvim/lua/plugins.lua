@@ -124,7 +124,8 @@ packer.use {
     requires = "neovim/nvim-lspconfig",
 }
 packer.use {
-    "utilyre/barbecue.nvim",
+    "braxtons12/barbecue.nvim",
+    branch = "patch-1",
     requires = {
         "neovim/nvim-lspconfig",
         "SmiteshP/nvim-navic",
@@ -141,6 +142,9 @@ packer.use {
             theme = {
                 normal = { fg = "#9daaaa", bg = "#24292f" }
             },
+            include_buftypes = {
+                ""
+            },
             exclude_filetypes = {
                 "gitcommit",
                 "toggleterm",
@@ -154,7 +158,6 @@ packer.use {
             {
                 "WinScrolled",
                 "BufWinEnter",
-                "BufWinLeave",
                 "CursorHold",
                 "CursorMoved",
                 "CursorMovedI",
@@ -165,7 +168,7 @@ packer.use {
             },
             {
                 group = vim.api.nvim_create_augroup("barbecue#create_autocmd", {}),
-                callback = function(event)
+                callback = function()
                     require("barbecue.ui").update()
                 end
             })
@@ -686,6 +689,7 @@ packer.use {
                     diagnostics = "裂Lints"
                 }
             },
+            hide_root_node = true,
             close_if_last_window = true,
             popup_border_style = "rounded",
             enable_git_status = true,
@@ -763,6 +767,8 @@ packer.use {
                 hijack_netrw_behavior = "open_current",
                 use_libuv_file_watcher = true,
                 window = {
+                    position = "left",
+                    width = 30,
                     mappings = {
                         ["H"] = "toggle_hidden",
                         ["/"] = "filter_on_submit",
@@ -773,6 +779,8 @@ packer.use {
             buffers = {
                 show_unloaded = true,
                 window = {
+                    position = "left",
+                    width = 30,
                     mappings = {
                         ["bd"] = "buffer_delete",
                     },
@@ -780,6 +788,8 @@ packer.use {
             },
             git_status = {
                 window = {
+                    position = "left",
+                    width = 30,
                     mappings = {
                         ["A"] = "git_add_all",
                         ["u"] = "git_unstage_file",
