@@ -126,9 +126,12 @@ PATH=/home/braxton/.nvm/versions/node/v17.7.2/bin:$PATH
 PATH=/home/braxton/.local/share/gem/ruby/2.7.0:$PATH
 PATH=/var/lib/gems/2.7.0:$PATH
 PATH=/home/braxton/JUCE/extras/AudioPluginHost/Builds/LinuxMakefile/build:$PATH
-PATH=/home/braxton/.local/bin/:$PATH
-PATH=/home/braxton/git/vcpkg/:$PATH
+PATH=/home/braxton/.local/bin:$PATH
+PATH=/home/braxton/git/vcpkg:$PATH
 export PATH
+
+VCPKG_ROOT=/home/braxton/git/vcpkg
+export VCPKG_ROOT
 
 PICO_SDK_PATH=/home/braxton/git/pico/pico-sdk
 export PICO_SDK_PATH
@@ -196,7 +199,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 export HDOC_PROJECT_API_KEY=9qUFEPM5.wwfPILGV1ylTrmPitgkAwWiYOngxAQz2
 
-VISUAL=nvim
+VISUAL=/usr/bin/nvim
 EDITOR="$VISUAL"
 export VISUAL
 export EDITOR
