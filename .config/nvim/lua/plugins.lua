@@ -754,6 +754,7 @@ packer.use {
                     ["p"] = "paste_from_clipboard",
                     ["q"] = "close_window",
                     ["<C-t>"] = "close_window",
+                    ["<C-n>"] = "next_source",
                     ["<C-p>"] = "prev_source",
                     ["<"] = "prev_source",
                     [">"] = "next_source",
