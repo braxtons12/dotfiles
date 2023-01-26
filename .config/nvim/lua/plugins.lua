@@ -699,6 +699,7 @@ packer.use {
             close_if_last_window = true,
             enable_git_status = true,
             enable_diagnostics = true,
+            use_default_mappings = false,
             sort_case_insensitive = true,
             default_component_configs = {
                 indent = {
