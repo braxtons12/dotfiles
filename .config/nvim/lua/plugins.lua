@@ -474,6 +474,12 @@ packer.use { "numToStr/Comment.nvim",
 packer.use { "folke/neodev.nvim",
     config = function()
         require("neodev").setup({
+            library = {
+                plugins = {
+                    "nvim-dap-ui",
+                },
+                types = true,
+            }
         })
     end
 }
@@ -671,17 +677,6 @@ packer.use {
     },
     config = function()
         vim.cmd("let g:neo_tree_remove_legacy_commands = 1")
-        local border = {
-                    "┏",
-                    "━",
-                    "┓",
-                    "┃",
-                    "┛",
-                    "━",
-                    "┗",
-                    "┃",
-        }
-
         require("neo-tree").setup {
             sources = {
                 "filesystem",
@@ -759,6 +754,7 @@ packer.use {
                     ["p"] = "paste_from_clipboard",
                     ["q"] = "close_window",
                     ["<C-t>"] = "close_window",
+                    ["<C-p>"] = "prev_source",
                     ["<"] = "prev_source",
                     [">"] = "next_source",
                 },
@@ -1158,6 +1154,7 @@ packer.use { "mfussenegger/nvim-dap",
 
 packer.use { "rcarriga/nvim-dap-ui",
     after = "nvim-dap",
+    tag = "v2.6.0",
     config = function()
         local dapui = require("dapui")
         dapui.setup {
