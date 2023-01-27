@@ -124,9 +124,7 @@ packer.use {
     requires = "neovim/nvim-lspconfig",
 }
 packer.use {
-    "braxtons12/barbecue.nvim",
-    --"utilyre/barbecue.nvim",
-    branch = "patch-1",
+    "utilyre/barbecue.nvim",
     requires = {
         "neovim/nvim-lspconfig",
         "SmiteshP/nvim-navic",
@@ -1156,7 +1154,6 @@ packer.use { "mfussenegger/nvim-dap",
 
 packer.use { "rcarriga/nvim-dap-ui",
     after = "nvim-dap",
-    tag = "v2.6.0",
     config = function()
         local dapui = require("dapui")
         dapui.setup {
