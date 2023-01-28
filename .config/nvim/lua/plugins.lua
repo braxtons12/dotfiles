@@ -1008,7 +1008,20 @@ packer.use { "nvim-lualine/lualine.nvim",
                 lualine_a = { 'mode' },
                 lualine_b = {
                     'branch',
-                    'diff',
+                    {
+                        'diff',
+                        colored = true,
+                        diff_color = {
+                            added = "DiffAdd",
+                            modified = "DiffChange",
+                            removed = "DiffDelete",
+                        },
+                        symbols = {
+                            added = " ",
+                            removed = " ",
+                            modified = " ",
+                        },
+                    },
                     {
                         'filename',
                         file_status = true,
