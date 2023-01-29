@@ -7,28 +7,71 @@ packer.use "vim-scripts/DoxygenToolkit.vim"
 packer.use "kyazdani42/nvim-web-devicons"
 packer.use "leafgarland/typescript-vim"
 packer.use "vim-autoformat/vim-autoformat"
-packer.use {
-    "gorbit99/codewindow.nvim",
-    config = function()
-        require("codewindow").setup {
-            auto_enable = true,
-            exclude_filetypes = {
-                "Trouble",
-                "packer",
-                "gitcommit",
-                "toggleterm",
-                "neo-tree",
-                "terminal",
-            },
-            minimap_width = 15,
-            use_lsp = true,
-            use_treesitter = true,
-            use_git = true,
-            width_multiplier = 2,
-            window_border = "none",
-        }
-    end
-}
+--packer.use {
+--    "gorbit99/codewindow.nvim",
+--    config = function()
+--        require("codewindow").setup {
+--            auto_enable = false,
+--            exclude_filetypes = {
+--                "alpha",
+--                "Trouble",
+--                "packer",
+--                "gitcommit",
+--                "toggleterm",
+--                "neo-tree",
+--                "terminal",
+--            },
+--            minimap_width = 15,
+--            use_lsp = true,
+--            use_treesitter = true,
+--            use_git = true,
+--            width_multiplier = 2,
+--            window_border = "none",
+--        }
+--
+--        vim.api.nvim_create_autocmd(
+--            {
+--                "BufWinEnter",
+--                "BufWinLeave",
+--                "WinEnter",
+--            },
+--            {
+--                group = vim.api.nvim_create_augroup("codewindow#enable_minimap", {}),
+--                callback = function(details)
+--                    local excluded = {
+--                        "alpha",
+--                        "Trouble",
+--                        "packer",
+--                        "gitcommit",
+--                        "toggleterm",
+--                        "neo-tree",
+--                        "terminal",
+--                    }
+--                    if vim.tbl_contains(excluded, vim.bo[details.buf].filetype) then
+--                        require("codewindow").close_minimap()
+--                        return
+--                    end
+--
+--                    local windows = vim.api.nvim_tabpage_list_wins(0)
+--                    local count = 0
+--                    for _, win in pairs(windows) do
+--                        local buf = vim.api.nvim_win_get_buf(win)
+--                        local filetype = vim.api.nvim_buf_get_option(buf, "filetype")
+--                        local config = vim.api.nvim_win_get_config(win)
+--                        local floating = config.relative ~= "" or config.external or config.zindex
+--                        if not vim.tbl_contains(excluded, filetype) and not floating then
+--                            count = count + 1
+--                        end
+--                    end
+--                    if count < 2 then
+--                        require("codewindow").open_minimap()
+--                    else
+--                        require("codewindow").close_minimap()
+--                    end
+--                end
+--            })
+--    end
+--}
 packer.use {
     "folke/noice.nvim",
     requires = {
@@ -167,6 +210,7 @@ packer.use {
                 ""
             },
             exclude_filetypes = {
+                "alpha",
                 "Trouble",
                 "packer",
                 "gitcommit",

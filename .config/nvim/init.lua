@@ -727,6 +727,7 @@ nmap("<C-d>", "<cmd>lua vim.diagnostic.config({virtual_lines = { prefix = \"🔥
 nmap("<C-S-d>", "<cmd>lua vim.diagnostic.config({virtual_lines = false})<CR>", "Hide Diagnostic Text")
 
 nmap("<S-m>", "<cmd>AerialToggle!<CR>", "Toggles the Aerial Overview")
+--nmap("<leader>mm", "<cmd>lua require(\"codewindow\").toggle_minimap()<CR>", "Show git diff for file")
 
 nmap("<F10>",
     "<cmd>TSHighlightCapturesUnderCursor<CR>",
