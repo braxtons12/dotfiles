@@ -181,9 +181,9 @@ vim.cmd("hi DiagnosticVirtualTextInfo guibg=#262d33 guifg=#61afef")
 vim.cmd("hi BlameLineNvim guifg=#202020")
 vim.cmd("hi GitSignsCurrentLineBlame guifg=#202020")
 
-vim.cmd("hi DiffAdd guibg=#23272e")
-vim.cmd("hi DiffChange guibg=#23272e")
-vim.cmd("hi DiffDelete guibg=#23272e")
+vim.cmd("hi DiffAdd guifg=#83a76e guibg=#23272e")
+vim.cmd("hi DiffChange guifg=#61afef guibg=#23272e")
+vim.cmd("hi DiffDelete guifg=#c65156 guibg=#23272e")
 
 ----------------------------------------------
 -- GENERIC HIGHLIGHTING

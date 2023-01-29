@@ -726,7 +726,7 @@ packer.use {
                     symbols = {
                         added = "",
                         deleted = "",
-                        modified = "",
+                        modified = "",
                         renamed = "➜",
                         untracked = "★",
                         ignored = "◌",
@@ -1019,7 +1019,7 @@ packer.use { "nvim-lualine/lualine.nvim",
                         symbols = {
                             added = " ",
                             removed = " ",
-                            modified = " ",
+                            modified = " ",
                         },
                     },
                     {
