@@ -8,6 +8,28 @@ packer.use "kyazdani42/nvim-web-devicons"
 packer.use "leafgarland/typescript-vim"
 packer.use "vim-autoformat/vim-autoformat"
 packer.use {
+    "gorbit99/codewindow.nvim",
+    config = function()
+        require("codewindow").setup {
+            auto_enable = true,
+            exclude_filetypes = {
+                "Trouble",
+                "packer",
+                "gitcommit",
+                "toggleterm",
+                "neo-tree",
+                "terminal",
+            },
+            minimap_width = 15,
+            use_lsp = true,
+            use_treesitter = true,
+            use_git = true,
+            width_multiplier = 2,
+            window_border = "none",
+        }
+    end
+}
+packer.use {
     "folke/noice.nvim",
     requires = {
         "MunifTanjim/nui.nvim",
@@ -145,6 +167,8 @@ packer.use {
                 ""
             },
             exclude_filetypes = {
+                "Trouble",
+                "packer",
                 "gitcommit",
                 "toggleterm",
                 "aerial",
@@ -221,50 +245,7 @@ packer.use { "dstein64/nvim-scrollview",
 
     end
 }
--- for lsp signs in scrollbar
-packer.use { "petertriho/nvim-scrollbar",
-    config = function()
-        require("scrollbar").setup {
-            marks = {
-                Handler = { color = "#262b33" },
-                Search = { color = "#dbba75" },
-                Error = { color = "#c65156" },
-                Warn = { color = "#d29767" },
-                Hint = { color = "#9daaaa" },
-                Info = { color = "#61afef" },
-                Misc = { color = "#c67ada" },
-            },
-            autocmd = {
-                render = {
-                    "BufWinEnter",
-                    "TabEnter",
-                    "TermEnter",
-                    "WinEnter",
-                    "CmdwinLeave",
-                    "TextChanged",
-                    "InsertChange",
-                    "VimResized",
-                    "WinScrolled",
-                    "BufLeave",
-                },
-            },
-        }
 
-        vim.cmd("highlight ScrollbarHandle guibg=#262b33")
-        vim.cmd("highlight ScrollbarSearch guibg=#262b33 guifg=#dbba75")
-        vim.cmd("highlight ScrollbarError guibg=#262b33 guifg=#c65156")
-        vim.cmd("highlight ScrollbarWarn guibg=#262b33 guifg=#d29767")
-        vim.cmd("highlight ScrollbarHint guibg=#262b33 guifg=#9daaaa")
-        vim.cmd("highlight ScrollbarInfo guibg=#262b33 guifg=#61afef")
-        vim.cmd("highlight ScrollbarMisc guibg=#262b33 guifg=#c67ada")
-        vim.cmd("highlight ScrollbarSearchHandle guibg=#262b33 guifg=#dbba75")
-        vim.cmd("highlight ScrollbarErrorHandle guibg=#262b33 guifg=#c65156")
-        vim.cmd("highlight ScrollbarWarnHandle guibg=#262b33 guifg=#d29767")
-        vim.cmd("highlight ScrollbarHintHandle guibg=#262b33 guifg=#9daaaa")
-        vim.cmd("highlight ScrollbarInfoHandle guibg=#262b33 guifg=#61afef")
-        vim.cmd("highlight ScrollbarMiscHandle guibg=#262b33 guifg=#c67ada")
-    end
-}
 packer.use "famiu/bufdelete.nvim"
 packer.use { "yamatsum/nvim-cursorline",
     config = function()
@@ -655,6 +636,8 @@ packer.use {
                         bo = {
                             -- if the file type is one of following, the window will be ignored
                             filetype = {
+                                "Trouble",
+                                "packer",
                                 "neo-tree",
                                 "neo-tree-popup",
                                 "notify",
@@ -840,6 +823,7 @@ packer.use { "folke/trouble.nvim",
     config = function()
         require("trouble").setup {
             mode = "document_diagnostics",
+            icons = true,
             action_keys = {
                 close = "<C-l><C-k>",
                 cancel = "<esc>",
