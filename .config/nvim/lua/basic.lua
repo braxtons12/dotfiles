@@ -136,9 +136,9 @@ return {
     {
         "nvim-treesitter/nvim-treesitter",
         lazy = false,
-        --init = function()
-        --    vim.cmd("TSUpdate all")
-        --end,
+        config = function(_, options)
+            require("nvim-treesitter.configs").setup(options)
+        end,
         opts = {
             ensure_installed = {
                 "bash",
@@ -180,16 +180,21 @@ return {
         "nvim-treesitter/playground",
         lazy = false,
         dependencies = "nvim-treesitter/nvim-treesitter",
-        config = function(_, _)
-            require("nvim-treesitter.configs").setup {
-                playground = {
-                    enabled = true,
-                    disable = {},
-                    updatetime = 25,
-                    persist_queries = false,
-                    keybindings = {},
-                }
+        config = function(_, options)
+            require("nvim-treesitter.configs").setup(options)
+            map.nmap("<F10>",
+                "<cmd>TSHighlightCapturesUnderCursor<CR>",
+                "Show Highlight Group For Token")
+        end,
+
+        opts = {
+            playground = {
+                enabled = true,
+                disable = {},
+                updatetime = 25,
+                persist_queries = false,
+                keybindings = {},
             }
-        end
+        },
     },
 }

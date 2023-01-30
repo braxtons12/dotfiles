@@ -234,13 +234,17 @@ vim.cmd("hi! link cppSTLFunction Normal")
 vim.cmd("hi! link cppSTLfunction Normal")
 vim.cmd("hi! link cppCast Keyword")
 vim.cmd("hi! link cppAccess Keyword")
+vim.cmd("hi! link cppStructure Keyword")
+vim.cmd("hi! link cppModifier Keyword")
+vim.cmd("hi! link cppOperator Function")
+vim.cmd("hi! link cppStorageClass Keyword")
+vim.cmd("hi! link cStructure Keyword")
 vim.cmd("hi! link cCustomClass Namespace")
 vim.cmd("hi! link cBlock Normal")
 vim.cmd("hi! link cParen Normal")
 vim.cmd("hi! link cInclude Keyword")
 vim.cmd("hi! link cType Keyword")
 vim.cmd("hi cStructMember guifg=#c65156")
---vim.cmd("hi cCommentL guifg=#9c80ff")
 vim.cmd("hi cppSTLConcept guifg=#dbba75")
 vim.cmd("hi cDefine guifg=#9c80ff")
 
@@ -260,43 +264,6 @@ vim.cmd("hi LspCxxHlSymVariable ctermfg=white guifg=#9daaaa cterm=none gui=none"
 vim.cmd("hi LspCxxHlSymParameter ctermfg=white guifg=#588496 cterm=none gui=none")
 vim.cmd("hi LspCxxHlSkippedRegion ctermfg=lightgrey ctermbg=darkgrey guifg=#444444 guibg=#202020")
 vim.cmd("hi LspCxxHlSkippedRegionBeginEnd ctermfg=lightgrey ctermbg=darkgrey guifg=#444444 guibg=#202020")
-
-----------------------------------------------------
--- TREESITTER HIGHLIGHTING
-----------------------------------------------------
-
-vim.cmd("hi @parameter guifg=#588496")
-vim.cmd("hi @parameterReference guifg=#588496")
-vim.cmd("hi @constructor guifg=#dbba75")
-vim.cmd("hi @field guifg=#c65156")
-vim.cmd("hi @property guifg=#c65156")
-vim.cmd("hi @annotation guifg=#9c80ff")
-vim.cmd("hi @attribute guifg=#9daaaa")
-vim.cmd("hi! link @namespace Namespace")
-vim.cmd("hi @preProc guifg=#c67ada")
-vim.cmd("hi @storageClass guifg=#c67ada")
-vim.cmd("hi! link @error Type")
-vim.cmd("hi! link @type Type")
-vim.cmd("hi! link @builtinType Keyword")
-vim.cmd("hi! link @typeBuiltin Keyword")
-vim.cmd("hi @typeDefinition guifg=#dbaa75")
-vim.cmd("hi! link @include Keyword")
-vim.cmd("hi! link @method Function")
-vim.cmd("hi! link @function Function")
-vim.cmd("hi! link @function.call Function")
-vim.cmd("hi! link @builtinMethod Keyword")
-vim.cmd("hi! link @builtinFunction Keyword")
-vim.cmd("hi! link @methodBuiltin Keyword")
-vim.cmd("hi! link @functionBuiltin Keyword")
-vim.cmd("hi @define guifg=#9c80ff")
-vim.cmd("hi @note guifg=#9c80ff")
-vim.cmd("hi @literal guifg=#9daaaa")
-vim.cmd("hi @tag guifg=#9c80ff")
-vim.cmd("hi @label guifg=#9c80ff")
-vim.cmd("hi @tagAttribute guifg=#9daaaa")
-vim.cmd("hi @constant guifg=#9daaaa")
-vim.cmd("hi @constMacro guifg=#9c80ff")
-vim.cmd("hi @title guifg=#9daaaa")
 
 ----------------------------------------------------
 -- LSP SEMANTIC HIGHLIGHTING
@@ -368,7 +335,7 @@ vim.cmd("hi! link LspMember Property")
 vim.cmd("hi! link LspStructMember Property")
 vim.cmd("hi LspStaticProperty guifg=#c65156 gui=bold cterm=bold")
 vim.cmd("hi! link LspStaticField LspStaticProperty")
-vim.cmd("hi LspStaticVariable guifg=#9daaaa gui=bold cterm=bold")
+--vim.cmd("hi LspStaticVariable guifg=#9daaaa gui=bold cterm=bold")
 vim.cmd("hi! link LspSelfKeyword Keyword")
 vim.cmd("hi! link LspThisKeyword Keyword")
 -- vim.cmd("hi! link LspToolModule  ")
@@ -382,12 +349,6 @@ vim.cmd("hi LspReferenceRead cterm=underline gui=underline")
 vim.cmd("hi LspReferenceWrite cterm=underline gui=underline")
 
 ----------------------------------------------------
--- HLARGS HIGHLIGHTING
-----------------------------------------------------
-
-vim.cmd("hi Hlargs guifg=#588496")
-
-----------------------------------------------------
 -- DOXYGEN HIGHLIGHTING
 ----------------------------------------------------
 
@@ -399,6 +360,60 @@ vim.cmd("hi! link doxygenSpecialOnelineDesc doxygenComment")
 vim.cmd("hi doxygenParamName ctermfg=88 guifg=#a04146 cterm=italic gui=italic")
 vim.cmd("hi doxygenParam guifg=#8278b4 cterm=italic,bold gui=italic,bold")
 vim.cmd("hi doxygenSpecial guifg=#8278b4 cterm=italic,bold gui=italic,bold")
+
+----------------------------------------------------
+-- TREESITTER HIGHLIGHTING
+----------------------------------------------------
+
+vim.cmd("hi @parameter guifg=#588496")
+vim.cmd("hi @parameterReference guifg=#588496")
+vim.cmd("hi @constructor guifg=#dbba75")
+vim.cmd("hi @field guifg=#c65156")
+vim.cmd("hi @property guifg=#c65156")
+vim.cmd("hi @annotation guifg=#9c80ff")
+vim.cmd("hi @attribute guifg=#9daaaa")
+vim.cmd("hi! link @namespace Namespace")
+vim.cmd("hi @preProc guifg=#c67ada")
+vim.cmd("hi @storageClass guifg=#c67ada")
+vim.cmd("hi! link @error Type")
+vim.cmd("hi! link @type Type")
+vim.cmd("hi! link @builtinType Keyword")
+vim.cmd("hi! link @typeBuiltin Keyword")
+vim.cmd("hi @typeDefinition guifg=#dbaa75")
+vim.cmd("hi! link @include Keyword")
+vim.cmd("hi! link @method Function")
+vim.cmd("hi! link @function Function")
+vim.cmd("hi! link @function.call Function")
+vim.cmd("hi! link @builtinMethod Keyword")
+vim.cmd("hi! link @builtinFunction Keyword")
+vim.cmd("hi! link @methodBuiltin Keyword")
+vim.cmd("hi! link @functionBuiltin Keyword")
+vim.cmd("hi @define guifg=#9c80ff")
+vim.cmd("hi @note guifg=#9c80ff")
+vim.cmd("hi @literal guifg=#9daaaa")
+vim.cmd("hi @tag guifg=#9c80ff")
+vim.cmd("hi @label guifg=#9c80ff")
+vim.cmd("hi @tagAttribute guifg=#9daaaa")
+vim.cmd("hi @constant guifg=#9daaaa")
+vim.cmd("hi @constMacro guifg=#9c80ff")
+vim.cmd("hi @title guifg=#9daaaa")
+vim.cmd("hi! link @concept Type")
+vim.cmd("hi! link @variable.classScope LspField")
+vim.cmd("hi! link @field.static LspStaticField")
+vim.cmd("hi! link @type.qualifier Keyword")
+vim.cmd("hi! link @type.builtin Keyword")
+vim.cmd("hi! link @variable.builtin Keyword")
+vim.cmd("hi! link @error Keyword")
+vim.cmd("hi! link @field LspField")
+vim.cmd("hi! link @property LspProperty")
+vim.cmd("hi! link @punctuation.special Punctuation")
+vim.cmd("hi! link @spell doxygenComment")
+
+----------------------------------------------------
+-- HLARGS HIGHLIGHTING
+----------------------------------------------------
+
+vim.cmd("hi Hlargs guifg=#588496")
 
 ----------------------------------------------
 -- AERIAL.NVIM HIGHLIGHTING

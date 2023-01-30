@@ -76,8 +76,15 @@ local function handler(err, response, ctx, config)
         if token.line == line - 1 then
             if token.start_char <= col and col <= token.start_char + token.length then
                 local mods = ""
+                local function get_modifiers(current, mod)
+                    if type(mod) == "table" then
+                        return current .. get_modifiers("", mod) .. ", "
+                    else
+                        return current .. mod .. ", "
+                    end
+                end
                 for mod = 1, #token.modifiers do
-                    mods = mods .. token.modifiers[mod] .. ", "
+                    mods = get_modifiers(mods, token.modifiers[mod])
                 end
                 vim.notify(token.type .. "\nmods: " .. mods, vim.log.levels.ERROR)
             end

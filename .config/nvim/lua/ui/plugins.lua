@@ -31,6 +31,7 @@ return {
                 diff_add = "83a76e",
                 diff_delete = "#c65156",
                 diff_change = "#61afef",
+                cyan = "#00997b",
             },
         }
     },
@@ -228,6 +229,7 @@ return {
                 presets = {
                     bottom_search = false,
                     command_palette = true,
+                    long_message_to_split = true,
                     inc_rename = true,
                 },
                 views = {
