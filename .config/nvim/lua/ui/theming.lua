@@ -368,7 +368,7 @@ vim.cmd("hi doxygenSpecial guifg=#8278b4 cterm=italic,bold gui=italic,bold")
 
 vim.cmd("hi @parameter guifg=#588496")
 vim.cmd("hi @parameter.reference guifg=#588496")
-vim.cmd("hi @constructor guifg=#dbba75")
+vim.cmd("hi @constructor guifg=#dbba75 gui=none cterm=none")
 vim.cmd("hi @field guifg=#c65156")
 vim.cmd("hi @property guifg=#c65156")
 vim.cmd("hi @annotation guifg=#9c80ff")
