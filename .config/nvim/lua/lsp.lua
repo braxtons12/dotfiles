@@ -81,7 +81,6 @@ return {
             }
 
             local capabilities = require('cmp_nvim_lsp').default_capabilities()
-            capabilities.workspace = { semanticTokens = { refreshSupport = true } }
 
             for _, lsp in pairs(servers) do
                 if lsp == "clangd" then
@@ -222,7 +221,6 @@ return {
         },
         config = function(_, _)
             local capabilities = require('cmp_nvim_lsp').default_capabilities()
-            capabilities.workspace = { semanticTokens = { refreshSupport = true } }
 
             require("clangd_extensions").setup {
                 server = {
@@ -243,7 +241,7 @@ return {
                         parameter_hints_prefix = "fn : ",
                         other_hints_prefix = "-> "
                     }
-                }
+                },
             }
         end
     },
