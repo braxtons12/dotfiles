@@ -28,7 +28,6 @@ return {
         lazy = false,
         dependencies = {
             "folke/neodev.nvim",
-            "stevearc/aerial.nvim",
         },
         config = function(_, _)
             local servers = {
