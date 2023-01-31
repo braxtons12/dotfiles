@@ -327,6 +327,18 @@ return {
         lazy = false,
         config = function(_, options)
             require("colorizer").setup(options)
+            vim.api.nvim_create_autocmd(
+                {
+                    "FileType"
+                },
+                {
+                    pattern = "*",
+                    callback = function()
+                        vim.schedule(function()
+                            require("colorizer").attach_to_buffer(0)
+                        end)
+                    end
+                })
         end,
         opts = {
             user_default_options = {

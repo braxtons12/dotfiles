@@ -45,6 +45,7 @@ return {
             {
                 "folke/neodev.nvim",
                 lazy = true,
+                priority = 1000,
                 ft = "lua",
                 opts = {
                     library = {
