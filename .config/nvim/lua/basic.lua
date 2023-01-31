@@ -87,7 +87,8 @@ return {
     },
     {
         "famiu/bufdelete.nvim",
-        lazy = false,
+        lazy = true,
+        keys = "<C-c>",
         config = function(_, _)
             map.nmap("<C-c>", "<cmd>Bdelete<CR>", "Delete current buffer")
         end
@@ -178,7 +179,8 @@ return {
     },
     {
         "nvim-treesitter/playground",
-        lazy = false,
+        lazy = true,
+        keys = "<F10>",
         dependencies = "nvim-treesitter/nvim-treesitter",
         config = function(_, options)
             require("nvim-treesitter.configs").setup(options)

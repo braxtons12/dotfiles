@@ -340,6 +340,18 @@ return {
     },
     {
         "utilyre/barbecue.nvim",
+        lazy = true,
+        event = {
+            "WinScrolled",
+            "BufWinEnter",
+            "CursorHold",
+            "CursorMoved",
+            "CursorMovedI",
+            "InsertLeave",
+            "BufWritePost",
+            "TextChanged",
+            "TextChangedI",
+        },
         dependencies = {
             "neovim/nvim-lspconfig",
             "SmiteshP/nvim-navic",
@@ -859,7 +871,6 @@ return {
         "nvim-telescope/telescope.nvim",
         lazy = true,
         keys = {
-            "<A-S-p>",
             "<S-f>",
             "<S-A-g>",
         },
@@ -906,7 +917,6 @@ return {
             }
             telescope.load_extension("fzf")
 
-            map.nmap("<A-S-p>", "<cmd>Telescope command_center<CR>", "Open Command Center")
             map.nmap("<S-f>",
                 "<cmd>lua require(\"telescope.builtin\").find_files(require(\"telescope.themes\").get_dropdown({}))<CR>"
                 ,
@@ -924,9 +934,11 @@ return {
     {
         "FeiyouG/command_center.nvim",
         lazy = true,
+        keys = "<A-S-p>",
         dependencies = "nvim-telescope/telescope.nvim",
         config = function(_, _)
             require("telescope").load_extension("command_center")
+            map.nmap("<A-S-p>", "<cmd>Telescope command_center<CR>", "Open Command Center")
         end
     },
     {
@@ -944,6 +956,8 @@ return {
     {
         url = "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
         name = "lsp_lines",
+        lazy = true,
+        event = "DiagnosticChanged",
         dependencies = "neovim/nvim-lspconfig",
         config = function(_, _)
             require("lsp_lines").setup()

@@ -179,7 +179,7 @@ return {
     },
     {
         "p00f/clangd_extensions.nvim",
-        lazy = false,
+        lazy = true,
         ft = {
             "c",
             "cpp",
