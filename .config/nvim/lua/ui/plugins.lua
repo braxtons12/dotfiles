@@ -36,7 +36,7 @@ return {
         }
     },
     {
-        "kyazdani42/nvim-web-devicons",
+        "nvim-tree/nvim-web-devicons",
         lazy = false,
         config = function(_, _)
             require("nvim-web-devicons").setup {}
@@ -310,7 +310,7 @@ return {
     },
     {
         "goolord/alpha-nvim",
-        dependencies = "kyazdani42/nvim-web-devicons",
+        dependencies = "nvim-tree/nvim-web-devicons",
         config = function(_, _)
             require("alpha").setup(require("alpha.themes.dashboard").config)
         end
@@ -529,7 +529,7 @@ return {
         },
         dependencies = {
             "neovim/nvim-lspconfig",
-            "kyazdani42/nvim-web-devicons",
+            "nvim-tree/nvim-web-devicons",
         },
         config = function(_, options)
             require("trouble").setup(options)
@@ -1013,7 +1013,7 @@ return {
         keys = "<C-t>",
         dependencies = {
             "nvim-lua/plenary.nvim",
-            "kyazdani42/nvim-web-devicons",
+            "nvim-tree/nvim-web-devicons",
             "MunifTanjim/nui.nvim",
             {
                 "s1n7ax/nvim-window-picker",
