@@ -123,7 +123,6 @@ return {
     },
     {
         "williamboman/mason.nvim",
-        dependencies = "neovim/nvim-lspconfig",
         opts = {
             ui = {
                 icons = {
@@ -137,6 +136,7 @@ return {
     {
         "nvim-treesitter/nvim-treesitter",
         lazy = false,
+        priority = 9000,
         config = function(_, options)
             require("nvim-treesitter.configs").setup(options)
         end,

@@ -13,7 +13,7 @@ return {
     {
         "navarasu/onedark.nvim",
         lazy = false,
-        priority = 999999999,
+        priority = 10000,
         config = function(_, options)
             require("onedark").setup(options)
             require("onedark").load()
@@ -120,6 +120,9 @@ return {
     {
         "lewis6991/gitsigns.nvim",
         lazy = false,
+        cond = function()
+            return vim.fn.isdirectory(".git/index")
+        end,
         opts = {
             current_line_blame = true,
             current_line_blame_formatter = " <author> • <author_time:%R> • <summary>",
@@ -535,6 +538,7 @@ return {
     {
         "folke/trouble.nvim",
         lazy = true,
+        event = "DiagnosticChanged",
         keys = {
             "<C-l>",
             "<C-l><C-k>"
@@ -856,7 +860,6 @@ return {
     {
         "luukvbaal/statuscol.nvim",
         lazy = false,
-        dependencies = "mfussenegger/nvim-dap",
         opts = {
             relculright = true,
             setopt = true,

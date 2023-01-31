@@ -22,7 +22,6 @@ return {
             "<F6>",
             "<F7>",
         },
-        dependencies = "williamboman/mason.nvim",
         config = function(_, _)
             local dap = require("dap")
             dap.adapters.codelldb = {

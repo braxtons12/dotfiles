@@ -3,16 +3,28 @@ local border = require("ui.border").with_hl_group
 return {
     {
         "hrsh7th/nvim-cmp",
+        lazy = true,
+        event = {
+            "InsertEnter",
+            "CmdLineEnter"
+        },
         dependencies = {
-            "neovim/nvim-lspconfig",
             "nvim-lua/plenary.nvim",
             {
                 "hrsh7th/cmp-nvim-lsp",
                 lazy = true,
+                cond = function()
+                    local has_lspconfig, _ = pcall(require, "lspconfig")
+                    return has_lspconfig
+                end
             },
             {
                 "hrsh7th/cmp-nvim-lsp-document-symbol",
                 lazy = true,
+                cond = function()
+                    local has_lspconfig, _ = pcall(require, "lspconfig")
+                    return has_lspconfig
+                end
             },
             {
                 "hrsh7th/cmp-buffer",
@@ -25,6 +37,9 @@ return {
             {
                 "hrsh7th/cmp-git",
                 lazy = true,
+                cond = function()
+                    return vim.fn.isdirectory(".git/index")
+                end
             },
             {
                 "hrsh7th/cmp-cmdline",

@@ -12,22 +12,50 @@ local map = require("map")
 
 return {
     {
-        "folke/neodev.nvim",
-        lazy = false,
-        opts = {
-            library = {
-                plugins = {
-                    "nvim-dap-ui",
-                },
-                types = true
-            },
-        },
-    },
-    {
         "neovim/nvim-lspconfig",
-        lazy = false,
+        lazy = true,
+        ft = {
+            "asm",
+            "bash",
+            "c",
+            "cmake",
+            "cpp",
+            "c_sharp",
+            "go",
+            "groovy",
+            "h",
+            "html",
+            "java",
+            "javascript",
+            "latex",
+            "ltex",
+            "lua",
+            "markdown",
+            "md",
+            "python",
+            "py",
+            "rs",
+            "rust",
+            "sh",
+            "tex",
+            "typescript",
+            "ts",
+        },
         dependencies = {
-            "folke/neodev.nvim",
+            {
+                "folke/neodev.nvim",
+                lazy = true,
+                ft = "lua",
+                opts = {
+                    library = {
+                        plugins = {
+                            "nvim-dap-ui",
+                        },
+                        types = true
+                    },
+                },
+            },
+            "williamboman/mason-lspconfig.nvim",
         },
         config = function(_, _)
             local servers = {
@@ -150,7 +178,6 @@ return {
         "williamboman/mason-lspconfig.nvim",
         lazy = true,
         dependencies = {
-            "neovim/nvim-lspconfig",
             "williamboman/mason.nvim",
         },
         opts = {
