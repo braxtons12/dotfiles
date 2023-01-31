@@ -49,7 +49,7 @@ return {
                 "hrsh7th/cmp-nvim-lua",
                 lazy = true,
                 ft = {
-                    "*.lua",
+                    "lua",
                 },
             },
             {
@@ -58,9 +58,11 @@ return {
                 ft = {
                     "*.zshrc",
                     ".zshrc",
-                    "*.sh",
+                    "zsh",
+                    "sh",
                     "*.bashrc",
                     ".bashrc",
+                    "bash",
                 },
                 opts = {
                     zshrc = true,
@@ -70,7 +72,7 @@ return {
                 "Saecki/crates.nvim",
                 lazy = true,
                 ft = {
-                    "*.toml",
+                    "toml",
                 },
             },
             {
@@ -130,7 +132,7 @@ return {
                         local icons = require("lspkind_icons")
                         local icon = icons[vim_item.kind]
                         local menu = vim_item.kind
-                        vim_item.kind = icon
+                        vim_item.kind = " " .. icon
                         vim_item.abbr = string.sub(vim_item.abbr, 1, 75)
                         vim_item.menu = "   (" .. menu .. ")"
 

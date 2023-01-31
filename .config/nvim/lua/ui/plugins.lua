@@ -2,14 +2,6 @@ local map = require("map")
 local border = require("ui.border").with_hl_group
 
 return {
-    --{
-    --    "rakr/vim-one",
-    --    lazy = false,
-    --    priority = 999999999,
-    --    config = function(_, _)
-    --        vim.cmd("colorscheme one")
-    --    end
-    --},
     {
         "navarasu/onedark.nvim",
         lazy = false,
@@ -53,16 +45,16 @@ return {
         },
         lazy = true,
         ft = {
-            "*.c,",
-            "*.cpp",
-            "*.cxx",
-            "*.cppm",
-            "*.h",
-            "*.hpp",
-            "*.hxx",
-            "*.py",
-            "*.rs",
-            "*.lua",
+            "c,",
+            "cpp",
+            "cxx",
+            "cppm",
+            "h",
+            "hpp",
+            "hxx",
+            "python",
+            "rust",
+            "lua",
         },
         config = function(_, options)
             require("hlargs").setup(options)
@@ -585,10 +577,11 @@ return {
             },
             auto_preview = "false",
             signs = {
-                error = " ",
-                warning = " ",
-                hint = " ",
-                information = " "
+                debug = " ",
+                error = " ",
+                warning = " ",
+                hint = " ",
+                information = " "
             },
             use_diagnostic_signs = false,
         },
@@ -850,15 +843,15 @@ return {
         "theHamsta/nvim-dap-virtual-text",
         lazy = true,
         ft = {
-            "*.c,",
-            "*.cpp",
-            "*.cxx",
-            "*.cppm",
-            "*.h",
-            "*.hpp",
-            "*.hxx",
-            "*.rs",
-            "*.toml",
+            "c,",
+            "cpp",
+            "cxx",
+            "cppm",
+            "h",
+            "hpp",
+            "hxx",
+            "rust",
+            "toml",
         },
     },
     {
@@ -1140,7 +1133,7 @@ return {
             },
             window = {
                 position = "left",
-                width = 30,
+                width = 25,
                 mappings = {
                     ["<2-LeftMouse>"] = "open",
                     ["<cr>"] = "open",
@@ -1178,7 +1171,7 @@ return {
                 use_libuv_file_watcher = true,
                 window = {
                     position = "left",
-                    width = 30,
+                    width = 25,
                     mappings = {
                         ["H"] = "toggle_hidden",
                         ["/"] = "filter_on_submit",
@@ -1190,7 +1183,7 @@ return {
                 show_unloaded = true,
                 window = {
                     position = "left",
-                    width = 30,
+                    width = 25,
                     mappings = {
                         ["bd"] = "buffer_delete",
                     },
@@ -1200,7 +1193,7 @@ return {
                 follow_current_file = true,
                 window = {
                     position = "left",
-                    width = 30,
+                    width = 25,
                     mappings = {
                         ["A"] = "git_add_all",
                         ["u"] = "git_unstage_file",
