@@ -21,6 +21,7 @@ vim.opt.backup = false
 vim.opt.writebackup = false
 vim.opt.cmdheight = 0
 vim.opt.updatetime = 2000
+vim.opt.mousemoveevent = true
 vim.o.timeoutlen = 2000
 vim.cmd("set shortmess+=c")
 

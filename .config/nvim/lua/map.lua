@@ -7,6 +7,12 @@ local function has_module(name)
     return has_mod
 end
 
+local function is_module_loaded(name)
+    return package.loaded[name] ~= nil
+end
+
+COMMAND_CENTER_MAPPINGS = {}
+
 --- Creates a keymapping using the given parameters and registers it with which-key
 ---
 --- @param mode string  The mode the mapping should be registered for (eg "n" for normal mode)
@@ -41,25 +47,29 @@ local function map(mode, keystroke, command, description, options)
     ---@diagnostic disable-next-line: param-type-mismatch
     vim.api.nvim_set_keymap(mode, keystroke, command, opts)
     if has_module("which-key") then
-    local wk = require("which-key")
-    wk.register({
-        [keystroke] = {
-            command,
-            description,
-        },
-    }, wk_options)
+        local wk = require("which-key")
+        wk.register({
+            [keystroke] = {
+                command,
+                description,
+            },
+        }, wk_options)
     end
 
-    if mode ~= "t" and has_module("command_center") then
-        local command_center = require("command_center")
-        command_center.add({
+    if mode ~= "t" then
+        local mapping = {
             {
                 desc = description,
                 cmd = command,
                 keys = { mode, keystroke, opts },
-                mode = command_center.mode.ADD,
             }
-        }, { command_center.mode.ADD })
+        }
+        if is_module_loaded("command_center") then
+            local command_center = require("command_center")
+            command_center.add(mapping, { command_center.mode.ADD })
+        else
+            vim.list_extend(COMMAND_CENTER_MAPPINGS, { mapping })
+        end
     end
 end
 
@@ -134,5 +144,8 @@ return {
     --- Returns the platform-native URI path separator (eg "/" on \*nix, "\\" on Windows)
     path_separator = function()
         return package.config:sub(1, 1)
+    end,
+    get_command_center_mappings = function()
+        return COMMAND_CENTER_MAPPINGS
     end
 }

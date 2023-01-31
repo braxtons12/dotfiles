@@ -33,4 +33,6 @@ require("lazy").setup(plugins, {
     },
 })
 
+require("map").nmap("<leader>lazy", "<cmd>Lazy<cr>", "Open Lazy.nvim")
+
 require("ui.theming")

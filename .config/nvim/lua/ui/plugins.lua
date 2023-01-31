@@ -119,7 +119,10 @@ return {
     },
     {
         "lewis6991/gitsigns.nvim",
-        lazy = false,
+        lazy = true,
+        event = {
+            "BufWinEnter",
+        },
         cond = function()
             return vim.fn.isdirectory(".git/index")
         end,
@@ -302,6 +305,7 @@ return {
         "folke/which-key.nvim",
         config = function(_, options)
             require("which-key").setup(options)
+
         end,
         opts = {
             window = {
@@ -592,22 +596,10 @@ return {
             options = {
                 offsets = {
                     {
-                        filetype = "packer",
-                        text = "Packer",
-                        highlight = "Directory",
-                        text_align = "left",
-                    },
-                    {
                         filetype = "neo-tree",
                         text = "",
                         highlight = "Directory",
                         text_align = "left",
-                    },
-                    {
-                        filetype = "Outline",
-                        text = "",
-                        highlight = "Directory",
-                        text_align = "right",
                     },
                     {
                         filetype = "aerial",
@@ -627,7 +619,7 @@ return {
                 always_show_bufferline = true,
                 hover = {
                     enabled = true,
-                    delay = 200,
+                    delay = 100,
                     reveal = {
                         "close"
                     },
@@ -942,6 +934,13 @@ return {
         config = function(_, _)
             require("telescope").load_extension("command_center")
             map.nmap("<A-S-p>", "<cmd>Telescope command_center<CR>", "Open Command Center")
+
+            local mappings = map.get_command_center_mappings()
+            local command_center = require("command_center")
+
+            for _, mapping in pairs(mappings) do
+                command_center.add(mapping, { command_center.mode.ADD })
+            end
         end
     },
     {
