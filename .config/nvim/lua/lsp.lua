@@ -80,7 +80,7 @@ return {
                 "sumneko_lua",
             }
 
-            local capabilities = require('cmp_nvim_lsp').default_capabilities()
+            local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
             for _, lsp in pairs(servers) do
                 if lsp == "clangd" then
@@ -222,7 +222,7 @@ return {
             "neovim/nvim-lspconfig",
         },
         config = function(_, _)
-            local capabilities = require('cmp_nvim_lsp').default_capabilities()
+            local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
             require("clangd_extensions").setup {
                 server = {

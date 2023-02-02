@@ -673,25 +673,25 @@ return {
             require("lualine").setup {
                 options = {
                     theme = lualine_theme,
-                    component_separators = { left = '', right = '' },
-                    section_separators = { left = '', right = '' },
+                    component_separators = { left = "", right = "" },
+                    section_separators = { left = "", right = "" },
                     always_divide_middle = true,
                     globalstatus = true,
                 },
                 extensions = {
-                    'aerial',
-                    'quickfix',
-                    'fugitive',
-                    'neo-tree',
-                    'nvim-dap-ui',
-                    'toggleterm',
+                    "aerial",
+                    "quickfix",
+                    "fugitive",
+                    "neo-tree",
+                    "nvim-dap-ui",
+                    "toggleterm",
                 },
                 sections = {
-                    lualine_a = { 'mode' },
+                    lualine_a = { "mode" },
                     lualine_b = {
-                        'branch',
+                        "branch",
                         {
-                            'diff',
+                            "diff",
                             colored = true,
                             diff_color = {
                                 added = "DiffAdd",
@@ -705,26 +705,26 @@ return {
                             },
                         },
                         {
-                            'filename',
+                            "filename",
                             file_status = true,
                             path = 1
                         },
                         {
-                            '%w',
+                            "%w",
                             cond = function()
                                 return vim.wo.previewwindow
                             end,
                         },
                         {
-                            '%r',
+                            "%r",
                             cond = function()
                                 return vim.bo.readonly
                             end,
                         },
                         {
-                            '%q',
+                            "%q",
                             cond = function()
-                                return vim.bo.buftype == 'quickfix'
+                                return vim.bo.buftype == "quickfix"
                             end,
                         },
                         {
@@ -734,35 +734,40 @@ return {
                     lualine_c = {},
                     lualine_x = {
                         {
-                            'diagnostics',
-                            sources = { 'nvim_lsp' },
-                            sections = { 'error', 'warn', 'info' },
+                            "diagnostics",
+                            sources = { "nvim_lsp" },
+                            sections = { "error", "warn", "info" },
+                            symbols = {
+                                error = " ",
+                                warn = " ",
+                                info = " ",
+                            },
                             update_in_insert = true,
                             always_visible = true,
                         },
                     },
                     lualine_y = {
                         {
-                            'filetype'
+                            "filetype"
                         },
                         {
-                            'encoding'
+                            "encoding"
                         },
                         {
-                            'fileformat'
+                            "fileformat"
                         },
                     },
                     lualine_z = {
                         {
-                            'location'
+                            "location"
                         },
                         {
-                            'progress'
+                            "progress"
                         }
                     },
                 },
                 inactive_sections = {
-                    lualine_c = { '%f %y %m' },
+                    lualine_c = { "%f %y %m" },
                     lualine_x = {},
                 },
             }

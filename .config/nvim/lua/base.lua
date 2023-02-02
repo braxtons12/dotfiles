@@ -34,7 +34,7 @@ vim.diagnostic.config({
     underline = true,
     signs = true,
     virtual_text = {
-        prefix = "",
+        prefix = "",
     },
     update_in_insert = true,
 })
