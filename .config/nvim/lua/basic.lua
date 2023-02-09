@@ -52,10 +52,6 @@ return {
         },
     },
     {
-        "vim-autoformat/vim-autoformat",
-        lazy = false,
-    },
-    {
         "nvim-lua/plenary.nvim",
         lazy = true,
     },
