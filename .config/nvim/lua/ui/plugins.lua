@@ -346,9 +346,13 @@ return {
     },
     {
         "NvChad/nvim-colorizer.lua",
-        lazy = false,
+        lazy = true,
+        event = "FileType",
         config = function(_, options)
             require("colorizer").setup(options)
+            vim.schedule(function()
+                require("colorizer").attach_to_buffer(0)
+            end)
             vim.api.nvim_create_autocmd(
                 {
                     "FileType"
