@@ -81,7 +81,7 @@ return {
                 dependencies = {
                     {
                         "hrsh7th/vim-vsnip",
-                        lazy = false,
+                        lazy = true,
                     },
                 },
             },
