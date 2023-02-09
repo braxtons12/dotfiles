@@ -93,7 +93,16 @@ return {
     },
     {
         "numToStr/Comment.nvim",
-        lazy = false,
+        lazy = true,
+        keys = {
+            "<leader>lc",
+            "<leader>bc",
+            "<leader>Lc",
+            "<leader>Bc",
+            "<leader>lcO",
+            "<leader>lco",
+            "<leader>lce",
+        },
         opts = {
             padding = true,
             sticky = true,
