@@ -37,6 +37,8 @@ return {
             "rs",
             "rust",
             "sh",
+            "zsh",
+            "bash",
             "tex",
             "typescript",
             "ts",
