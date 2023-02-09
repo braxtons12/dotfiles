@@ -114,3 +114,4 @@ eclipse-workspace/
 github_token.txt
 gitlab_token.txt
 seagate
+.pyenv/
