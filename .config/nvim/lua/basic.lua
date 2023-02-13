@@ -173,6 +173,7 @@ return {
             "yaml",
             "zig",
         },
+        cmd = "TSUpdate",
         priority = 10000,
         config = function(_, options)
             require("nvim-treesitter.configs").setup(options)
