@@ -73,13 +73,13 @@ return {
                 "cssls",
                 --"gopls",
                 "html",
+                "lua_ls",
                 "rust_analyzer",
                 "ltex",
                 "marksman",
                 "pyright",
                 "taplo",
                 "tsserver",
-                "sumneko_lua",
             }
 
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -102,7 +102,7 @@ return {
                             },
                         },
                     }
-                elseif lsp == "sumneko_lua" then
+                elseif lsp == "lua_ls" then
                     require("lspconfig")[lsp].setup {
                         capabilities = capabilities,
                         runtime_path = true,
@@ -197,12 +197,12 @@ return {
                 "cssls",
                 --"gopls",
                 "html",
+                "lua_ls",
                 "rust_analyzer",
                 "ltex",
                 "jdtls",
                 "marksman",
                 "pyright",
-                "sumneko_lua",
                 "taplo",
                 "tsserver",
             }
