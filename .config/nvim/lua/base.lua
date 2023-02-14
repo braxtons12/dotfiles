@@ -60,6 +60,8 @@ vim.cmd("map <A-CR>=^[^M\", \"")
 
 map.nmap("<A-h>", "0", "Go to Start of Line")
 map.nmap("<A-l>", "$", "Go to End of Line")
+map.vmap("<A-h>", "0", "Go to Start of Line")
+map.vmap("<A-l>", "$", "Go to End of Line")
 
 map.nmap("<S-h>", "<C-w><C-h>", "Go to Left Window")
 map.nmap("<S-l>", "<C-w><C-l>", "Go to Right Window")
