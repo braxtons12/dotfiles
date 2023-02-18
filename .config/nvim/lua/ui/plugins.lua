@@ -880,17 +880,20 @@ return {
             local dap = require("dap")
             dap.listeners.after.event_initialized["dapui_config"] = function()
                 dapui.open {}
+                require("nvim-dap-virtual-text")
                 vim.cmd("DapVirtualTextEnable")
                 dap.repl.close()
             end
             dap.listeners.before.event_initialized["dapui_config"] = function()
                 dapui.close {}
-                vim.cmd("DapVirtualTextDisable")
+                require("nvim-dap-virtual-text")
+                vim.cmd("DapVirtualTextForceRefresh")
                 dap.repl.close()
             end
             dap.listeners.before.event_exited["dapui_config"] = function()
                 --dapui.close{}
-                vim.cmd("DapVirtualTextDisable")
+                require("nvim-dap-virtual-text")
+                vim.cmd("DapVirtualTextForceRefresh")
                 dap.repl.close()
             end
             dap.listeners.after.event_stopped["dapui_config"] = function()
@@ -921,6 +924,17 @@ return {
             "rust",
             "toml",
         },
+        cmd = {
+            "DapVirtualTextEnable",
+            "DapVirtualTextForceRefresh",
+            "DapVirtualTextDisable",
+        },
+        config = function(_, _)
+            require("nvim-dap-virtual-text").setup {
+                enabled = true,
+                enabled_commands = true,
+            }
+        end,
     },
     {
         "luukvbaal/statuscol.nvim",

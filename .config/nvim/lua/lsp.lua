@@ -88,20 +88,7 @@ return {
                 if lsp == "clangd" then
                     -- handled in clangd_extensions setup
                 elseif lsp == "rust_analyzer" then
-                    require("lspconfig")[lsp].setup {
-                        capabilities = capabilities,
-                        on_attach = LSP_ON_ATTACH,
-                        flags = {
-                            debounce_text_changes = 150,
-                        },
-                        settings = {
-                            ["rust_analyzer"] = {
-                                checkOnSave = {
-                                    comamnd = "clippy"
-                                },
-                            },
-                        },
-                    }
+                    -- handled in rust_tools setup
                 elseif lsp == "lua_ls" then
                     require("lspconfig")[lsp].setup {
                         capabilities = capabilities,
@@ -248,6 +235,79 @@ return {
                 },
             }
         end
+    },
+    {
+        "simrat39/rust-tools.nvim",
+        lazy = true,
+        ft = {
+            "rust",
+            "toml",
+            "cargo"
+        },
+        dependencies = {
+            "neovim/nvim-lspconfig",
+        },
+        config = function(_, _)
+            local capabilities = require("cmp_nvim_lsp").default_capabilities()
+            require("rust-tools").setup {
+                tools = {
+                    inlay_hints = {
+                        other_hints_prefix = "-> "
+                    },
+                    hover_actions = {
+                        border = require("ui.border").with_hl_group,
+                        auto_focus = true,
+                    },
+                },
+                server = {
+                    capabilities = capabilities,
+                    on_attach = LSP_ON_ATTACH,
+                    flags = {
+                        debounce_text_changes = 150,
+                    },
+                    settings = {
+                        ["rust-analyzer"] = {
+                            checkOnSave = true,
+                            check = {
+                                command = "clippy",
+                                features = "all",
+                            },
+                            cargo = {
+                                features = "all",
+                                buildScripts = {
+                                    enable = true,
+                                },
+                            },
+                            workspace = {
+                                symbol = {
+                                    search = {
+                                        kind = "all_symbols",
+                                    },
+                                },
+                            },
+                            diagnostics = {
+                                experimental = {
+                                    enable = true,
+                                },
+                            },
+                        },
+                    },
+                }
+            }
+
+            vim.cmd("hi! link @enumMember @enum")
+            vim.cmd("hi clear @attribute")
+            vim.cmd("hi! link @decorator Macro")
+            vim.cmd("hi! link @attributeBracket Normal")
+            vim.cmd("hi! link @derive Type")
+            vim.cmd("hi! link @deriveHelper Macro")
+            vim.cmd("hi! link @generic Type")
+            vim.cmd("hi! link @crateRoot Namespace")
+
+            map.nmap("<A-k>",
+                     "<cmd>lua require(\"rust-tools\").hover_actions.hover_actions()<CR>",
+                     "Rust hover actions")
+        end,
     },
     {
         "mfussenegger/nvim-jdtls",
