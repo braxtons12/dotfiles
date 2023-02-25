@@ -185,12 +185,27 @@ return {
             require("null-ls").setup {
                 on_attach = LSP_ON_ATTACH,
                 debounce = 250,
-                default_timeout = 50000,
+                default_timeout = 10000,
                 on_init = function(client, _)
                     client.offset_encoding = "utf-32"
                 end,
                 sources = {
-                    null_ls.builtins.diagnostics.cppcheck,
+                    null_ls.builtins.diagnostics.cppcheck.with {
+                        filetypes = {
+                            "c",
+                            "cpp",
+                        },
+                        method = null_ls.methods.DIAGNOSTICS,
+                        command = "cppcheck",
+                        args = {
+                            "--enable=all",
+                            "--suppress=missingIncludeSystem",
+                            "--suppress=preprocessorErrorDirective",
+                            "--suppress=unmatchedSuppression",
+                            "--project=compile_commands.json",
+                            "$FILENAME",
+                        },
+                    },
                     null_ls.builtins.code_actions.gitsigns.with {
                         config = {
                             filter_actions = function(title)
@@ -198,7 +213,6 @@ return {
                             end
                         },
                     },
-                    null_ls.builtins.diagnostics.gccdiag
                 },
                 border = require("ui.border").with_hl_group,
                 diagnostics_format = "#{m}"
