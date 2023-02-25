@@ -41,7 +41,7 @@ return {
         },
         brights = {
             --black =
-            '#20242a',
+            '#686e78',
             --red =
             '#d05b64',
             --green =
