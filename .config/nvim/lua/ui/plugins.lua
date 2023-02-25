@@ -327,7 +327,6 @@ return {
         "folke/which-key.nvim",
         config = function(_, options)
             require("which-key").setup(options)
-
         end,
         opts = {
             window = {

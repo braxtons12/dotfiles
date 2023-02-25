@@ -1,6 +1,40 @@
 local map = require("map")
 return {
     {
+        "tpope/vim-dispatch",
+        lazy = true,
+        cmd = {
+            "Make",
+            "Dispatch",
+            "FocusDispatch",
+            "Focus",
+        },
+        keys = {
+            "<leader>cm",
+            "<leader>xm",
+        },
+        config = function(_, _)
+            RUN_CMAKE = function()
+                vim.cmd([[set errorformat=%E%f:%l:%c:\ %trror:\ %m,%-Z%p^,%+C%.%#]])
+                vim.cmd([[set errorformat+=%D%*\\a:\ Entering\ directory\ '%f']])
+                vim.cmd([[set errorformat+=%X%*\\a:\ Leaving\ directory\ '%f']])
+                vim.cmd([[set errorformat+=%-G%.%#]])
+                vim.o.makeprg = "cmake --build build"
+                vim.cmd("Make")
+            end
+            RUN_XMAKE = function()
+                vim.cmd([[set errorformat=%E%f:%l:%c:\ %trror:\ %m,%-Z%p^,%+C%.%#]])
+                vim.cmd([[set errorformat+=%D%*\\a:\ Entering\ directory\ '%f']])
+                vim.cmd([[set errorformat+=%X%*\\a:\ Leaving\ directory\ '%f']])
+                vim.cmd([[set errorformat+=%-G%.%#]])
+                vim.o.makeprg = "xmake b"
+                vim.cmd("Make")
+            end
+            map.nmap("<leader>cm", "<cmd>lua RUN_CMAKE()<CR>", "Run CMake build")
+            map.nmap("<leader>xm", "<cmd>lua RUN_XMAKE()<CR>", "Run CMake build")
+        end
+    },
+    {
         "vim-scripts/DoxygenToolkit.vim",
         lazy = true,
         keys = "<S-d>",

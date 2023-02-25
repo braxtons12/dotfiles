@@ -83,6 +83,7 @@ return {
             }
 
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
+            capabilities.offsetEncoding = { "utf-32" }
 
             for _, lsp in pairs(servers) do
                 if lsp == "clangd" then
@@ -144,6 +145,64 @@ return {
             map.nmap("<C-k>", "<cmd>lua vim.lsp.buf.hover()<CR>", "Open Documentation Hover")
             map.nmap("<C-h>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Signature Help")
             map.nmap("<C-A-l>", "<cmd>lua vim.lsp.buf.format {async = true}<CR>", "Format Document")
+        end,
+    },
+    {
+        "jose-elias-alvarez/null-ls.nvim",
+        lazy = true,
+        ft = {
+            "asm",
+            "bash",
+            "c",
+            "cmake",
+            "cpp",
+            "c_sharp",
+            "go",
+            "groovy",
+            "h",
+            "html",
+            "java",
+            "javascript",
+            "latex",
+            "ltex",
+            "lua",
+            "markdown",
+            "md",
+            "python",
+            "py",
+            "rs",
+            "rust",
+            "sh",
+            "zsh",
+            "bash",
+            "tex",
+            "typescript",
+            "ts",
+        },
+        dependencies = "nvim-lua/plenary.nvim",
+        config = function(_, _)
+            local null_ls = require("null-ls")
+            require("null-ls").setup {
+                on_attach = LSP_ON_ATTACH,
+                debounce = 250,
+                default_timeout = 50000,
+                on_init = function(client, _)
+                    client.offset_encoding = "utf-32"
+                end,
+                sources = {
+                    null_ls.builtins.diagnostics.cppcheck,
+                    null_ls.builtins.code_actions.gitsigns.with {
+                        config = {
+                            filter_actions = function(title)
+                                return title:lower():match("blame") == nil
+                            end
+                        },
+                    },
+                    null_ls.builtins.diagnostics.gccdiag
+                },
+                border = require("ui.border").with_hl_group,
+                diagnostics_format = "#{m}"
+            }
         end,
     },
     {
@@ -212,6 +271,7 @@ return {
         },
         config = function(_, _)
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
+            capabilities.offsetEncoding = { "utf-32" }
 
             require("clangd_extensions").setup {
                 server = {
@@ -249,6 +309,7 @@ return {
         },
         config = function(_, _)
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
+            capabilities.offsetEncoding = { "utf-32" }
             require("rust-tools").setup {
                 tools = {
                     inlay_hints = {
@@ -305,8 +366,8 @@ return {
             vim.cmd("hi! link @crateRoot Namespace")
 
             map.nmap("<A-k>",
-                     "<cmd>lua require(\"rust-tools\").hover_actions.hover_actions()<CR>",
-                     "Rust hover actions")
+                "<cmd>lua require(\"rust-tools\").hover_actions.hover_actions()<CR>",
+                "Rust hover actions")
         end,
     },
     {
