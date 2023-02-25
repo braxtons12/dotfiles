@@ -83,7 +83,7 @@ return {
             }
 
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
-            capabilities.offsetEncoding = { "utf-32" }
+            capabilities.offsetEncoding = { "utf-16" }
 
             for _, lsp in pairs(servers) do
                 if lsp == "clangd" then
@@ -182,12 +182,118 @@ return {
         dependencies = "nvim-lua/plenary.nvim",
         config = function(_, _)
             local null_ls = require("null-ls")
+            local helpers = require("null-ls.helpers")
+            local methods = require("null-ls.methods")
+            local function deep_copy(orig)
+                local orig_type = type(orig)
+                local copy
+                if orig_type == 'table' then
+                    copy = {}
+                    for orig_key, orig_value in next, orig, nil do
+                        copy[deep_copy(orig_key)] = deep_copy(orig_value)
+                    end
+                    setmetatable(copy, deep_copy(getmetatable(orig)))
+                else -- number, string, boolean, etc
+                    copy = orig
+                end
+                return copy
+            end
+            local base_source = {
+                filetypes = {
+                    "c",
+                    "cpp",
+                },
+                method = methods.internal.DIAGNOSTICS_ON_SAVE,
+                async = true,
+            }
+            local base_pattern = {
+                pattern = [[^([^:]+):(%d+):(%d+):%s+([^:]+):%s+(.*)$]],
+                groups = {
+                    "file",
+                    "row",
+                    "col",
+                    "severity",
+                    "message"
+                },
+                overrides = {
+                    severities = {
+                        ["fatal error"] = helpers.diagnostics.severities.error,
+                        ["error"] = helpers.diagnostics.severities.error,
+                        ["note"] = helpers.diagnostics.severities.information,
+                        ["warning"] = helpers.diagnostics.severities.warning,
+                    },
+                }
+            }
+            local base_generator = {
+                to_stdin = false,
+                from_stderr = true,
+                format = "line",
+                timeout = 60000,
+                on_output = helpers.diagnostics.from_pattern(base_pattern.pattern,
+                    base_pattern.groups,
+                    base_pattern.overrides),
+            }
+            local xmake = deep_copy(base_source)
+            xmake.name = "xmake"
+            local xmake_generator = deep_copy(base_generator)
+            xmake_generator.command = "xmake"
+            xmake_generator.args = {
+                "b",
+            }
+            xmake_generator.env = {
+                ["XMAKE_COLORTERM"] = "nocolor",
+            }
+            xmake_generator.runtime_condition = function(_)
+                local has_xmake = io.open("xmake.lua")
+                if has_xmake then
+                    io.close(has_xmake)
+                    return true
+                end
+
+                return false
+            end
+            local initial_pattern = deep_copy(base_pattern)
+            initial_pattern.pattern = [[^error: ([^:]+):(%d+):(%d+):%s+([^:]+):%s+(.*)$]]
+
+            xmake_generator.on_output = helpers.diagnostics.from_patterns(
+                {
+                    initial_pattern,
+                    base_pattern,
+                }
+            )
+            xmake.generator = helpers.generator_factory(xmake_generator)
+
+            local cmake = deep_copy(base_source)
+            cmake.name = "cmake"
+            local cmake_generator = deep_copy(base_generator)
+            cmake_generator.command = "cmake"
+            cmake_generator.args = {
+                "--build",
+                "build",
+            }
+            cmake_generator.runtime_condition = function(_)
+                local has_xmake = io.open("xmake.lua")
+                if has_xmake then
+                    io.close(has_xmake)
+                    return false
+                end
+
+                local has_cmake = io.open("CMakeLists.txt")
+                if has_cmake then
+                    io.close(has_cmake)
+                    return true
+                end
+
+                return false
+            end
+            cmake.generator = helpers.generator_factory(cmake_generator)
+
             require("null-ls").setup {
                 on_attach = LSP_ON_ATTACH,
                 debounce = 250,
                 default_timeout = 10000,
                 on_init = function(client, _)
-                    client.offset_encoding = "utf-32"
+                    client.offset_encoding = "utf-16"
                 end,
                 sources = {
                     null_ls.builtins.diagnostics.cppcheck.with {
@@ -195,8 +301,19 @@ return {
                             "c",
                             "cpp",
                         },
-                        method = null_ls.methods.DIAGNOSTICS,
+                        method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
                         command = "cppcheck",
+                        -- cmake compile_commands.json files tend to freak cppcheck out,
+                        -- so only use compile_commands.json generated from xmake
+                        runtime_condition = function(_)
+                            local has_xmake = io.open("xmake.lua")
+                            if has_xmake then
+                                io.close(has_xmake)
+                                return true
+                            end
+
+                            return false
+                        end,
                         args = {
                             "--enable=all",
                             "--suppress=missingIncludeSystem",
@@ -213,6 +330,8 @@ return {
                             end
                         },
                     },
+                    xmake,
+                    cmake,
                 },
                 border = require("ui.border").with_hl_group,
                 diagnostics_format = "#{m}"
@@ -285,7 +404,7 @@ return {
         },
         config = function(_, _)
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
-            capabilities.offsetEncoding = { "utf-32" }
+            capabilities.offsetEncoding = { "utf-16" }
 
             require("clangd_extensions").setup {
                 server = {
@@ -323,7 +442,7 @@ return {
         },
         config = function(_, _)
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
-            capabilities.offsetEncoding = { "utf-32" }
+            capabilities.offsetEncoding = { "utf-16" }
             require("rust-tools").setup {
                 tools = {
                     inlay_hints = {
