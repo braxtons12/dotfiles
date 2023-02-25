@@ -698,6 +698,19 @@ return {
         "nvim-lualine/lualine.nvim",
         lazy = false,
         config = function(_, _)
+            local trim = function(from_start)
+                return function(str, _)
+                    local max_len = vim.o.columns / 5
+                    local len = string.len(str)
+                    if len > max_len then
+                        if from_start then
+                        return "..." .. string.sub(str, (len - max_len) + 3)
+                        end
+                        return string.sub(str, 0, max_len - 3) .. "..."
+                    end
+                    return str
+                end
+            end
             local lualine_theme = {
                 normal = {
                     a = { fg = "#23272e", bg = "#98c379" },
@@ -751,7 +764,10 @@ return {
                 sections = {
                     lualine_a = { "mode" },
                     lualine_b = {
-                        "branch",
+                        {
+                            "branch",
+                            fmt = trim(false),
+                        },
                         {
                             "diff",
                             colored = true,
@@ -769,7 +785,8 @@ return {
                         {
                             "filename",
                             file_status = true,
-                            path = 1
+                            path = 1,
+                            fmt = trim(true),
                         },
                         {
                             "%w",
@@ -797,7 +814,7 @@ return {
                     lualine_x = {
                         {
                             "diagnostics",
-                            sources = { "nvim_lsp" },
+                            sources = { "nvim_diagnostic" },
                             sections = { "error", "warn", "info" },
                             symbols = {
                                 error = " ",
@@ -858,10 +875,10 @@ return {
                     {
                         elements = {
                             -- Elements can be strings or table with id and size keys.
-                            { id = "stacks", size = 0.2 },
+                            { id = "stacks",      size = 0.2 },
                             { id = "breakpoints", size = 0.2 },
                             --"watches",
-                            { id = "scopes", size = 0.6 },
+                            { id = "scopes",      size = 0.6 },
                         },
                         size = 40, -- 40 columns
                         position = "right",
