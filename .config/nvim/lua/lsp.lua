@@ -336,6 +336,9 @@ return {
                 border = require("ui.border").with_hl_group,
                 diagnostics_format = "#{m}"
             }
+
+            require("null-ls").disable({name = "cmake"})
+            require("null-ls").disable({name = "xmake"})
         end,
     },
     {

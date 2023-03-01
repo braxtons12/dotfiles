@@ -1,37 +1,43 @@
 local map = require("map")
 return {
     {
-        "tpope/vim-dispatch",
+        "stevearc/overseer.nvim",
         lazy = true,
         cmd = {
-            "Make",
-            "Dispatch",
-            "FocusDispatch",
-            "Focus",
+            "OverseerRun",
+            "OverseerToggle",
         },
         keys = {
-            "<leader>cm",
-            "<leader>xm",
+            "<leader>os",
         },
         config = function(_, _)
-            RUN_CMAKE = function()
-                vim.cmd([[set errorformat=%E%f:%l:%c:\ %trror:\ %m,%-Z%p^,%+C%.%#]])
-                vim.cmd([[set errorformat+=%D%*\\a:\ Entering\ directory\ '%f']])
-                vim.cmd([[set errorformat+=%X%*\\a:\ Leaving\ directory\ '%f']])
-                vim.cmd([[set errorformat+=%-G%.%#]])
-                vim.o.makeprg = "cmake --build build"
-                vim.cmd("Make")
-            end
-            RUN_XMAKE = function()
-                vim.cmd([[set errorformat=%E%f:%l:%c:\ %trror:\ %m,%-Z%p^,%+C%.%#]])
-                vim.cmd([[set errorformat+=%D%*\\a:\ Entering\ directory\ '%f']])
-                vim.cmd([[set errorformat+=%X%*\\a:\ Leaving\ directory\ '%f']])
-                vim.cmd([[set errorformat+=%-G%.%#]])
-                vim.o.makeprg = "xmake b"
-                vim.cmd("Make")
-            end
-            map.nmap("<leader>cm", "<cmd>lua RUN_CMAKE()<CR>", "Run CMake build")
-            map.nmap("<leader>xm", "<cmd>lua RUN_XMAKE()<CR>", "Run CMake build")
+            require("overseer").setup {
+                strategy = "jobstart",
+                form = {
+                    border = require("ui.border").with_hl_group,
+                    win_opts = {
+                        winblend = 0,
+                    },
+                },
+                confirm = {
+                    border = require("ui.border").with_hl_group,
+                    win_opts = {
+                        winblend = 0,
+                    },
+                },
+                task_win = {
+                    border = require("ui.border").with_hl_group,
+                    win_opts = {
+                        winblend = 0,
+                    },
+                },
+                templates = {
+                    "builtin",
+                    "user.cmake",
+                    "user.xmake",
+                },
+            }
+            map.nmap("<leader>os", "<cmd>OverseerRun<CR>", "Run CMake build")
         end
     },
     {
@@ -92,6 +98,8 @@ return {
     {
         "phaazon/hop.nvim",
         name = "hop",
+        lazy = true,
+        event = "VeryLazy",
         opts = {
             teasing = false,
             jump_on_sole_occurrence = false,
@@ -100,7 +108,24 @@ return {
     },
     {
         "tpope/vim-fugitive",
-        lazy = false,
+        lazy = true,
+        cmd = {
+            "Git",
+            "G",
+            "Gedit",
+            "Gsplit",
+            "Gdiffsplit",
+            "Gvdiffsplit",
+            "Gread",
+            "Gwrite",
+            "Ggrep",
+            "Glgrep",
+            "GMove",
+            "GRename",
+            "GDelete",
+            "GRemove",
+            "GBrowse",
+        },
     },
     {
         "HerringtonDarkholme/yats.vim",
@@ -157,13 +182,16 @@ return {
     },
     {
         "windwp/nvim-autopairs",
-        lazy = false,
+        lazy = true,
+        event = "VeryLazy",
         config = function(_, _)
             require("nvim-autopairs").setup {}
         end,
     },
     {
         "williamboman/mason.nvim",
+        lazy = true,
+        event = "VeryLazy",
         opts = {
             ui = {
                 icons = {

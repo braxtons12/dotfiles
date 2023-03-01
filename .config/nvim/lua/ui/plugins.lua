@@ -28,6 +28,48 @@ return {
         }
     },
     {
+        "stevearc/dressing.nvim",
+        lazy = true,
+        event = "VeryLazy",
+        config = function(_, _)
+            require("dressing").setup {
+                input = {
+                    enabled = true,
+                    insert_only = true,
+                    start_in_insert = true,
+                    anchor = "NW",
+                    border = require("ui.border").with_hl_group,
+                    win_options = {
+                        winblend = 0,
+                    },
+                },
+                select = {
+                    backend = {
+                        "telescope",
+                        "fzf_lua",
+                        "fzf",
+                        "nui",
+                        "builtin",
+                    },
+                    nui = {
+                        border = require("ui.border").with_hl_group,
+                        anchor = "NW",
+                        win_options = {
+                            winblend = 0,
+                        },
+                    },
+                    builtin = {
+                        border = require("ui.border").with_hl_group,
+                        anchor = "NW",
+                        win_options = {
+                            winblend = 0,
+                        },
+                    },
+                },
+            }
+        end
+    },
+    {
         "nvim-tree/nvim-web-devicons",
         lazy = false,
         config = function(_, _)
@@ -164,7 +206,8 @@ return {
     },
     {
         "declancm/cinnamon.nvim",
-        lazy = false,
+        lazy = true,
+        event = "VeryLazy",
         config = function(_, options)
             require("cinnamon").setup(options)
         end,
@@ -539,7 +582,8 @@ return {
     },
     {
         "dstein64/nvim-scrollview",
-        lazy = false,
+        lazy = true,
+        event = "BufWinEnter",
         branch = "main",
         opts = {
             scrollview_column = 1,
@@ -547,7 +591,8 @@ return {
     },
     {
         "petertriho/nvim-scrollbar",
-        lazy = false,
+        lazy = true,
+        event = "BufWinEnter",
         config = function(_, options)
             require("scrollbar").setup(options)
 
@@ -593,7 +638,8 @@ return {
     },
     {
         "yamatsum/nvim-cursorline",
-        lazy = false,
+        lazy = true,
+        event = "BufWinEnter",
         opts = {
             cursorline = {
                 enable = true,
@@ -704,7 +750,7 @@ return {
                     local len = string.len(str)
                     if len > max_len then
                         if from_start then
-                        return "..." .. string.sub(str, (len - max_len) + 3)
+                            return "..." .. string.sub(str, (len - max_len) + 3)
                         end
                         return string.sub(str, 0, max_len - 3) .. "..."
                     end
@@ -954,7 +1000,10 @@ return {
     },
     {
         "luukvbaal/statuscol.nvim",
-        lazy = false,
+        lazy = true,
+        event = "BufReadPost",
+        -- until luukvbaal fixes numbers
+        -- commit = "49a3bdab3e9cf23982724c1e888a6296fca4c8b9",
         opts = {
             relculright = true,
             setopt = true,
@@ -1048,6 +1097,8 @@ return {
     },
     {
         "lukas-reineke/indent-blankline.nvim",
+        lazy = true,
+        event = "VeryLazy",
         config = function(_, _)
             require("indent_blankline").setup {
             }
@@ -1056,7 +1107,8 @@ return {
     },
     {
         "lukas-reineke/virt-column.nvim",
-        lazy = false,
+        lazy = true,
+        event = "BufWinEnter",
     },
     {
         url = "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
@@ -1305,11 +1357,9 @@ return {
             },
             event_handlers = {
                 {
-                    event = "vim_buffer_enter",
+                    event = "neo_tree_buffer_enter",
                     handler = function(_)
-                        if vim.bo.filetype == "neo-tree" then
-                            vim.wo.signcolumn = "auto"
-                        end
+                        vim.opt_local.signcolumn = "auto"
                     end,
                 },
             },
