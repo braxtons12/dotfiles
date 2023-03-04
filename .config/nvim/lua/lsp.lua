@@ -330,6 +330,8 @@ return {
                             end
                         },
                     },
+                    null_ls.builtins.code_actions.cspell,
+                    null_ls.builtins.diagnostics.cspell,
                     xmake,
                     cmake,
                 },
