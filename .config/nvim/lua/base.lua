@@ -80,6 +80,7 @@ map.nmap("<C-S-d>", "<cmd>lua vim.diagnostic.config({virtual_lines = false})<CR>
 -- BASE AUTOCOMMANDS
 ----------------------------------------------
 
+
 vim.api.nvim_create_autocmd(
     { "BufRead", "BufNewFile" },
     {
@@ -99,6 +100,7 @@ vim.api.nvim_create_autocmd(
         end,
     }
 )
+
 vim.api.nvim_create_autocmd(
     { "BufRead", "BufNewFile" },
     {
@@ -108,6 +110,7 @@ vim.api.nvim_create_autocmd(
         end,
     }
 )
+
 vim.api.nvim_create_autocmd(
     { "BufRead", "BufNewFile" },
     {
@@ -133,4 +136,3 @@ vim.api.nvim_create_autocmd(
         end,
     }
 )
-
