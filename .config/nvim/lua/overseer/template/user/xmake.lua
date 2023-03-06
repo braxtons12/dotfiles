@@ -23,42 +23,14 @@ return {
                             "${cwd}"
                         },
                         pattern = {
-                            lua_pat = [[^error: ([^:]+):(%d+):(%d+):%s+([^:]+):%s+(.*)$]],
-                            file = 1,
-                            line = 2,
-                            column = 3,
-                            severity = 4,
-                            message = 5,
+                            vim_regexp = "\\v^(error: )?([^:]+):(\\d+):(\\d+): ([^:]+): (.*)$",
+                            kind = "location",
+                            file = 2,
+                            line = 3,
+                            column = 4,
+                            severity = 5,
+                            message = 6,
                         },
-                    },
-                },
-                {
-                    "on_output_parse",
-                    problem_matcher = {
-                        owner = "cpp",
-                        fileLocation = {
-                            "relative",
-                            "${cwd}"
-                        },
-                        pattern = {
-                            lua_pat = [[^([^:]+):(%d+):(%d+):%s+([^:]+):%s+(.*)$]],
-                            file = 1,
-                            line = 2,
-                            column = 3,
-                            severity = 4,
-                            message = 5,
-                        },
-                    },
-                },
-                {
-                    "on_output_parse",
-                    problem_matcher = {
-                        owner = "cpp",
-                        fileLocation = {
-                            "relative",
-                            "${cwd}"
-                        },
-                        pattern = "$cpp",
                     },
                 },
                 {

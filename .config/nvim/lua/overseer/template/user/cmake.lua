@@ -33,17 +33,6 @@ return {
                     },
                 },
                 {
-                    "on_output_parse",
-                    problem_matcher = {
-                        owner = "cpp",
-                        fileLocation = {
-                            "relative",
-                            "${cwd}"
-                        },
-                        pattern = "$cpp",
-                    },
-                },
-                {
                     "on_exit_set_status",
                     success_codes = {
                         255,
