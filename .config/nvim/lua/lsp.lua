@@ -217,10 +217,10 @@ return {
                 },
                 overrides = {
                     severities = {
-                        ["fatal error"] = helpers.diagnostics.severities.error,
-                        ["error"] = helpers.diagnostics.severities.error,
-                        ["note"] = helpers.diagnostics.severities.information,
-                        ["warning"] = helpers.diagnostics.severities.warning,
+                            ["fatal error"] = helpers.diagnostics.severities.error,
+                            ["error"] = helpers.diagnostics.severities.error,
+                            ["note"] = helpers.diagnostics.severities.information,
+                            ["warning"] = helpers.diagnostics.severities.warning,
                     },
                 }
             }
@@ -241,7 +241,7 @@ return {
                 "b",
             }
             xmake_generator.env = {
-                ["XMAKE_COLORTERM"] = "nocolor",
+                    ["XMAKE_COLORTERM"] = "nocolor",
             }
             xmake_generator.runtime_condition = function(_)
                 local has_xmake = io.open("xmake.lua")
@@ -339,8 +339,8 @@ return {
                 diagnostics_format = "#{m}"
             }
 
-            require("null-ls").disable({name = "cmake"})
-            require("null-ls").disable({name = "xmake"})
+            require("null-ls").disable({ name = "cmake" })
+            require("null-ls").disable({ name = "xmake" })
         end,
     },
     {
@@ -465,7 +465,7 @@ return {
                         debounce_text_changes = 150,
                     },
                     settings = {
-                        ["rust-analyzer"] = {
+                            ["rust-analyzer"] = {
                             checkOnSave = true,
                             check = {
                                 command = "clippy",
