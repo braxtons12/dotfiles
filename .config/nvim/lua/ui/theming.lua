@@ -406,6 +406,8 @@ vim.cmd("hi @property.static guifg=#c65156")
 vim.cmd("hi! link @variable.builtin Keyword")
 vim.cmd("hi! link @punctuation.special Punctuation")
 vim.cmd("hi! link @error doxygenParamName")
+vim.cmd("hi! link @string String")
+vim.cmd("hi! link @character String")
 
 ----------------------------------------------------
 -- HLARGS HIGHLIGHTING
