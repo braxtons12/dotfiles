@@ -253,18 +253,18 @@ vim.cmd("hi cDefine guifg=#9c80ff")
 -- CPP SEMANTIC HIGHLIGHTING
 ----------------------------------------------------
 
-vim.cmd("hi LspCxxHlGroupEnumConstant ctermfg=3 guifg=#00997b cterm=none gui=none")
-vim.cmd("hi LspCxxHlGroupNamespace ctermfg=3 guifg=#00997b cterm=italic gui=italic")
-vim.cmd("hi LspCxxHlGroupMemberVariable ctermfg=88 guifg=#c65156 cterm=none gui=none")
-vim.cmd("hi LspCxxHlSymUnknownStaticField ctermfg=88 guifg=#c65156 cterm=bold gui=bold")
-vim.cmd("hi LspCxxHlSymDependentType ctermfg=3 guifg=#00997b cterm=none gui=none")
-vim.cmd("hi LspCxxHlSymTypeAlias ctermfg=29 guifg=#dbba75 cterm=none gui=none")
-vim.cmd("hi LspCxxhlSymTypeParameter ctermfg=3 guifg=#00997b cterm=bold gui=bold")
-vim.cmd("hi LspCxxHlSymTemplateParameter ctermfg=3 guifg=#00997b cterm=bold gui=bold")
-vim.cmd("hi LspCxxHlSymVariable ctermfg=white guifg=#9daaaa cterm=none gui=none")
-vim.cmd("hi LspCxxHlSymParameter ctermfg=white guifg=#588496 cterm=none gui=none")
-vim.cmd("hi LspCxxHlSkippedRegion ctermfg=lightgrey ctermbg=darkgrey guifg=#444444 guibg=#202020")
-vim.cmd("hi LspCxxHlSkippedRegionBeginEnd ctermfg=lightgrey ctermbg=darkgrey guifg=#444444 guibg=#202020")
+vim.cmd("hi! link @lsp.type.namespace.cpp @namespace")
+vim.cmd("hi! link @lsp.type.typeParameter.cpp @typeParameter")
+vim.cmd("hi! link @lsp.type.parameter.cpp @parameter")
+vim.cmd("hi! link @lsp.type.comment.cpp @comment")
+vim.cmd("hi! link @lsp.typemod.parameter.functionScope.cpp @parameter")
+vim.cmd("hi! link @lsp.type.property.cpp @property")
+vim.cmd("hi! link @lsp.typemod.property.classScope.cpp @property")
+vim.cmd("hi! link @lsp.typemod.type.deduced.cpp @keyword")
+vim.cmd("hi! link @lsp.typemod.class.deduced.cpp @keyword")
+vim.cmd("hi! link @lsp.typemod.struct.deduced.cpp @keyword")
+vim.cmd("hi! link @lsp.typemod.variable.classScope.cpp @property")
+vim.cmd("hi @lsp.typemod.variable.static.cpp gui=bold cterm=bold")
 
 ----------------------------------------------------
 -- LSP SEMANTIC HIGHLIGHTING
@@ -408,6 +408,8 @@ vim.cmd("hi! link @punctuation.special Punctuation")
 vim.cmd("hi! link @error doxygenParamName")
 vim.cmd("hi! link @string String")
 vim.cmd("hi! link @character String")
+vim.cmd("hi! link @constant.comment doxygenParam")
+vim.cmd("hi! link @define.cpp Keyword")
 
 ----------------------------------------------------
 -- HLARGS HIGHLIGHTING
