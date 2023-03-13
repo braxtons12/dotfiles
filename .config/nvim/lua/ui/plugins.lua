@@ -263,7 +263,14 @@ return {
     },
     {
         "folke/noice.nvim",
-        lazy = false,
+        lazy = true,
+        keys = {
+            "<cmd>",
+            ":",
+            "/",
+            "<search>",
+        },
+        event = "VeryLazy",
         dependencies = {
             "MunifTanjim/nui.nvim",
             "rcarriga/nvim-notify",
@@ -297,14 +304,26 @@ return {
                         throttle = 1000 / 24,
                     },
                 },
+                messages = {
+                    enabled = true,
+                    view = "notify",
+                },
                 presets = {
                     bottom_search = false,
-                    command_palette = true,
+                    --command_palette = true,
                     long_message_to_split = true,
                     inc_rename = true,
                 },
                 views = {
                     cmdline_popup = {
+                        position = {
+                            row = 5,
+                            col = "50%"
+                        },
+                        size = {
+                            width = "40%",
+                            height = "auto",
+                        },
                         border = {
                             style = noice_border,
                             padding = { 0, 0 },
