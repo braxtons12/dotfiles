@@ -330,7 +330,7 @@ return {
                         },
                         win_options = {
                             winblend = 0,
-                            winhighlight = "Normal:Pmenu,FloatBorder:FloatBorder",
+                            winhighlight = "Normal:Pmenu,FloatBorder:NoiceBorder",
                         },
                     },
                     popupmenu = {
@@ -340,7 +340,7 @@ return {
                         },
                         win_options = {
                             winblend = 0,
-                            winhighlight = "Normal:Pmenu,FloatBorder:FloatBorder",
+                            winhighlight = "Normal:Pmenu,FloatBorder:NoiceBorder",
                         },
                     },
                     hover = {
@@ -355,14 +355,14 @@ return {
                         },
                         win_options = {
                             winblend = 0,
-                            winhighlight = "Normal:Pmenu,FloatBorder:FloatBorder",
+                            winhighlight = "Normal:Pmenu,FloatBorder:NoiceBorder",
                         },
                     },
                 },
             }
 
-            vim.cmd("hi! link NoiceCmdlinePopupBorder FloatBorder")
-            vim.cmd("hi! link NoiceConfirmBorder FloatBorder")
+            vim.cmd("hi! link NoiceCmdlinePopupBorder NoiceBorder")
+            vim.cmd("hi! link NoiceConfirmBorder NoiceBorder")
         end
     },
     {

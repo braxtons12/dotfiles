@@ -10,6 +10,7 @@ vim.api.nvim_create_autocmd(
             vim.cmd("hi Float guibg=#262b33")
             vim.cmd("hi NormalFloat guibg=#262b33")
             vim.cmd("hi FloatBorder guifg=#181818 guibg=#252a33")
+            vim.cmd("hi NoiceBorder guifg=#61afef guibg=#252a33")
             vim.cmd("hi TreesitterContext guibg=#383d48")
         end
     })
