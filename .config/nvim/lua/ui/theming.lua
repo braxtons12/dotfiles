@@ -48,6 +48,7 @@ vim.cmd("hi DiffDelete guifg=#c65156 guibg=#23272e")
 ----------------------------------------------
 
 vim.cmd("hi Type ctermfg=29 guifg=#dbba75 cterm=none gui=none")
+vim.cmd("hi! link Typedef Type")
 vim.cmd("hi Macro guifg=#9c80ff cterm=none gui=none")
 vim.cmd("hi Function guifg=#61afef cterm=none gui=none")
 vim.cmd("hi Keyword guifg=#c67ada cterm=none gui=none")
@@ -267,6 +268,7 @@ vim.cmd("hi! link @lsp.typemod.class.deduced.cpp @keyword")
 vim.cmd("hi! link @lsp.typemod.struct.deduced.cpp @keyword")
 vim.cmd("hi! link @lsp.typemod.variable.classScope.cpp @property")
 vim.cmd("hi @lsp.typemod.variable.static.cpp gui=bold cterm=bold")
+vim.cmd("hi! link @lsp.type.concept.cpp @type")
 
 ----------------------------------------------------
 -- LSP SEMANTIC HIGHLIGHTING
@@ -398,6 +400,7 @@ vim.cmd("hi! link @variable.builtin Keyword")
 vim.cmd("hi! link @punctuation.special Punctuation")
 vim.cmd("hi! link @error doxygenParamName")
 vim.cmd("hi! link @constant.comment doxygenParam")
+vim.cmd("hi! link @define.cpp Keyword")
 vim.cmd("hi! link @define.cpp Keyword")
 vim.cmd("hi @text.todo.comment guifg=#9daaaa gui=bold")
 
