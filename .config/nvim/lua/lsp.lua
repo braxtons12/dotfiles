@@ -88,6 +88,7 @@ return {
             for _, lsp in pairs(servers) do
                 if lsp == "clangd" then
                     -- handled in clangd_extensions setup
+                    require("clangd_extensions")
                 elseif lsp == "rust_analyzer" then
                     -- handled in rust_tools setup
                 elseif lsp == "lua_ls" then
@@ -217,10 +218,10 @@ return {
                 },
                 overrides = {
                     severities = {
-                            ["fatal error"] = helpers.diagnostics.severities.error,
-                            ["error"] = helpers.diagnostics.severities.error,
-                            ["note"] = helpers.diagnostics.severities.information,
-                            ["warning"] = helpers.diagnostics.severities.warning,
+                        ["fatal error"] = helpers.diagnostics.severities.error,
+                        ["error"] = helpers.diagnostics.severities.error,
+                        ["note"] = helpers.diagnostics.severities.information,
+                        ["warning"] = helpers.diagnostics.severities.warning,
                     },
                 }
             }
@@ -241,7 +242,7 @@ return {
                 "b",
             }
             xmake_generator.env = {
-                    ["XMAKE_COLORTERM"] = "nocolor",
+                ["XMAKE_COLORTERM"] = "nocolor",
             }
             xmake_generator.runtime_condition = function(_)
                 local has_xmake = io.open("xmake.lua")
@@ -421,12 +422,22 @@ return {
                     cmd = {
                         "clangd",
                         "--background-index",
-                        "--suggest-missing-includes",
+                        "--clang-tidy",
+                        "--all-scopes-completion",
+                        "--completion-style=detailed",
+                        "--header-insertion=iwyu",
+                        "--header-insertion-decorators",
+                        "--pch-storage=memory",
+                        --"--suggest-missing-includes",
                         "--enable-config"
                     },
                 },
                 extensions = {
+                    autoSetHints = true,
                     inlay_hints = {
+                        inline = true,
+                        only_current_line = false,
+                        show_parameter_hints = true,
                         parameter_hints_prefix = "fn : ",
                         other_hints_prefix = "-> "
                     }
@@ -465,7 +476,7 @@ return {
                         debounce_text_changes = 150,
                     },
                     settings = {
-                            ["rust-analyzer"] = {
+                        ["rust-analyzer"] = {
                             checkOnSave = true,
                             check = {
                                 command = "clippy",
