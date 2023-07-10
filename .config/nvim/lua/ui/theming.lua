@@ -261,7 +261,7 @@ vim.cmd("hi! link @lsp.type.typeParameter.cpp @typeParameter")
 vim.cmd("hi! link @lsp.type.parameter.cpp @parameter")
 vim.cmd("hi! link @lsp.type.comment.cpp @comment")
 vim.cmd("hi! link @lsp.typemod.parameter.functionScope.cpp @parameter")
-vim.cmd("hi! link @lsp.type.property.cpp @property")
+vim.cmd("hi! link @lsp.type.property @property")
 vim.cmd("hi! link @lsp.typemod.property.classScope.cpp @property")
 vim.cmd("hi! link @lsp.typemod.type.deduced.cpp @keyword")
 vim.cmd("hi! link @lsp.typemod.class.deduced.cpp @keyword")
@@ -269,10 +269,13 @@ vim.cmd("hi! link @lsp.typemod.struct.deduced.cpp @keyword")
 vim.cmd("hi! link @lsp.typemod.variable.classScope.cpp @property")
 vim.cmd("hi @lsp.typemod.variable.static.cpp gui=bold cterm=bold")
 vim.cmd("hi! link @lsp.type.concept.cpp @type")
+vim.cmd("hi! link @lsp.type.macro @macro")
 
 ----------------------------------------------------
 -- LSP SEMANTIC HIGHLIGHTING
 ----------------------------------------------------
+
+vim.cmd("hi! link @lsp.typemod.variable.defaultLibrary.lua @keyword")
 
 vim.cmd("hi! link @attribute Normal")
 vim.cmd("hi! link @annotation PreProc")
