@@ -228,7 +228,7 @@ vim.g.cpp_posix_standard = 1
 vim.g.cpp_experimential_template_hi = 1
 vim.g.cpp_concepts_hi = 1
 
-vim.cmd("hi! link cCustomFunc Function")
+vim.cmd("hi! link cCustomFunc Keyword")
 vim.cmd("hi! link CCustomMemVar Property")
 vim.cmd("hi! link cppSTLnamespace Namespace")
 vim.cmd("hi! link cppSTLType Type")
@@ -267,6 +267,7 @@ vim.cmd("hi! link @lsp.typemod.type.deduced.cpp @keyword")
 vim.cmd("hi! link @lsp.typemod.class.deduced.cpp @keyword")
 vim.cmd("hi! link @lsp.typemod.struct.deduced.cpp @keyword")
 vim.cmd("hi! link @lsp.typemod.variable.classScope.cpp @property")
+vim.cmd("hi! link @lsp.typemod.variable.defaultLibrary.cpp @variable")
 vim.cmd("hi @lsp.typemod.variable.static.cpp gui=bold cterm=bold")
 vim.cmd("hi! link @lsp.type.concept.cpp @type")
 vim.cmd("hi! link @lsp.type.macro @macro")
