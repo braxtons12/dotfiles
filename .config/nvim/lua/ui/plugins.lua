@@ -1249,11 +1249,23 @@ return {
                 statusline = false,
                 show_scrolled_off_parent_node = false,
                 content_layout = "start",
-                tab_labels = {
-                    filesystem = "  File",
-                    buffers = " Buffer",
-                    git_status = " Git",
-                    diagnostics = "裂Lints"
+                sources = {
+                    {
+                        source = "filesystem",
+                        display_name = "  File",
+                    },
+                    {
+                        source = "buffers",
+                        display_name = " Buffer",
+                    },
+                    {
+                        source = "git_status",
+                        display_name = " Git",
+                    },
+                    {
+                        source = "diagnostics",
+                        display_name = "裂Lints",
+                    },
                 }
             },
             hide_root_node = true,
