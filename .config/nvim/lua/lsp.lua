@@ -291,7 +291,7 @@ return {
 
             require("null-ls").setup {
                 on_attach = LSP_ON_ATTACH,
-                debounce = 250,
+                debounce = 5000,
                 default_timeout = 10000,
                 on_init = function(client, _)
                     client.offset_encoding = "utf-16"
