@@ -40,3 +40,11 @@ export PATH="/home/braxton/.nvm/versions/node/v15.14.0/bin:$PATH"
 PICO_SDK_PATH=/home/braxton/git/pico/pico-sdk
 export PICO_SDK_PATH
 . "$HOME/.cargo/env"
+
+XMAKE_PROGRAM_DIR=/usr/share/xmake
+export XMAKE_PROGRAM_DIR
+
+
+# Added by Toolbox App
+export PATH="$PATH:/home/braxton/.local/share/JetBrains/Toolbox/scripts"
+

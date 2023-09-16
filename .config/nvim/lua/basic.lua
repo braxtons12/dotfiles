@@ -1,6 +1,23 @@
 local map = require("map")
 return {
     {
+        "voldikss/vim-translator",
+        lazy = true,
+        cmd = {
+            "Translate",
+            "TranslateW",
+        },
+        keys = {
+            "<leader>tl"
+        },
+        config = function(_, _)
+            vim.g.translator_target_lang = "en"
+
+            map.nmap("<leader>tl", "<cmd>TranslateW<CR>", "translate text")
+            map.vmap("<leader>tl", "<cmd>TranslateW<CR>", "translate text")
+        end
+    },
+    {
         "stevearc/overseer.nvim",
         lazy = true,
         cmd = {
@@ -40,6 +57,15 @@ return {
             map.nmap("<leader>os", "<cmd>OverseerRun<CR>", "Run CMake build")
         end
     },
+    --{
+    --    "uga-rosa/translate.nvim",
+    --    lazy = false,
+    --    cmd = {
+    --        "Translate"
+    --    },
+    --    --opts = {
+    --    --},
+    --},
     {
         "vim-scripts/DoxygenToolkit.vim",
         lazy = true,

@@ -168,13 +168,6 @@ alias cmake_debug_gcc_juce='cmake -B build -G Ninja -DCMAKE_TOOLCHAIN_FILE=linux
 
 alias clippy='~/clippy_alias.sh'
 
-alias build='./build.sh'
-alias test='./test.sh'
-alias build_and_test='./build.sh && ./test.sh'
-alias clean='./clean.sh'
-alias clean_build='./clean.sh && ./build.sh'
-alias clean_build_and_test='./clean.sh && ./build.sh && ./test.sh'
-
 alias onivim="/home/braxton/Onivim/usr/bin/Oni2"
 
 alias -s c=nvim
@@ -205,7 +198,11 @@ export VISUAL
 export EDITOR
 
 #  xmake completion
+export XMAKE_PROGRAM_DIR="/usr/share/xmake"
 export XMAKE_ROOTDIR="/usr/bin"
 export PATH="$XMAKE_ROOTDIR:$PATH"
 [[ -s "/usr/share/xmake/scripts/profile-unix.sh" ]] && source "/usr/share/xmake/scripts/profile-unix.sh"
 #  xmake completion
+# >>> xmake >>>
+test -f "/home/braxton/.xmake/profile" && source "/home/braxton/.xmake/profile"
+# <<< xmake <<<

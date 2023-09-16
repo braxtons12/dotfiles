@@ -10,8 +10,9 @@ return {
             harfbuzz_features = { "calt=1", "clig=1", "liga=1" }
         },
     }),
+    warn_about_missing_glyphs = false,
     window_close_confirmation = "NeverPrompt",
-    scrollback_lines = 1000,
+    scrollback_lines = 5000,
     font_size = 13,
     line_height = 1.0,
     cell_width = 1.0,

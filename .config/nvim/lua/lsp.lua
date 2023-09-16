@@ -8,6 +8,20 @@ LSP_ON_ATTACH = function(client, buffer_num)
     end
 end
 
+CLANGD_ON_ATTACH = function(client, buffer_num)
+    vim.api.nvim_buf_set_option(buffer_num, "omnifunc", "v:lua.vim.lsp.omnifunc")
+
+    local capabilities = client.server_capabilities
+
+    if capabilities.documentSymbolProvider then
+        require("nvim-navic").attach(client, buffer_num)
+    end
+
+    require("clangd_extensions.inlay_hints").setup_autocmd()
+    require("clangd_extensions.inlay_hints").set_inlay_hints()
+end
+ 
+
 local map = require("map")
 
 return {
@@ -88,6 +102,25 @@ return {
             for _, lsp in pairs(servers) do
                 if lsp == "clangd" then
                     -- handled in clangd_extensions setup
+                    require("lspconfig")[lsp].setup {
+                        capabilities = capabilities,
+                        on_attach = CLANGD_ON_ATTACH,
+                        flags = {
+                            debounce_text_changes = 150,
+                        },
+                        cmd = {
+                            "clangd",
+                            "--background-index",
+                            "--clang-tidy",
+                            "--all-scopes-completion",
+                            "--completion-style=detailed",
+                            "--header-insertion=iwyu",
+                            "--header-insertion-decorators",
+                            "--pch-storage=memory",
+                            --"--suggest-missing-includes",
+                            "--enable-config"
+                        },
+                    }
                     require("clangd_extensions")
                 elseif lsp == "rust_analyzer" then
                     -- handled in rust_tools setup
@@ -150,6 +183,7 @@ return {
     },
     {
         "jose-elias-alvarez/null-ls.nvim",
+        enabled = false,
         lazy = true,
         ft = {
             "asm",
@@ -292,7 +326,7 @@ return {
             require("null-ls").setup {
                 on_attach = LSP_ON_ATTACH,
                 debounce = 5000,
-                default_timeout = 10000,
+                default_timeout = 2000,
                 on_init = function(client, _)
                     client.offset_encoding = "utf-16"
                 end,
@@ -331,8 +365,12 @@ return {
                             end
                         },
                     },
-                    null_ls.builtins.code_actions.cspell,
-                    null_ls.builtins.diagnostics.cspell,
+                    --null_ls.builtins.code_actions.cspell.with {
+                    --    method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
+                    --},
+                    --null_ls.builtins.diagnostics.cspell.with {
+                    --    method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
+                    --},
                     xmake,
                     cmake,
                 },
@@ -413,35 +451,13 @@ return {
             capabilities.offsetEncoding = { "utf-16" }
 
             require("clangd_extensions").setup {
-                server = {
-                    capabilities = capabilities,
-                    on_attach = LSP_ON_ATTACH,
-                    flags = {
-                        debounce_text_changes = 150,
-                    },
-                    cmd = {
-                        "clangd",
-                        "--background-index",
-                        "--clang-tidy",
-                        "--all-scopes-completion",
-                        "--completion-style=detailed",
-                        "--header-insertion=iwyu",
-                        "--header-insertion-decorators",
-                        "--pch-storage=memory",
-                        --"--suggest-missing-includes",
-                        "--enable-config"
-                    },
-                },
-                extensions = {
-                    autoSetHints = true,
-                    inlay_hints = {
-                        inline = true,
-                        only_current_line = false,
-                        show_parameter_hints = true,
-                        parameter_hints_prefix = "fn : ",
-                        other_hints_prefix = "-> "
-                    }
-                },
+                inlay_hints = {
+                    inline = true,
+                    only_current_line = false,
+                    show_parameter_hints = true,
+                    parameter_hints_prefix = "fn : ",
+                    other_hints_prefix = "-> "
+                }
             }
         end
     },
