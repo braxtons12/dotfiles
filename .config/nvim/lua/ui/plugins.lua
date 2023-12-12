@@ -1117,11 +1117,11 @@ return {
     {
         "lukas-reineke/indent-blankline.nvim",
         lazy = true,
+        main = "ibl",
         event = "VeryLazy",
         config = function(_, _)
-            require("indent_blankline").setup {
+            require("ibl").setup {
             }
-            vim.g.indent_blankline_show_trailing_blankline_indent = false
         end
     },
     {
