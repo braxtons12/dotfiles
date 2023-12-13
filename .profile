@@ -48,3 +48,8 @@ export XMAKE_PROGRAM_DIR
 # Added by Toolbox App
 export PATH="$PATH:/home/braxton/.local/share/JetBrains/Toolbox/scripts"
 
+# Setup Pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"

@@ -206,3 +206,9 @@ export PATH="$XMAKE_ROOTDIR:$PATH"
 # >>> xmake >>>
 test -f "/home/braxton/.xmake/profile" && source "/home/braxton/.xmake/profile"
 # <<< xmake <<<
+
+# Setup Pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"

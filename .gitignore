@@ -1,4 +1,7 @@
 .asoundrc
+.icons/
+.TranslationPlugin/
+dev-temp/
 .log/
 .var/
 .compiz/
