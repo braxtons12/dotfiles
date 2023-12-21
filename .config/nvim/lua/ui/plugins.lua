@@ -32,13 +32,17 @@ return {
         lazy = true,
         event = "VeryLazy",
         config = function(_, _)
+            local override = function(conf)
+                conf.anchor = "NW"
+                return conf
+            end
             require("dressing").setup {
                 input = {
                     enabled = true,
                     insert_only = true,
                     start_in_insert = true,
-                    anchor = "NW",
                     border = require("ui.border").with_hl_group,
+                    override = override,
                     win_options = {
                         winblend = 0,
                     },
@@ -53,14 +57,14 @@ return {
                     },
                     nui = {
                         border = require("ui.border").with_hl_group,
-                        anchor = "NW",
+                        override = override,
                         win_options = {
                             winblend = 0,
                         },
                     },
                     builtin = {
                         border = require("ui.border").with_hl_group,
-                        anchor = "NW",
+                        override = override,
                         win_options = {
                             winblend = 0,
                         },
