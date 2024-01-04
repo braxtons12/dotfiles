@@ -280,7 +280,7 @@ return {
             "rcarriga/nvim-notify",
         },
         config = function(_, _)
-            local noice_border = require("ui.border").without_hl_group
+            local noice_border = require("ui.border").with_hl_group
 
             require("noice").setup {
                 lsp = {
@@ -292,6 +292,17 @@ return {
                     },
                     hover = {
                         enabled = true,
+                    },
+                    documentation = {
+                        opts = {
+                            win_options = {
+                                winblend = 0,
+                                winhighlight = {
+                                    Normal = "Pmenu",
+                                    FloatBorder = "NoiceBorder",
+                                },
+                            },
+                        }
                     },
                     signature = {
                         enabled = true,
@@ -334,7 +345,10 @@ return {
                         },
                         win_options = {
                             winblend = 0,
-                            winhighlight = "Normal:Pmenu,FloatBorder:NoiceBorder",
+                            winhighlight = {
+                                Normal = "Pmenu",
+                                FloatBorder = "NoiceBorder",
+                            },
                         },
                     },
                     popupmenu = {
@@ -344,7 +358,10 @@ return {
                         },
                         win_options = {
                             winblend = 0,
-                            winhighlight = "Normal:Pmenu,FloatBorder:NoiceBorder",
+                            winhighlight = {
+                                Normal = "Pmenu",
+                                FloatBorder = "NoiceBorder",
+                            },
                         },
                     },
                     hover = {
@@ -359,7 +376,10 @@ return {
                         },
                         win_options = {
                             winblend = 0,
-                            winhighlight = "Normal:Pmenu,FloatBorder:NoiceBorder",
+                            winhighlight = {
+                                Normal = "Pmenu",
+                                FloatBorder = "NoiceBorder",
+                            },
                         },
                     },
                 },
@@ -1035,7 +1055,8 @@ return {
     {
         "nvim-telescope/telescope-fzf-native.nvim",
         lazy = true,
-        build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build"
+        build =
+        "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build"
     },
     {
         "nvim-telescope/telescope.nvim",

@@ -1,18 +1,23 @@
+local function set_popup_colors()
+    vim.cmd("hi Pmenu ctermbg=darkgrey guibg=#262b33 guifg=#9daaaa")
+    vim.cmd("hi PmenuSel ctermbg=darkgrey ctermfg=lightblue guibg=#202020 guifg=#61afef")
+    vim.cmd("hi Float guibg=#262b33, guifg=#9daaaa")
+    vim.cmd("hi! link NormalFloat Float")
+    vim.cmd("hi! link FloatNormal Float")
+    vim.cmd("hi FloatBorder guifg=#181818 guibg=#252a33")
+    vim.cmd("hi NoiceBorder guifg=#61afef guibg=#252a33")
+    vim.cmd("hi TreesitterContext guibg=#383d48")
+    vim.cmd("hi! link NeoTreeFloatBorder FloatBorder")
+    vim.cmd("hi! link NeoTreeFloatNormal Float")
+end
+
 vim.api.nvim_create_autocmd(
     {
         "ColorScheme"
     },
     {
         pattern = "*",
-        callback = function()
-            vim.cmd("hi Pmenu ctermbg=darkgrey guibg=#262b33 guifg=#9daaaa")
-            vim.cmd("hi PmenuSel ctermbg=darkgrey ctermfg=lightblue guibg=#202020 guifg=#61afef")
-            vim.cmd("hi Float guibg=#262b33")
-            vim.cmd("hi NormalFloat guibg=#262b33")
-            vim.cmd("hi FloatBorder guifg=#181818 guibg=#252a33")
-            vim.cmd("hi NoiceBorder guifg=#61afef guibg=#252a33")
-            vim.cmd("hi TreesitterContext guibg=#383d48")
-        end
+        callback = set_popup_colors
     })
 
 vim.cmd("set background=dark")
@@ -22,6 +27,7 @@ vim.g.one_allow_italics = 1
 vim.cmd("hi VertSplit ctermbg=darkgrey guibg=#262b33 ctermfg=lightgrey guifg=#383d48")
 vim.cmd("hi VirtColumn guifg=#383d48")
 vim.cmd("let $NVIM_TUI_ENABLE_TRUE_COLOR=1")
+set_popup_colors()
 
 ----------------------------------------------
 -- BASIC DIAG/INFO HIGHLIGHTING
@@ -168,10 +174,10 @@ vim.cmd("hi! link NotifyTRACEBody Normal")
 -- HIGHLIGHTING FOR NVIM CMP
 ----------------------------------------------
 
-vim.cmd("hi CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080")
-vim.cmd("hi CmpItemAbbrMatch guibg=NONE guifg=#569CD6")
-vim.cmd("hi CmpItemAbbrMatchFuzzy guibg=NONE guifg=#569CD6")
-vim.cmd("hi CmpItemMenu guibg=None guifg=#c67ada gui=italic cterm=italic")
+vim.cmd("hi CmpItemAbbrDeprecated guibg=#262b33 gui=strikethrough guifg=#808080")
+vim.cmd("hi CmpItemAbbrMatch guibg=#262b33 guifg=#569CD6")
+vim.cmd("hi CmpItemAbbrMatchFuzzy guibg=#262b33 guifg=#569CD6")
+vim.cmd("hi CmpItemMenu guibg=#262b33 guifg=#c67ada gui=italic cterm=italic")
 
 vim.cmd("hi CmpItemKindText guifg=#202020 guibg=#9daaaa")
 vim.cmd("hi! link CmpItemKindVariable CmpItemKindText")
@@ -484,4 +490,3 @@ vim.cmd("hi! link AerialTypeParameterIcon AerialNamespace")
 
 vim.cmd("hi AerialGuide guibg=#23282e guifg=#686e78")
 vim.cmd("hi AerialNormal guibg=#23282e guifg=#9daaaa")
-
