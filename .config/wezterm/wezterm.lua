@@ -218,6 +218,11 @@ config.keys = {
         action = wezterm.action.ActivateTabRelative(1),
     },
     {
+        key = "n",
+        mods = "CTRL|ALT",
+        action = wezterm.action.SpawnTab("DefaultDomain"),
+    },
+    {
         key = "p",
         mods = "CTRL|SHIFT",
         action = wezterm.action.ActivateTabRelative(-1),
