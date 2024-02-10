@@ -147,5 +147,12 @@ return {
     end,
     get_command_center_mappings = function()
         return COMMAND_CENTER_MAPPINGS
-    end
+    end,
+    codeaction = function()
+        if vim.bo.filetype == 'rust' then
+            vim.cmd("RustLsp codeAction")
+        else
+            require("cosmic-ui").code_actions()
+        end
+    end,
 }

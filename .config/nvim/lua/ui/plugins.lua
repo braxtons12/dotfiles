@@ -267,6 +267,7 @@ return {
     },
     {
         "folke/noice.nvim",
+        enabled = false,
         lazy = true,
         keys = {
             "<cmd>",
@@ -299,7 +300,7 @@ return {
                                 winblend = 0,
                                 winhighlight = {
                                     Normal = "Pmenu",
-                                    FloatBorder = "NoiceBorder",
+                                    FloatBorder = "FloatBorder",
                                 },
                             },
                         }
@@ -405,8 +406,8 @@ return {
             require("cosmic-ui").setup {}
 
             map.nmap("<Leader>rn", "<cmd>lua require(\"cosmic-ui\").rename()<CR>", "Rename")
-            map.nmap("<A-CR>", "<cmd>lua require(\"cosmic-ui\").code_actions()<CR>", "Code Actions")
-            map.nmap("<S-c>", "<cmd>lua require(\"cosmic-ui\").code_actions()<CR>", "Code Actions")
+            map.nmap("<A-CR>", "<cmd>lua require(\"map\").codeaction()<CR>", "Code Actions")
+            map.nmap("<S-c>", "<cmd>lua require(\"map\").codeaction()<CR>", "Code Actions")
         end
     },
     {

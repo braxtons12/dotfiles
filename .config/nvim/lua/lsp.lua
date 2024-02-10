@@ -6,6 +6,11 @@ LSP_ON_ATTACH = function(client, buffer_num)
     if capabilities.documentSymbolProvider then
         require("nvim-navic").attach(client, buffer_num)
     end
+
+    if capabilities.inlayHintProvider then
+        vim.g.inlay_hints_visible = true
+        vim.lsp.inlay_hint.enable(buffer_num, true)
+    end
 end
 
 CLANGD_ON_ATTACH = function(client, buffer_num)
@@ -32,6 +37,7 @@ return {
             "asm",
             "bash",
             "c",
+            "cargo",
             "cmake",
             "cpp",
             "c_sharp",
@@ -54,6 +60,7 @@ return {
             "zsh",
             "bash",
             "tex",
+            "toml",
             "typescript",
             "ts",
         },
@@ -73,6 +80,9 @@ return {
                 },
             },
             "williamboman/mason-lspconfig.nvim",
+        },
+        opts = {
+            inlay_hints = { enabled = true, },
         },
         config = function(_, _)
             local servers = {
@@ -462,27 +472,23 @@ return {
         end
     },
     {
-        "simrat39/rust-tools.nvim",
+        "mrcjkb/rustaceanvim",
         lazy = true,
         ft = {
             "rust",
             "toml",
-            "cargo"
-        },
-        dependencies = {
-            "neovim/nvim-lspconfig",
+            "cargo",
         },
         config = function(_, _)
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
             capabilities.offsetEncoding = { "utf-16" }
-            require("rust-tools").setup {
+            vim.g.rustaceanvim = {
                 tools = {
-                    inlay_hints = {
-                        other_hints_prefix = "-> "
-                    },
                     hover_actions = {
-                        border = require("ui.border").with_hl_group,
-                        auto_focus = true,
+                        replace_builtin_hover = true,
+                    },
+                    flow_win_config = {
+                        border = require("ui.border").with_hl_group
                     },
                 },
                 server = {
@@ -491,7 +497,7 @@ return {
                     flags = {
                         debounce_text_changes = 150,
                     },
-                    settings = {
+                    default_settings = {
                         ["rust-analyzer"] = {
                             checkOnSave = true,
                             check = {
@@ -503,6 +509,10 @@ return {
                                 buildScripts = {
                                     enable = true,
                                 },
+                                autoreload = true,
+                            },
+                            procMacro = {
+                                enable = true,
                             },
                             workspace = {
                                 symbol = {
@@ -529,10 +539,6 @@ return {
             vim.cmd("hi! link @deriveHelper Macro")
             vim.cmd("hi! link @generic Type")
             vim.cmd("hi! link @crateRoot Namespace")
-
-            map.nmap("<A-k>",
-                "<cmd>lua require(\"rust-tools\").hover_actions.hover_actions()<CR>",
-                "Rust hover actions")
         end,
     },
     {

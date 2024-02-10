@@ -279,7 +279,19 @@ vim.cmd("hi! link @lsp.type.concept.cpp @type")
 vim.cmd("hi! link @lsp.type.macro @macro")
 
 ----------------------------------------------------
--- LSP SEMANTIC HIGHLIGHTING
+-- RUST SEMANTIC HIGHLIGHTING
+----------------------------------------------------
+
+vim.cmd("hi! link @variable.member.rust Property")
+vim.cmd("hi! link @lsp.type.constParameter.rust @typeParameter")
+vim.cmd("hi! link @lsp.type.typeParameter.rust @typeParameter")
+vim.cmd("hi! link @lsp.type.parameter.rust @parameter")
+vim.cmd("hi! link @lsp.type.typeAlias.rust @type")
+vim.cmd("hi! link @lsp.type.decorator.rust @function.macro.rust")
+vim.cmd("hi @lsp.type.lifetime.rust gui=italic cterm=italic guifg=#c65156")
+
+----------------------------------------------------
+-- GENERAL LSP SEMANTIC HIGHLIGHTING
 ----------------------------------------------------
 
 vim.cmd("hi! link @lsp.typemod.variable.defaultLibrary.lua @keyword")
