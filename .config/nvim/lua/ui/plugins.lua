@@ -267,7 +267,6 @@ return {
     },
     {
         "folke/noice.nvim",
-        enabled = false,
         lazy = true,
         keys = {
             "<cmd>",
