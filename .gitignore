@@ -1,4 +1,6 @@
 .asoundrc
+.cmake/
+dev/
 .icons/
 .TranslationPlugin/
 dev-temp/
