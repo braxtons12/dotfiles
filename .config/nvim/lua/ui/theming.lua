@@ -291,6 +291,25 @@ vim.cmd("hi! link @lsp.type.decorator.rust @function.macro.rust")
 vim.cmd("hi @lsp.type.lifetime.rust gui=italic cterm=italic guifg=#c65156")
 
 ----------------------------------------------------
+-- JS/JSX/TS/TSX SEMANTIC HIGHLIGHTING
+----------------------------------------------------
+
+vim.cmd("hi! link @variable.member.tsx Property")
+vim.cmd("hi @tag.attribute.tsx gui=italic cterm=italic guifg=#d29767")
+vim.cmd("hi @tag.builtin.tsx guifg=#c65156")
+vim.cmd("hi @tag.tsx guifg=#dbba75")
+vim.cmd("hi! link @tag.delimiter.tsx Normal")
+vim.cmd("hi! link @character.special.tsx Macro")
+vim.cmd("hi! link @lsp.type.parameter.typescriptreact Parameter")
+vim.cmd("hi! link @variable.parameter.tsx Parameter")
+
+----------------------------------------------------
+-- CSS/SCSS/SASS SEMANTIC HIGHLIGHTING
+----------------------------------------------------
+
+vim.cmd("hi! link @character.special.tsx Macro")
+
+----------------------------------------------------
 -- GENERAL LSP SEMANTIC HIGHLIGHTING
 ----------------------------------------------------
 
@@ -372,6 +391,7 @@ vim.cmd("hi! link @thisKeyword Keyword")
 vim.cmd("hi @typeParameter guifg=#00997b")
 -- vim.cmd("hi! link @unresolvedReference Unresolved")
 vim.cmd("hi! link @variable Variable")
+vim.cmd("hi! link @variable.member Property")
 vim.cmd("hi @static gui=bold")
 vim.cmd("hi! link @lsp.type.enumMember @enumMember")
 

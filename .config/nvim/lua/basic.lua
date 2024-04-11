@@ -211,7 +211,9 @@ return {
         lazy = true,
         event = "VeryLazy",
         config = function(_, _)
-            require("nvim-autopairs").setup {}
+            require("nvim-autopairs").setup {
+                enable_check_bracket_line = false,
+            }
         end,
     },
     {
@@ -248,6 +250,7 @@ return {
             "html",
             "java",
             "javascript",
+            "javascriptreact",
             "json",
             "json5",
             "jsonc",
@@ -258,6 +261,7 @@ return {
             "rust",
             "toml",
             "typescript",
+            "typescriptreact",
             "vim",
             "yaml",
             "zig",
@@ -295,8 +299,11 @@ return {
                 "python",
                 "regex",
                 "rust",
+                "scss",
+                "sql",
                 "toml",
                 "typescript",
+                "tsx",
                 "vim",
                 "yaml",
                 "zig",

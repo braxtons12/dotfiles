@@ -40,6 +40,7 @@ return {
             "cargo",
             "cmake",
             "cpp",
+            "css",
             "c_sharp",
             "go",
             "groovy",
@@ -47,22 +48,29 @@ return {
             "html",
             "java",
             "javascript",
+            "javascriptreact",
+            "json",
             "latex",
             "ltex",
             "lua",
-            "markdown",
             "md",
-            "python",
+            "markdown",
+            "php",
             "py",
+            "python",
             "rs",
             "rust",
+            "sass",
+            "scss",
             "sh",
-            "zsh",
-            "bash",
             "tex",
             "toml",
-            "typescript",
             "ts",
+            "typescript",
+            "typescriptreact",
+            "yml",
+            "yaml",
+            "zsh",
         },
         dependencies = {
             {
@@ -88,22 +96,27 @@ return {
             local servers = {
                 "asm_lsp",
                 "bashls",
-                "clangd",
-                "gradle_ls",
-                --"groovyls",
                 --"ccls",
-                "omnisharp",
+                "clangd",
                 "cmake",
                 "cssls",
+                "eslint",
                 --"gopls",
+                "gradle_ls",
+                --"groovyls",
                 "html",
-                "lua_ls",
-                "rust_analyzer",
+                "jsonls",
                 "ltex",
+                "lua_ls",
                 "marksman",
+                "omnisharp",
+                "phpactor",
                 "pyright",
+                "rust_analyzer",
                 "taplo",
-                "tsserver",
+                -- handled in typescript-tools.nvim
+                --"tsserver",
+                "yamlls",
             }
 
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -127,7 +140,7 @@ return {
                             "--header-insertion=iwyu",
                             "--header-insertion-decorators",
                             "--pch-storage=memory",
-                            --"--suggest-missing-includes",
+                            "--suggest-missing-includes",
                             "--enable-config"
                         },
                     }
@@ -189,6 +202,37 @@ return {
             map.nmap("<C-k>", "<cmd>lua vim.lsp.buf.hover()<CR>", "Open Documentation Hover")
             map.nmap("<C-h>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Signature Help")
             map.nmap("<C-A-l>", "<cmd>lua vim.lsp.buf.format {async = true}<CR>", "Format Document")
+        end,
+    },
+    {
+        "pmizio/typescript-tools.nvim",
+        lazy = true,
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "neovim/nvim-lspconfig"
+        },
+        ft = {
+            "css",
+            "scss",
+            "html",
+            "javascript",
+            "javascriptreact",
+            "typescript",
+            "typescriptreact",
+            "json",
+        },
+        config = function(_, _)
+            require("typescript-tools").setup {
+                on_attach = LSP_ON_ATTACH,
+                settings = {
+                    complete_fuctions_calls = true,
+                    publish_diagnostics_on = "change",
+                    expose_as_code_actions = "all",
+                    jsx_close_tag = {
+                        enable = true,
+                    }
+                },
+            }
         end,
     },
     {
@@ -428,21 +472,26 @@ return {
                 "omnisharp",
                 "cmake",
                 "cssls",
+                "eslint",
                 --"gopls",
                 "html",
                 "lua_ls",
                 "rust_analyzer",
                 "ltex",
                 "jdtls",
+                "jsonls",
                 "marksman",
+                "omnisharp",
+                "phpactor",
                 "pyright",
                 "taplo",
                 "tsserver",
+                "yamlls",
             }
         },
     },
     {
-        "p00f/clangd_extensions.nvim",
+        "https://git.sr.ht/~p00f/clangd_extensions.nvim",
         lazy = true,
         ft = {
             "c",
