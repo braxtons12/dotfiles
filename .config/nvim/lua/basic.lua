@@ -336,4 +336,65 @@ return {
             }
         },
     },
+    {
+        "https://gitlab.com/HiPhish/rainbow-delimiters.nvim",
+        lazy = true,
+        ft = {
+            "bash",
+            "cmake",
+            "comment",
+            "c_sharp",
+            "css",
+            "cuda",
+            "d",
+            "gdscript",
+            "glsl",
+            "go",
+            "hjson",
+            "html",
+            "java",
+            "javascript",
+            "javascriptreact",
+            "json",
+            "json5",
+            "jsonc",
+            "kotlin",
+            "lua",
+            "markdown",
+            "markdown_inline",
+            "python",
+            "regex",
+            "sass",
+            "scss",
+            "sql",
+            "toml",
+            "typescript",
+            "typescriptreact",
+            "vim",
+            "yaml",
+        },
+        dependencies = "nvim-treesitter/nvim-treesitter",
+        config = function(_, _)
+            require("rainbow-delimiters.setup").setup {
+                query = {
+                    javascript = "rainbow-parens",
+                    jsx = "rainbow-parens",
+                    typescript = "rainbow-parens",
+                    typescriptreact = "rainbow-parens",
+                    tsx = "rainbow-parens",
+                },
+                highlight = {
+                    "RainbowDelimiterNormal",
+                    "RainbowDelimiterYellow",
+                    "RainbowDelimiterCyan",
+                    "RainbowDelimiterOrange",
+                    "RainbowDelimiterViolet",
+                    "RainbowDelimiterGreen",
+                    "RainbowDelimiterBlue",
+                }
+
+            }
+            vim.cmd("hi! link RainbowDelimiterNormal Normal")
+        end
+    },
 }
