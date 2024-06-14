@@ -120,3 +120,5 @@ github_token.txt
 gitlab_token.txt
 seagate
 .pyenv/
+.conan2/
+.docker/

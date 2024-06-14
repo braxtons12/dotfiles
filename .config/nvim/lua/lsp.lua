@@ -74,7 +74,7 @@ return {
         },
         dependencies = {
             {
-                "folke/neodev.nvim",
+                "folke/lazydev.nvim",
                 lazy = true,
                 priority = 1000,
                 ft = "lua",
@@ -83,7 +83,6 @@ return {
                         plugins = {
                             "nvim-dap-ui",
                         },
-                        types = true
                     },
                 },
             },
@@ -112,6 +111,7 @@ return {
                 "omnisharp",
                 "phpactor",
                 "pyright",
+                "psalm",
                 "rust_analyzer",
                 "taplo",
                 -- handled in typescript-tools.nvim
@@ -202,6 +202,72 @@ return {
             map.nmap("<C-k>", "<cmd>lua vim.lsp.buf.hover()<CR>", "Open Documentation Hover")
             map.nmap("<C-h>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Signature Help")
             map.nmap("<C-A-l>", "<cmd>lua vim.lsp.buf.format {async = true}<CR>", "Format Document")
+        end,
+    },
+    {
+        "https://gitlab.com/schrieveslaach/sonarlint.nvim",
+        lazy = true,
+        dependencies = {
+            "williamboman/mason.nvim",
+            "neovim/nvim-lspconfig",
+        },
+        ft = {
+            "c",
+            "cpp",
+            "csharp",
+            "css",
+            "html",
+            "java",
+            "javascript",
+            "javascriptreact",
+            "jsx",
+            "php",
+            "python",
+            "tsx",
+            "typescript",
+            "typescriptreact",
+        },
+        config = function(_, _)
+            require("sonarlint").setup {
+                server = {
+                    cmd = {
+                        "sonarlint-language-server",
+                        "-stdio",
+                        "-analyzers",
+                        vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarcfamily.jar"),
+                        vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarhtml.jar"),
+                        vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarjava.jar"),
+                        vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarjs.jar"),
+                        vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarlintomnisharp.jar"),
+                        vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarphp.jar"),
+                        vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarpython.jar"),
+                    },
+                    settings = {
+                        sonarlint = {
+                            rules = {
+                                ["cpp:S125"] = { level = "off" },
+                                ["cpp:S954"] = { level = "off" },
+                            }
+                        }
+                    }
+                },
+                filetypes = {
+                    "c",
+                    "cpp",
+                    "csharp",
+                    "css",
+                    "html",
+                    "java",
+                    "javascript",
+                    "javascriptreact",
+                    "jsx",
+                    "php",
+                    "python",
+                    "tsx",
+                    "typescript",
+                    "typescriptreact",
+                },
+            }
         end,
     },
     {

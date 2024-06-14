@@ -181,11 +181,15 @@ return {
                     ["<CR>"] = cmp.mapping.confirm({ select = false })
                 }),
                 sources = cmp.config.sources({
-                    { name = "nvim_lsp" },
-                    { name = "vsnip" },
-                    { name = "crates" },
-                    { name = "cmp_zsh" },
-                },
+                        { name = "nvim_lsp" },
+                        { name = "vsnip" },
+                        { name = "crates" },
+                        { name = "cmp_zsh" },
+                        {
+                            name = "lazydev",
+                            group_index = 0,
+                        },
+                    },
                     {
                         { name = "buffer" },
                     }),
@@ -193,8 +197,8 @@ return {
 
             cmp.setup.filetype("gitcommit", {
                 sources = cmp.config.sources({
-                    { name = "cmp_git" },
-                },
+                        { name = "cmp_git" },
+                    },
                     {
                         { name = "buffer" },
                     }),

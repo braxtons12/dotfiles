@@ -709,32 +709,23 @@ return {
         config = function(_, options)
             require("trouble").setup(options)
 
-            map.nmap("<C-l>", "<cmd>Trouble document_diagnostics<CR>", "Show Diagnostics")
-            map.nmap("<C-l><C-k>", "<cmd>TroubleClose<CR>", "Close Diagnostics")
+            map.nmap("<C-l>", "<cmd>Trouble diagnostics toggle filter.buf=0<CR>k", "Show Diagnostics")
+            map.nmap("<C-l><C-k>", "<cmd>Trouble diagnostics toggle<CR>", "Close Diagnostics")
         end,
         opts = {
-            mode = "document_diagnostics",
-            icons = true,
+            focus = false,
+            warn_no_results = true,
+            open_no_results = true,
+            auto_preview = false,
             action_keys = {
-                close = "<C-l><C-k>",
-                cancel = "<esc>",
-                refresh = "<C-r>",
-                jump = "<CR>",
-                open_split = "<C-A-S-h>",
-                open_vsplit = "<C-A-S-s>",
-                open_tab = "<C-A-S-t>",
-                jump_close = "<C-CR>",
-                hover = "<C-A-S-k>"
+                ["<C-l><C-k>"] = "close",
+                ["<esc>"] = "cancel",
+                ["<C-r>"] = "refresh",
+                ["<CR>"] = "jump",
+                ["<C-A-S-h>"] = "jump_split",
+                ["<C-A-S-s>"] = "jump_vsplit",
+                ["<C-CR>"] = "jump_close",
             },
-            auto_preview = "false",
-            signs = {
-                debug = " ",
-                error = " ",
-                warning = " ",
-                hint = " ",
-                information = " "
-            },
-            use_diagnostic_signs = false,
         },
     },
     {
