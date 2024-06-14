@@ -123,6 +123,7 @@ return {
                     },
                 },
                 formatting = {
+                    expandable_indicator = true,
                     fields = {
                         "kind",
                         "abbr",
@@ -145,6 +146,7 @@ return {
                     },
                 },
                 sorting = {
+                    priority_weight = 2,
                     comparators = {
                         cmp.config.compare.score,
                         cmp.config.compare.locality,
@@ -187,7 +189,6 @@ return {
                         { name = "cmp_zsh" },
                         {
                             name = "lazydev",
-                            group_index = 0,
                         },
                     },
                     {
@@ -203,6 +204,7 @@ return {
                         { name = "buffer" },
                     }),
                 sorting = {
+                    priority_weight = 2,
                     comparators = {
                         cmp.config.compare.score,
                         cmp.config.compare.locality,
@@ -221,6 +223,7 @@ return {
                     { name = "buffer" },
                 }),
                 sorting = {
+                    priority_weight = 2,
                     comparators = {
                         cmp.config.compare.score,
                         cmp.config.compare.locality,
@@ -239,6 +242,7 @@ return {
                     { name = "buffer" },
                 }),
                 sorting = {
+                    priority_weight = 2,
                     comparators = {
                         cmp.config.compare.score,
                         cmp.config.compare.locality,
@@ -257,6 +261,7 @@ return {
                     { name = "cmdline" },
                 }),
                 sorting = {
+                    priority_weight = 2,
                     comparators = {
                         cmp.config.compare.score,
                         cmp.config.compare.sort_text,

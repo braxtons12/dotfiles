@@ -699,8 +699,16 @@ return {
         lazy = true,
         event = "DiagnosticChanged",
         keys = {
-            "<C-l>",
-            "<C-l><C-k>"
+            {
+                "<C-l>",
+                "<cmd>Trouble diagnostics toggle filter.buf=0<CR>",
+                "Show Diagnostics",
+            },
+            {
+                "<C-l><C-k>",
+                "<cmd>Trouble diagnostics close filter.buf=0<CR>",
+                "Close Diagnostics",
+            },
         },
         dependencies = {
             "neovim/nvim-lspconfig",
@@ -709,8 +717,8 @@ return {
         config = function(_, options)
             require("trouble").setup(options)
 
-            map.nmap("<C-l>", "<cmd>Trouble diagnostics toggle filter.buf=0<CR>", "Show Diagnostics")
-            map.nmap("<C-l><C-k>", "<cmd>Trouble diagnostics toggle<CR>", "Close Diagnostics")
+            map.nmap("<C-l>", "<cmd>Trouble diagnostics open filter.buf=0<CR>", "Show Diagnostics")
+            map.nmap("<C-l><C-k>", "<cmd>Trouble diagnostics close filter.buf=0<CR>", "Close Diagnostics")
         end,
         opts = {
             focus = true,
