@@ -709,15 +709,16 @@ return {
         config = function(_, options)
             require("trouble").setup(options)
 
-            map.nmap("<C-l>", "<cmd>Trouble diagnostics toggle filter.buf=0<CR>k", "Show Diagnostics")
+            map.nmap("<C-l>", "<cmd>Trouble diagnostics toggle filter.buf=0<CR>", "Show Diagnostics")
             map.nmap("<C-l><C-k>", "<cmd>Trouble diagnostics toggle<CR>", "Close Diagnostics")
         end,
         opts = {
-            focus = false,
-            warn_no_results = true,
+            focus = true,
+            warn_no_results = false,
             open_no_results = true,
-            auto_preview = false,
+            auto_preview = true,
             action_keys = {
+                ["<C-l>"] = "open",
                 ["<C-l><C-k>"] = "close",
                 ["<esc>"] = "cancel",
                 ["<C-r>"] = "refresh",
