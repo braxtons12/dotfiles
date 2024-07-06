@@ -216,14 +216,17 @@ return {
             require("cinnamon").setup(options)
         end,
         opts = {
-            default_keymaps = true,
-            extra_keymaps = false,
-            extended_keymaps = true,
-            always_scroll = false,
-            centered = false,
-            default_delay = 0.1,
-            horizontal_scroll = true,
-            scroll_limit = 50,
+            keymaps = {
+                basic = true,
+                extra = true,
+            },
+            options = {
+                delay = 0.1,
+                mode = "window",
+                max_delta = {
+                    time = 50
+                },
+            },
         },
     },
     {
@@ -1045,6 +1048,9 @@ return {
         "luukvbaal/statuscol.nvim",
         lazy = true,
         event = "BufReadPost",
+        dependencies = {
+            "lewis6991/gitsigns.nvim",
+        },
         -- until luukvbaal fixes numbers
         -- commit = "49a3bdab3e9cf23982724c1e888a6296fca4c8b9",
         opts = {
