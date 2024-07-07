@@ -602,7 +602,7 @@ return {
                     hover_actions = {
                         replace_builtin_hover = true,
                     },
-                    flow_win_config = {
+                    float_win_config = {
                         border = require("ui.border").with_hl_group
                     },
                 },
