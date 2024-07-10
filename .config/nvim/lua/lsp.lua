@@ -9,7 +9,7 @@ LSP_ON_ATTACH = function(client, buffer_num)
 
     if capabilities.inlayHintProvider then
         vim.g.inlay_hints_visible = true
-        vim.lsp.inlay_hint.enable(buffer_num, true)
+        vim.lsp.inlay_hint.enable(true)
     end
 end
 
@@ -595,8 +595,14 @@ return {
             "cargo",
         },
         config = function(_, _)
-            local capabilities = require("cmp_nvim_lsp").default_capabilities()
-            capabilities.offsetEncoding = { "utf-16" }
+            -- local capabilities = require("cmp_nvim_lsp").default_capabilities()
+            local capabilities = require("rustaceanvim.config.server").create_client_capabilities()
+            capabilities.experimental.offsetEncoding = {"utf-16"}
+
+            local ra_bin = vim.fn.stdpath("data")
+                        .. map.path_separator() .. "mason" .. map.path_separator() .. "bin"
+                        .. map.path_separator() .. "rust-analyzer"
+
             vim.g.rustaceanvim = {
                 tools = {
                     hover_actions = {
@@ -605,8 +611,11 @@ return {
                     float_win_config = {
                         border = require("ui.border").with_hl_group
                     },
+                    enable_clippy = true,
+                    cargo_override = "cargo",
                 },
                 server = {
+                    cmd = { ra_bin },
                     capabilities = capabilities,
                     on_attach = LSP_ON_ATTACH,
                     flags = {
@@ -654,6 +663,13 @@ return {
             vim.cmd("hi! link @deriveHelper Macro")
             vim.cmd("hi! link @generic Type")
             vim.cmd("hi! link @crateRoot Namespace")
+
+            map.nmap("gd", "<cmd>lua vim.lsp.buf.definition()<CR>", "Go to Defintion")
+            map.nmap("gc", "<cmd>lua vim.lsp.buf.declaration()<CR>", "Go to Declaration")
+            map.nmap("gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", "Go to Implementation")
+            map.nmap("<C-k>", "<cmd>lua vim.lsp.buf.hover()<CR>", "Open Documentation Hover")
+            map.nmap("<C-h>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Signature Help")
+            map.nmap("<C-A-l>", "<cmd>lua vim.lsp.buf.format {async = true}<CR>", "Format Document")
         end,
     },
     {

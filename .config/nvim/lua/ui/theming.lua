@@ -289,6 +289,12 @@ vim.cmd("hi! link @lsp.type.parameter.rust @parameter")
 vim.cmd("hi! link @lsp.type.typeAlias.rust @type")
 vim.cmd("hi! link @lsp.type.decorator.rust @function.macro.rust")
 vim.cmd("hi @lsp.type.lifetime.rust gui=italic cterm=italic guifg=#c65156")
+vim.cmd("hi! link @module.rust @namespace")
+vim.cmd("hi! link @lsp.type.namespace.rust @namespace")
+vim.cmd("hi! link @lsp.type.derive.rust @type")
+vim.cmd("hi! link @lsp.typemod.generic.attribute.rust @parameter")
+vim.cmd("hi! link @lsp.typemod.method.attribute.rust @parameter")
+vim.cmd("hi! link @lsp.type.attributeBracket.rust @punctuation.bracket")
 
 ----------------------------------------------------
 -- JS/JSX/TS/TSX SEMANTIC HIGHLIGHTING

@@ -770,7 +770,6 @@ return {
                 right_mouse_command = "",
                 ---@diagnostic disable-next-line: assign-type-mismatch
                 diagnostics = "nvim_lsp",
-                diagnostics_update_in_insert = true,
                 color_icons = true,
                 show_buffer_icons = true,
                 show_tab_indicators = true,
