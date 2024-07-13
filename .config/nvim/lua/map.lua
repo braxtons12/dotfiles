@@ -24,7 +24,8 @@ COMMAND_CENTER_MAPPINGS = {}
 local function map(mode, keystroke, command, description, options)
     local opts = {
         noremap = true,
-        silent = true
+        silent = true,
+        desc = description,
     }
     if options then
         ---@diagnostic disable-next-line: cast-local-type
@@ -35,26 +36,8 @@ local function map(mode, keystroke, command, description, options)
         description = ""
     end
 
-    local wk_options = {
-        mode = mode,
-        prefix = "",
-        buffer = nil,
-        ---@diagnostic disable-next-line: need-check-nil
-        noremap = opts.noremap,
-        ---@diagnostic disable-next-line: need-check-nil
-        silent = opts.silent,
-    }
     ---@diagnostic disable-next-line: param-type-mismatch
     vim.api.nvim_set_keymap(mode, keystroke, command, opts)
-    if has_module("which-key") then
-        local wk = require("which-key")
-        wk.register({
-            [keystroke] = {
-                command,
-                description,
-            },
-        }, wk_options)
-    end
 
     if mode ~= "t" then
         local mapping = {

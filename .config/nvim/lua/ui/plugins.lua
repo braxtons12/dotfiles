@@ -418,10 +418,14 @@ return {
             require("which-key").setup(options)
         end,
         opts = {
+            preset = "modern",
+            delay = 200,
             window = {
                 border = border,
-                margin = { 2, 2, 2, 2 },
-                winblend = 1
+                padding = { 2, 2 },
+                wo = {
+                    winblend = 1
+                },
             },
         }
     },
