@@ -655,15 +655,6 @@ return {
                 }
             }
 
-            vim.cmd("hi! link @enumMember @enum")
-            vim.cmd("hi clear @attribute")
-            vim.cmd("hi! link @decorator Macro")
-            vim.cmd("hi! link @attributeBracket Normal")
-            vim.cmd("hi! link @derive Type")
-            vim.cmd("hi! link @deriveHelper Macro")
-            vim.cmd("hi! link @generic Type")
-            vim.cmd("hi! link @crateRoot Namespace")
-
             map.nmap("gd", "<cmd>lua vim.lsp.buf.definition()<CR>", "Go to Defintion")
             map.nmap("gc", "<cmd>lua vim.lsp.buf.declaration()<CR>", "Go to Declaration")
             map.nmap("gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", "Go to Implementation")

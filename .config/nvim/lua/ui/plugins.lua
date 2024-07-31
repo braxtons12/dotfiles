@@ -420,7 +420,7 @@ return {
         opts = {
             preset = "modern",
             delay = 200,
-            window = {
+            win = {
                 border = border,
                 padding = { 2, 2 },
                 wo = {

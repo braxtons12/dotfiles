@@ -259,63 +259,6 @@ vim.cmd("hi cppSTLConcept guifg=#dbba75")
 vim.cmd("hi cDefine guifg=#9c80ff")
 
 ----------------------------------------------------
--- CPP SEMANTIC HIGHLIGHTING
-----------------------------------------------------
-
-vim.cmd("hi! link @lsp.type.namespace.cpp @namespace")
-vim.cmd("hi! link @lsp.type.typeParameter.cpp @typeParameter")
-vim.cmd("hi! link @lsp.type.parameter.cpp @parameter")
-vim.cmd("hi! link @lsp.type.comment.cpp @comment")
-vim.cmd("hi! link @lsp.typemod.parameter.functionScope.cpp @parameter")
-vim.cmd("hi! link @lsp.type.property @property")
-vim.cmd("hi! link @lsp.typemod.property.classScope.cpp @property")
-vim.cmd("hi! link @lsp.typemod.type.deduced.cpp @keyword")
-vim.cmd("hi! link @lsp.typemod.class.deduced.cpp @keyword")
-vim.cmd("hi! link @lsp.typemod.struct.deduced.cpp @keyword")
-vim.cmd("hi! link @lsp.typemod.variable.classScope.cpp @property")
-vim.cmd("hi! link @lsp.typemod.variable.defaultLibrary.cpp @variable")
-vim.cmd("hi @lsp.typemod.variable.static.cpp gui=bold cterm=bold")
-vim.cmd("hi! link @lsp.type.concept.cpp @type")
-vim.cmd("hi! link @lsp.type.macro @macro")
-
-----------------------------------------------------
--- RUST SEMANTIC HIGHLIGHTING
-----------------------------------------------------
-
-vim.cmd("hi! link @variable.member.rust Property")
-vim.cmd("hi! link @lsp.type.constParameter.rust @typeParameter")
-vim.cmd("hi! link @lsp.type.typeParameter.rust @typeParameter")
-vim.cmd("hi! link @lsp.type.parameter.rust @parameter")
-vim.cmd("hi! link @lsp.type.typeAlias.rust @type")
-vim.cmd("hi! link @lsp.type.decorator.rust @function.macro.rust")
-vim.cmd("hi @lsp.type.lifetime.rust gui=italic cterm=italic guifg=#c65156")
-vim.cmd("hi! link @module.rust @namespace")
-vim.cmd("hi! link @lsp.type.namespace.rust @namespace")
-vim.cmd("hi! link @lsp.type.derive.rust @type")
-vim.cmd("hi! link @lsp.typemod.generic.attribute.rust @parameter")
-vim.cmd("hi! link @lsp.typemod.method.attribute.rust @parameter")
-vim.cmd("hi! link @lsp.type.attributeBracket.rust @punctuation.bracket")
-
-----------------------------------------------------
--- JS/JSX/TS/TSX SEMANTIC HIGHLIGHTING
-----------------------------------------------------
-
-vim.cmd("hi! link @variable.member.tsx Property")
-vim.cmd("hi @tag.attribute.tsx gui=italic cterm=italic guifg=#d29767")
-vim.cmd("hi @tag.builtin.tsx guifg=#c65156")
-vim.cmd("hi @tag.tsx guifg=#dbba75")
-vim.cmd("hi! link @tag.delimiter.tsx Normal")
-vim.cmd("hi! link @character.special.tsx Macro")
-vim.cmd("hi! link @lsp.type.parameter.typescriptreact Parameter")
-vim.cmd("hi! link @variable.parameter.tsx Parameter")
-
-----------------------------------------------------
--- CSS/SCSS/SASS SEMANTIC HIGHLIGHTING
-----------------------------------------------------
-
-vim.cmd("hi! link @character.special.tsx Macro")
-
-----------------------------------------------------
 -- GENERAL LSP SEMANTIC HIGHLIGHTING
 ----------------------------------------------------
 
@@ -404,6 +347,70 @@ vim.cmd("hi! link @lsp.type.enumMember @enumMember")
 vim.cmd("hi @referenceText cterm=underline gui=underline")
 vim.cmd("hi @referenceRead cterm=underline gui=underline")
 vim.cmd("hi @referenceWrite cterm=underline gui=underline")
+
+----------------------------------------------------
+-- CPP SEMANTIC HIGHLIGHTING
+----------------------------------------------------
+
+vim.cmd("hi! link @lsp.type.namespace.cpp @namespace")
+vim.cmd("hi! link @lsp.type.typeParameter.cpp @typeParameter")
+vim.cmd("hi! link @lsp.type.parameter.cpp @parameter")
+vim.cmd("hi! link @lsp.type.comment.cpp @comment")
+vim.cmd("hi! link @lsp.typemod.parameter.functionScope.cpp @parameter")
+vim.cmd("hi! link @lsp.type.property @property")
+vim.cmd("hi! link @lsp.typemod.property.classScope.cpp @property")
+vim.cmd("hi! link @lsp.typemod.type.deduced.cpp @keyword")
+vim.cmd("hi! link @lsp.typemod.class.deduced.cpp @keyword")
+vim.cmd("hi! link @lsp.typemod.struct.deduced.cpp @keyword")
+vim.cmd("hi! link @lsp.typemod.variable.classScope.cpp @property")
+vim.cmd("hi! link @lsp.typemod.variable.defaultLibrary.cpp @variable")
+vim.cmd("hi @lsp.typemod.variable.static.cpp gui=bold cterm=bold")
+vim.cmd("hi! link @lsp.type.concept.cpp @type")
+vim.cmd("hi! link @lsp.type.macro @macro")
+
+----------------------------------------------------
+-- RUST SEMANTIC HIGHLIGHTING
+----------------------------------------------------
+
+vim.cmd("hi! link @decorator Macro")
+vim.cmd("hi! link @attributeBracket Normal")
+vim.cmd("hi! link @derive Type")
+vim.cmd("hi! link @deriveHelper Macro")
+vim.cmd("hi! link @generic Type")
+vim.cmd("hi! link @crateRoot Namespace")
+vim.cmd("hi! link @variable.member.rust Property")
+vim.cmd("hi! link @lsp.type.constParameter.rust @typeParameter")
+vim.cmd("hi! link @lsp.type.typeParameter.rust @typeParameter")
+vim.cmd("hi! link @lsp.type.parameter.rust @parameter")
+vim.cmd("hi! link @lsp.type.typeAlias.rust @type")
+vim.cmd("hi! link @lsp.type.decorator.rust @function.macro.rust")
+vim.cmd("hi @lsp.type.lifetime.rust gui=italic cterm=italic guifg=#c65156")
+vim.cmd("hi! link @module.rust @namespace")
+vim.cmd("hi! link @lsp.type.namespace.rust @namespace")
+vim.cmd("hi! link @lsp.type.derive.rust @type")
+vim.cmd("hi! link @lsp.type.enumMember.rust @enumMember")
+vim.cmd("hi! link @lsp.typemod.generic.attribute.rust @parameter")
+vim.cmd("hi! link @lsp.typemod.method.attribute.rust @parameter")
+vim.cmd("hi! link @lsp.type.attributeBracket.rust @punctuation.bracket")
+
+----------------------------------------------------
+-- JS/JSX/TS/TSX SEMANTIC HIGHLIGHTING
+----------------------------------------------------
+
+vim.cmd("hi! link @variable.member.tsx Property")
+vim.cmd("hi @tag.attribute.tsx gui=italic cterm=italic guifg=#d29767")
+vim.cmd("hi @tag.builtin.tsx guifg=#c65156")
+vim.cmd("hi @tag.tsx guifg=#dbba75")
+vim.cmd("hi! link @tag.delimiter.tsx Normal")
+vim.cmd("hi! link @character.special.tsx Macro")
+vim.cmd("hi! link @lsp.type.parameter.typescriptreact Parameter")
+vim.cmd("hi! link @variable.parameter.tsx Parameter")
+
+----------------------------------------------------
+-- CSS/SCSS/SASS SEMANTIC HIGHLIGHTING
+----------------------------------------------------
+
+vim.cmd("hi! link @character.special.tsx Macro")
 
 ----------------------------------------------------
 -- DOXYGEN HIGHLIGHTING
