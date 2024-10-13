@@ -115,7 +115,7 @@ return {
                 "rust_analyzer",
                 "taplo",
                 -- handled in typescript-tools.nvim
-                --"tsserver",
+                --"ts_ls",
                 "yamlls",
             }
 
@@ -551,7 +551,7 @@ return {
                 "phpactor",
                 "pyright",
                 "taplo",
-                "tsserver",
+                "ts_ls",
                 "yamlls",
             }
         },
