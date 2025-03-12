@@ -169,14 +169,6 @@ return {
         },
     },
     {
-        "famiu/bufdelete.nvim",
-        lazy = true,
-        keys = "<C-c>",
-        config = function(_, _)
-            map.nmap("<C-c>", "<cmd>Bdelete<CR>", "Delete current buffer")
-        end
-    },
-    {
         "numToStr/Comment.nvim",
         lazy = true,
         keys = {

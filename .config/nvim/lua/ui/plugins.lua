@@ -28,52 +28,6 @@ return {
         }
     },
     {
-        "stevearc/dressing.nvim",
-        lazy = true,
-        event = "VeryLazy",
-        config = function(_, _)
-            local override = function(conf)
-                conf.anchor = "NW"
-                return conf
-            end
-            require("dressing").setup {
-                input = {
-                    enabled = true,
-                    insert_only = true,
-                    start_in_insert = true,
-                    border = require("ui.border").with_hl_group,
-                    override = override,
-                    win_options = {
-                        winblend = 0,
-                    },
-                },
-                select = {
-                    backend = {
-                        "telescope",
-                        "fzf_lua",
-                        "fzf",
-                        "nui",
-                        "builtin",
-                    },
-                    nui = {
-                        border = require("ui.border").with_hl_group,
-                        override = override,
-                        win_options = {
-                            winblend = 0,
-                        },
-                    },
-                    builtin = {
-                        border = require("ui.border").with_hl_group,
-                        override = override,
-                        win_options = {
-                            winblend = 0,
-                        },
-                    },
-                },
-            }
-        end
-    },
-    {
         "nvim-tree/nvim-web-devicons",
         lazy = false,
         config = function(_, _)
@@ -1062,91 +1016,89 @@ return {
         },
     },
     {
-        "nvim-telescope/telescope-fzf-native.nvim",
-        lazy = true,
-        build =
-        "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build"
-    },
-    {
-        "nvim-telescope/telescope.nvim",
-        lazy = true,
+        "folke/snacks.nvim",
+        priority = 1000,
+        lazy = false,
         keys = {
             "<S-f>",
             "<S-A-g>",
+            "<C-S-f>",
+            "<A-S-p>",
+            "<C-c>",
+            "<leader>f",
+            "<leader>g",
+            "<leader>k",
         },
-        dependencies = {
-            "nvim-telescope/telescope-fzf-native.nvim",
-            "nvim-lua/plenary.nvim",
-        },
-        config = function(_, _)
-            local actions = require("telescope.actions")
-            local telescope = require("telescope")
-            telescope.setup {
-                defaults = {
-                    mappings = {
-                        i = {
-                            ["<S-j>"] = actions.move_selection_next,
-                            ["<S-k>"] = actions.move_selection_previous,
-                            ["<S-A-j>"] = actions.preview_scrolling_down,
-                            ["<S-A-k>"] = actions.preview_scrolling_up,
-                        },
-                        n = {
-                            ["<S-j>"] = actions.move_selection_next,
-                            ["<S-k>"] = actions.move_selection_previous,
-                            ["<S-A-j>"] = actions.preview_scrolling_down,
-                            ["<S-A-k>"] = actions.preview_scrolling_up,
-                        },
-                    },
-                    vimgrep_arguments = {
-                        "rg",
-                        "--color=never",
-                        "--no-heading",
-                        "--with-filename",
-                        "--line-number",
-                        "--column",
-                        "--smart-case",
-                        "--trim" -- add this value
-                    }
-                },
-                extensions = {
-                    fuzzy = true,
-                    override_generic_sorter = true,
-                    override_file_sorter = true,
-                    case_mode = "smart_case",
-                },
-            }
-            telescope.load_extension("fzf")
+        config = function(_, opts)
+            require("snacks").setup(opts)
 
             map.nmap("<S-f>",
-                "<cmd>lua require(\"telescope.builtin\").find_files(require(\"telescope.themes\").get_dropdown({}))<CR>"
-                ,
-                "Telescope Find Files")
+                "<cmd>lua require(\"snacks\").picker.smart()<CR>",
+                "Smart Find Files"
+            )
+            map.nmap("<leader>f",
+                "<cmd>lua require(\"snacks\").picker.smart()<CR>",
+                "Smart Find Files"
+            )
             map.nmap("<S-A-g>",
-                "<cmd>lua require(\"telescope.builtin\").live_grep(require(\"telescope.themes\").get_dropdown({}))<CR>",
-                "Telescope Live Grep")
-        end
-    },
-    {
-        "tzachar/fuzzy.nvim",
-        lazy = true,
-        dependencies = "nvim-telescope/telescope-fzf-native.nvim",
-    },
-    {
-        "FeiyouG/command_center.nvim",
-        lazy = true,
-        keys = "<A-S-p>",
-        dependencies = "nvim-telescope/telescope.nvim",
-        config = function(_, _)
-            require("telescope").load_extension("command_center")
-            map.nmap("<A-S-p>", "<cmd>Telescope command_center<CR>", "Open Command Center")
-
-            local mappings = map.get_command_center_mappings()
-            local command_center = require("command_center")
-
-            for _, mapping in pairs(mappings) do
-                command_center.add(mapping, { command_center.mode.ADD })
-            end
-        end
+                "<cmd>lua require(\"snacks\").picker.grep()<CR>",
+                "Grep"
+            )
+            map.nmap("<C-S-f>",
+                "<cmd>lua require(\"snacks\").picker.grep()<CR>",
+                "Grep"
+            )
+            map.nmap("<leader>g",
+                "<cmd>lua require(\"snacks\").picker.grep()<CR>",
+                "Grep"
+            )
+            map.nmap("<A-S-p>",
+                "<cmd>lua require(\"snacks\").picker.commands()<CR>",
+                "Commands"
+            )
+            map.nmap("<leader>k",
+                "<cmd>lua require(\"snacks\").picker.keymaps()<CR>",
+                "Commands"
+            )
+            map.nmap("<C-c>",
+                "<cmd>lua require(\"snacks\").bufdelete()<CR>",
+                "Bufdelete"
+            )
+        end,
+        opts = {
+            bufdelete = {
+                enabled = true,
+            },
+            input = {
+                styles = {
+                    border = border,
+                },
+            },
+            picker = {
+                styles = {
+                    border = border,
+                },
+                match = {
+                    cwd_bonus = true,
+                    frecency = true,
+                    history_bonus = true,
+                },
+                formatters = {
+                    file = {
+                        filename_first = true,
+                    },
+                },
+                icons = {
+                    diagnostics = {
+                        Error = " ",
+                        Warn = " ",
+                        Hint = " ",
+                        Info = " "
+                    },
+                    kinds = require("lspkind_icons")
+                },
+            },
+        },
     },
     {
         "lukas-reineke/indent-blankline.nvim",
