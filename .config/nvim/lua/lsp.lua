@@ -184,6 +184,18 @@ return {
                             }
                         }
                     }
+                elseif lsp == "phpactor" then
+                    require("lspconfig")[lsp].setup {
+                        capabilities = capabilities,
+                        on_attach = LSP_ON_ATTACH,
+                        flags = {
+                            debounce_text_changes = 150,
+                        },
+                        init_options = {
+                            ["language_server_psalm.enabled"] = true,
+                            ["language_server_phpstan.enabled"] = true,
+                        },
+                    }
                 else
                     require("lspconfig")[lsp].setup {
                         capabilities = capabilities,
