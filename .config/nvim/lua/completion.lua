@@ -85,11 +85,11 @@ return {
                     },
                 },
             },
-            {
-                "tzachar/cmp-fuzzy-path",
-                lazy = true,
-                dependencies = "tzachar/fuzzy.nvim",
-            },
+            --{
+            --    "tzachar/cmp-fuzzy-path",
+            --    lazy = true,
+            --    dependencies = "tzachar/fuzzy.nvim",
+            --},
         },
         config = function(_, _)
             local has_words_before = function()
@@ -257,7 +257,7 @@ return {
             cmp.setup.cmdline(":", {
                 mapping = cmp.mapping.preset.cmdline(),
                 sources = cmp.config.sources({
-                    { name = "fuzzy_path" },
+                    --{ name = "fuzzy_path" },
                     { name = "cmdline" },
                 }),
                 sorting = {
