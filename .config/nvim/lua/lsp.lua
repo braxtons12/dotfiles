@@ -258,6 +258,7 @@ return {
                             rules = {
                                 ["cpp:S125"] = { level = "off" },
                                 ["cpp:S954"] = { level = "off" },
+                                ["php:S100"] = { level = "off" },
                             }
                         }
                     }
