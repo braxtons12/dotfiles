@@ -341,6 +341,7 @@ vim.cmd("hi @typeParameter guifg=#00997b")
 -- vim.cmd("hi! link @unresolvedReference Unresolved")
 vim.cmd("hi! link @variable Variable")
 vim.cmd("hi! link @variable.member Property")
+vim.cmd("hi! link @variable.parameter Parameter")
 vim.cmd("hi @static gui=bold")
 vim.cmd("hi! link @lsp.type.enumMember @enumMember")
 
