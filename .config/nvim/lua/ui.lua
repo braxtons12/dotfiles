@@ -4,19 +4,19 @@
 
 local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
 vim.lsp.util.open_floating_preview = function(contents, syntax, opts, ...)
-    local border = {
-        { "┏", "FloatBorder" },
-        { "━", "FloatBorder" },
-        { "┓", "FloatBorder" },
-        { "┃", "FloatBorder" },
-        { "┛", "FloatBorder" },
-        { "━", "FloatBorder" },
-        { "┗", "FloatBorder" },
-        { "┃", "FloatBorder" },
-    }
+    --local border = {
+    --    { "┏", "FloatBorder" },
+    --    { "━", "FloatBorder" },
+    --    { "┓", "FloatBorder" },
+    --    { "┃", "FloatBorder" },
+    --    { "┛", "FloatBorder" },
+    --    { "━", "FloatBorder" },
+    --    { "┗", "FloatBorder" },
+    --    { "┃", "FloatBorder" },
+    --}
 
     opts = opts or {}
-    opts.border = border
+    --opts.border = border
     return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
 

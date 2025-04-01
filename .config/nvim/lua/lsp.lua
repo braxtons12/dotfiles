@@ -118,7 +118,9 @@ return {
                 "yamlls",
             }
 
-            local capabilities = require("cmp_nvim_lsp").default_capabilities()
+            --local capabilities = require("cmp_nvim_lsp").default_capabilities()
+            -- capabilities.offsetEncoding = { "utf-16" }
+            local capabilities = require("blink.cmp").get_lsp_capabilities()
             capabilities.offsetEncoding = { "utf-16" }
 
             for _, lsp in pairs(servers) do
@@ -192,8 +194,16 @@ return {
                             debounce_text_changes = 150,
                         },
                         init_options = {
-                            ["language_server_psalm.enabled"] = true,
+                            ["language_server_psalm.enabled"] = false,
                             ["language_server_phpstan.enabled"] = true,
+                            ["indexer.enabled_watchers"] = { "watchman", },
+                        },
+                        settings = {
+                            indexer = {
+                                enabled_watchers = {
+                                    "watchman",
+                                },
+                            },
                         },
                     }
                 else
@@ -259,6 +269,9 @@ return {
                                 ["cpp:S125"] = { level = "off" },
                                 ["cpp:S954"] = { level = "off" },
                                 ["php:S100"] = { level = "off" },
+                                ["php:S116"] = { level = "off" },
+                                ["php:S1142"] = { level = "off" },
+                                ["php:S1448"] = { level = "off" },
                             }
                         }
                     }
@@ -584,7 +597,9 @@ return {
             "neovim/nvim-lspconfig",
         },
         config = function(_, _)
-            local capabilities = require("cmp_nvim_lsp").default_capabilities()
+            --local capabilities = require("cmp_nvim_lsp").default_capabilities()
+            --capabilities.offsetEncoding = { "utf-16" }
+            local capabilities = require("blink.cmp").get_lsp_capabilities()
             capabilities.offsetEncoding = { "utf-16" }
 
             require("clangd_extensions").setup {
@@ -609,6 +624,7 @@ return {
         config = function(_, _)
             -- local capabilities = require("cmp_nvim_lsp").default_capabilities()
             local capabilities = require("rustaceanvim.config.server").create_client_capabilities()
+            capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
             capabilities.experimental.offsetEncoding = {"utf-16"}
 
             local ra_bin = vim.fn.stdpath("data")

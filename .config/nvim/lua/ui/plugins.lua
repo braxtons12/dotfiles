@@ -186,9 +186,9 @@ return {
     {
         "rcarriga/nvim-notify",
         lazy = true,
-        config = function(_, options)
-            require("notify").setup(options)
-        end,
+        --config = function(_, options)
+        --    require("notify").setup(options)
+        --end,
         opts = {
             background_colour = "Normal",
             fps = 30,
@@ -253,7 +253,7 @@ return {
                     documentation = {
                         opts = {
                             win_options = {
-                                winblend = 0,
+                                winblend = 1,
                                 winhighlight = {
                                     Normal = "Pmenu",
                                     FloatBorder = "FloatBorder",
@@ -301,7 +301,7 @@ return {
                             padding = { 0, 0 },
                         },
                         win_options = {
-                            winblend = 0,
+                            winblend = 1,
                             winhighlight = {
                                 Normal = "Pmenu",
                                 FloatBorder = "NoiceBorder",
@@ -314,7 +314,7 @@ return {
                             padding = { 0, 0 },
                         },
                         win_options = {
-                            winblend = 0,
+                            winblend = 1,
                             winhighlight = {
                                 Normal = "Pmenu",
                                 FloatBorder = "NoiceBorder",
@@ -332,7 +332,7 @@ return {
                             padding = { 0, 0 },
                         },
                         win_options = {
-                            winblend = 0,
+                            winblend = 1,
                             winhighlight = {
                                 Normal = "Pmenu",
                                 FloatBorder = "NoiceBorder",
