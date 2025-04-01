@@ -1097,6 +1097,14 @@ return {
                     },
                     kinds = require("lspkind_icons")
                 },
+                win = {
+                    input = {
+                        keys = {
+                            ['<Tab>'] = { 'list_down', mode = {'i', 'n'}},
+                            ['<S-Tab>'] = { 'list_up', mode = {'i', 'n'}},
+                        },
+                    },
+                },
             },
         },
     },
