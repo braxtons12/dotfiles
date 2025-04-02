@@ -257,6 +257,7 @@ return {
                                 winhighlight = {
                                     Normal = "Pmenu",
                                     FloatBorder = "FloatBorder",
+                                    EndOfBuffer = 'FloatNormal',
                                 },
                             },
                         }
@@ -305,6 +306,7 @@ return {
                             winhighlight = {
                                 Normal = "Pmenu",
                                 FloatBorder = "NoiceBorder",
+                                EndOfBuffer = 'FloatNormal',
                             },
                         },
                     },
@@ -318,6 +320,7 @@ return {
                             winhighlight = {
                                 Normal = "Pmenu",
                                 FloatBorder = "NoiceBorder",
+                                EndOfBuffer = 'FloatNormal',
                             },
                         },
                     },
@@ -336,6 +339,7 @@ return {
                             winhighlight = {
                                 Normal = "Pmenu",
                                 FloatBorder = "NoiceBorder",
+                                EndOfBuffer = 'FloatNormal',
                             },
                         },
                     },
@@ -378,7 +382,8 @@ return {
                 border = border,
                 padding = { 2, 2 },
                 wo = {
-                    winblend = 1
+                    winblend = 1,
+                    winhighlight = 'EndOfBuffer:FloatNormal',
                 },
             },
         }
@@ -1069,14 +1074,20 @@ return {
             bufdelete = {
                 enabled = true,
             },
-            input = {
-                styles = {
-                    border = border,
-                },
-            },
             picker = {
-                styles = {
-                    border = border,
+                layout = {
+                    preset = function()
+                      return vim.o.columns >= 120 and "default" or "vertical"
+                    end,
+                    layout = {
+                        border = border,
+                        wo = {
+                            winblend = 1,
+                            winhighlight = {
+                                EndOfBuffer = 'FloatNormal',
+                            },
+                        },
+                    },
                 },
                 match = {
                     cwd_bonus = true,
@@ -1102,6 +1113,16 @@ return {
                         keys = {
                             ['<Tab>'] = { 'list_down', mode = {'i', 'n'}},
                             ['<S-Tab>'] = { 'list_up', mode = {'i', 'n'}},
+                        },
+                        wo = {
+                            winblend = 1,
+                            winhighlight = 'EndOfBuffer:FloatNormal',
+                        },
+                    },
+                    list = {
+                        wo = {
+                            winblend = 1,
+                            winhighlight = 'EndOfBuffer:FloatNormal',
                         },
                     },
                 },

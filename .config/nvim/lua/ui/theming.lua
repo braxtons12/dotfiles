@@ -10,6 +10,8 @@ local function set_popup_colors()
     vim.cmd("hi TreesitterContext guibg=#383d48")
     vim.cmd("hi! link NeoTreeFloatBorder FloatBorder")
     vim.cmd("hi! link NeoTreeFloatNormal Float")
+    vim.cmd("hi PmenuSbar guibg=#20242b guifg=#262b33")
+    vim.cmd("hi PmenuThumb guibg=#383d48 guifg=#262b33")
 end
 
 vim.api.nvim_create_autocmd(
@@ -179,6 +181,8 @@ vim.cmd("hi BlinkCmpAbbrDeprecated guibg=#20242b gui=strikethrough guifg=#808080
 vim.cmd("hi BlinkCmpAbbrMatch guibg=#20242b guifg=#569CD6")
 vim.cmd("hi BlinkCmpAbbrMatchFuzzy guibg=#20242b guifg=#569CD6")
 vim.cmd("hi BlinkCmpMenu guibg=#20242b guifg=#c67ada gui=italic cterm=italic")
+vim.cmd("hi! link BlinkCmpScollBarGutter PmenuSbar")
+vim.cmd("hi! link BlinkCmpScollBarThumb PmenuThumb")
 
 vim.cmd("hi BlinkCmpKindText guifg=#9daaaa guibg=#20242b")
 vim.cmd("hi! link BlinkCmpKindVariable BlinkCmpKindText")

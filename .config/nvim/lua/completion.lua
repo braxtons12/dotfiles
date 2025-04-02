@@ -111,6 +111,7 @@ return {
                     },
                     border = 'none',
                     winblend = 1,
+                    winhighlight = 'EndOfBuffer:FloatNormal',
                 },
                 documentation = {
                     auto_show = true,
@@ -118,6 +119,7 @@ return {
                     window = {
                         border = border,
                         winblend = 1,
+                        winhighlight = 'EndOfBuffer:FloatNormal',
                     },
                 },
                 ghost_text = {
@@ -147,6 +149,7 @@ return {
                     show_documentation = true,
                     border = border,
                     winblend = 1,
+                    winhighlight = 'EndOfBuffer:FloatNormal',
                     direction_priority = {
                         'e'
                     }
