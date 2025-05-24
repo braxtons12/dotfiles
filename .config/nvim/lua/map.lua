@@ -17,7 +17,7 @@ COMMAND_CENTER_MAPPINGS = {}
 ---
 --- @param mode string  The mode the mapping should be registered for (eg "n" for normal mode)
 --- @param keystroke string  The keystroke to map
---- @param command string  The command to execute when `keystroke` is performed
+--- @param command string|function  The command to execute when `keystroke` is performed
 --- @param description ?string  Description of the command to be displayed by which-key
 --- @param options ?table<string, any>  Options for the mapping, compatible with `vim.api.nvim_set_keymap`;
 --- if not provided, this will default to `{noremap = true, silent = true}`
@@ -37,7 +37,7 @@ local function map(mode, keystroke, command, description, options)
     end
 
     ---@diagnostic disable-next-line: param-type-mismatch
-    vim.api.nvim_set_keymap(mode, keystroke, command, opts)
+    vim.keymap.set(mode, keystroke, command, opts)
 
     if mode ~= "t" then
         local mapping = {
@@ -59,7 +59,7 @@ end
 --- Creates a normal-mode keymapping using the given parameters and registers it with which-key
 ---
 --- @param keystroke string  The keystroke to map
---- @param command string  The command to execute when `keystroke` is performed
+--- @param command string|function  The command to execute when `keystroke` is performed
 --- @param description ?string  Description of the command to be displayed by which-key
 --- @param options ?table<string, any>  Options for the mapping, compatible with `vim.api.nvim_set_keymap`;
 --- if not provided, this will default to `{noremap = true, silent = true}`
@@ -70,7 +70,7 @@ end
 --- Creates a terminal-mode keymapping using the given parameters and registers it with which-key
 ---
 --- @param keystroke string  The keystroke to map
---- @param command string  The command to execute when `keystroke` is performed
+--- @param command string|function  The command to execute when `keystroke` is performed
 --- @param description ?string  Description of the command to be displayed by which-key
 --- @param options ?table<string, any>  Options for the mapping, compatible with `vim.api.nvim_set_keymap`;
 --- if not provided, this will default to `{noremap = true, silent = true}`
@@ -81,7 +81,7 @@ end
 --- Creates a visual-mode keymapping using the given parameters and registers it with which-key
 ---
 --- @param keystroke string  The keystroke to map
---- @param command string  The command to execute when `keystroke` is performed
+--- @param command string|function  The command to execute when `keystroke` is performed
 --- @param description ?string  Description of the command to be displayed by which-key
 --- @param options ?table<string, any>  Options for the mapping, compatible with `vim.api.nvim_set_keymap`;
 --- if not provided, this will default to `{noremap = true, silent = true}`
@@ -97,7 +97,7 @@ return {
     --- Creates a normal-mode keymapping using the given parameters and registers it with which-key
     ---
     --- @param keystroke string  The keystroke to map
-    --- @param command string  The command to execute when `keystroke` is performed
+    --- @param command string|function  The command to execute when `keystroke` is performed
     --- @param description ?string  Description of the command to be displayed by which-key
     --- @param options ?table<string, any>  Options for the mapping, compatible with `vim.api.nvim_set_keymap`;
     --- if not provided, this will default to `{noremap = true, silent = true}`
@@ -107,7 +107,7 @@ return {
     --- Creates a terminal-mode keymapping using the given parameters and registers it with which-key
     ---
     --- @param keystroke string  The keystroke to map
-    --- @param command string  The command to execute when `keystroke` is performed
+    --- @param command string|function  The command to execute when `keystroke` is performed
     --- @param description ?string  Description of the command to be displayed by which-key
     --- @param options ?table<string, any>  Options for the mapping, compatible with `vim.api.nvim_set_keymap`;
     --- if not provided, this will default to `{noremap = true, silent = true}`
@@ -117,7 +117,7 @@ return {
     --- Creates a visual-mode keymapping using the given parameters and registers it with which-key
     ---
     --- @param keystroke string  The keystroke to map
-    --- @param command string  The command to execute when `keystroke` is performed
+    --- @param command string|function  The command to execute when `keystroke` is performed
     --- @param description ?string  Description of the command to be displayed by which-key
     --- @param options ?table<string, any>  Options for the mapping, compatible with `vim.api.nvim_set_keymap`;
     --- if not provided, this will default to `{noremap = true, silent = true}`

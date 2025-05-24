@@ -115,7 +115,8 @@ vim.cmd("hi LspDiagnosticsInformation guifg=#61afef")
 -- HIGHLIGHTING FOR NEO-TREE
 ----------------------------------------------
 
-vim.cmd("hi Directory guibg=#23282e guifg=#61afef")
+vim.cmd("hi ExplorerBackground guibg=#20242b guifg=#61afef")
+vim.cmd("hi Directory guibg=#20242b guifg=#61afef")
 vim.cmd("hi NeoTreeNormal guibg=#23282e guifg=#9daaaa")
 vim.cmd("hi NeoTreeCursorLine guibg=#383d48 guifg=#9daaaa")
 vim.cmd("hi NeoTreeSymlink guibg=#23282e guifg=#dbba75")

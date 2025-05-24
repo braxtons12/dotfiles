@@ -649,6 +649,7 @@ return {
                     flags = {
                         debounce_text_changes = 150,
                     },
+                    status_notify_level = 'error',
                     default_settings = {
                         ["rust-analyzer"] = {
                             checkOnSave = true,

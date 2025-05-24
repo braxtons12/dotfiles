@@ -495,8 +495,10 @@ return {
                 "gitcommit",
                 "toggleterm",
                 "aerial",
-                "neo-tree",
                 "terminal",
+                "snacks_layout_box",
+                "snacks_picker_list",
+                "snacks_picker_input",
             },
         },
     },
@@ -718,9 +720,9 @@ return {
             options = {
                 offsets = {
                     {
-                        filetype = "neo-tree",
+                        filetype = "snacks_layout_box",
                         text = "",
-                        highlight = "Directory",
+                        highlight = "ExplorerBackground",
                         text_align = "left",
                     },
                     {
@@ -811,7 +813,6 @@ return {
                     "aerial",
                     "quickfix",
                     "fugitive",
-                    "neo-tree",
                     "nvim-dap-ui",
                     "toggleterm",
                 },
@@ -1033,6 +1034,8 @@ return {
             "<leader>f",
             "<leader>g",
             "<leader>k",
+            "<leader>git",
+            "<C-t>",
         },
         config = function(_, opts)
             require("snacks").setup(opts)
@@ -1069,26 +1072,30 @@ return {
                 "<cmd>lua require(\"snacks\").bufdelete()<CR>",
                 "Bufdelete"
             )
+            map.nmap("<leader>git",
+                "<cmd>lua require(\"snacks\").lazygit()<CR>",
+                "Lazygit"
+            )
+            local openExplorer = function()
+                local snacks = require("snacks")
+                local explorer =snacks.picker.get(({source="explorer"}))[1]
+                if explorer ~= nil then
+                    explorer:focus()
+                    return
+                end
+                snacks.explorer()
+            end
+
+            map.nmap("<C-t>",
+                openExplorer,
+                "Explorer"
+            )
         end,
         opts = {
             bufdelete = {
                 enabled = true,
             },
             picker = {
-                layout = {
-                    preset = function()
-                      return vim.o.columns >= 120 and "default" or "vertical"
-                    end,
-                    layout = {
-                        border = border,
-                        wo = {
-                            winblend = 1,
-                            winhighlight = {
-                                EndOfBuffer = 'FloatNormal',
-                            },
-                        },
-                    },
-                },
                 match = {
                     cwd_bonus = true,
                     frecency = true,
@@ -1124,8 +1131,75 @@ return {
                             winblend = 1,
                             winhighlight = 'EndOfBuffer:FloatNormal',
                         },
+                        keys = {
+                            ["<BS>"] = "explorer_up",
+                            ["l"] = "confirm",
+                            ["e"] = "confirm",
+                            ["<CR>"] = "confirm",
+                            ["h"] = "explorer_close", -- close directory
+                            ["a"] = "explorer_add",
+                            ["d"] = "explorer_del",
+                            ["r"] = "explorer_rename",
+                            ["c"] = "explorer_copy",
+                            ["m"] = "explorer_move",
+                            ["o"] = "explorer_open", -- open with system application
+                            ["P"] = "toggle_preview",
+                            ["y"] = { "explorer_yank", mode = { "n", "x" } },
+                            ["p"] = "explorer_paste",
+                            ["u"] = "explorer_update",
+                            ["."] = "explorer_focus",
+                            ["<C-c>"] = "tcd",
+                            ["I"] = "toggle_ignored",
+                            ["H"] = "toggle_hidden",
+                            ["<esc>"] = { "", mode = "n" },
+                            ["<C-t>"] = { "", mode = "n" },
+                        },
                     },
                 },
+                sources = {
+                    explorer = {
+                        tree = true,
+                        diagnostics = true,
+                        diagnostics_open = true,
+                        git_status = true,
+                        git_status_open = true,
+                        git_untracked = true,
+                        follow_file = false,
+                        auto_close = false,
+                        focus = "list",
+                        jump = {
+                            close = false,
+                        },
+                        matcher = {
+                            sort_empty = false,
+                            fuzzy = true,
+                        },
+                        win = {
+                            input = {
+                                keys = {
+                                    ["<esc>"] = { "", mode = "n" },
+                                },
+                            },
+                            list = {
+                                wo = {
+                                    winblend = 1,
+                                    winhighlight = 'EndOfBuffer:FloatNormal',
+                                },
+                                keys = {
+                                    ["<C-t>"] = { "", mode = "n" },
+                                }
+                            },
+                        },
+                        layout = {
+                            layout = {
+                                width = 0.2,
+                            },
+                        },
+                    },
+                }
+            },
+            lazygit = {
+                enabled = true,
             },
         },
     },
@@ -1207,207 +1281,6 @@ return {
             toggle = {
                 horizontal = "<T>",
                 float = "<C-S-t>"
-            },
-        },
-    },
-    {
-        "nvim-neo-tree/neo-tree.nvim",
-        branch = "v2.x",
-        lazy = true,
-        cmd = "Neotree",
-        keys = "<C-t>",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-tree/nvim-web-devicons",
-            "MunifTanjim/nui.nvim",
-            {
-                "s1n7ax/nvim-window-picker",
-                opts = {
-                    autoselect_one = false,
-                    include_current = false,
-                    filter_rules = {
-                        -- filter using buffer options
-                        bo = {
-                            -- if the file type is one of following, the window will be ignored
-                            filetype = {
-                                "Trouble",
-                                "packer",
-                                "neo-tree",
-                                "neo-tree-popup",
-                                "notify",
-                                "aerial",
-                                "packer"
-                            },
-                            -- if the buffer type is one of following, the window will be ignored
-                            buftype = {
-                                "terminal",
-                                "quickfix"
-                            },
-                        },
-                    },
-                    other_win_hl_color = "#61afef",
-                },
-            },
-        },
-        config = function(_, options)
-            vim.cmd("let g:neo_tree_remove_legacy_commands = 1")
-            require("neo-tree").setup(options)
-            map.nmap("<C-t>", "<cmd>Neotree toggle<CR>", "Toggle NeoTree")
-        end,
-        opts = {
-            sources = {
-                "filesystem",
-                "git_status",
-            },
-            source_selector = {
-                winbar = true,
-                statusline = false,
-                show_scrolled_off_parent_node = false,
-                content_layout = "start",
-                sources = {
-                    {
-                        source = "filesystem",
-                        display_name = "  File",
-                    },
-                    {
-                        source = "buffers",
-                        display_name = " Buffer",
-                    },
-                    {
-                        source = "git_status",
-                        display_name = " Git",
-                    },
-                    {
-                        source = "diagnostics",
-                        display_name = "裂Lints",
-                    },
-                }
-            },
-            hide_root_node = true,
-            expand_all_nodes = false,
-            close_if_last_window = true,
-            enable_git_status = true,
-            enable_diagnostics = true,
-            use_default_mappings = false,
-            sort_case_insensitive = true,
-            default_component_configs = {
-                indent = {
-                    indent_size = 2,
-                    padding = 1,
-                    with_markers = true,
-                    indent_marker = "│",
-                    last_indent_marker = "└",
-                    highlight = "NeoTreeIndentMarker",
-                    with_expanders = true,
-                    expander_collapsed = "",
-                    expander_expanded = "",
-                    expander_highlight = "NeoTreeExpander",
-                },
-                icon = {
-                    folder_closed = "",
-                    folder_open = "",
-                    folder_empty = "",
-                    default = "",
-                },
-                name = {
-                    trailing_slash = false,
-                    use_git_status_colors = true,
-                },
-                git_status = {
-                    symbols = {
-                        added = "",
-                        deleted = "",
-                        modified = "",
-                        renamed = "➜",
-                        untracked = "★",
-                        ignored = "◌",
-                        unstaged = "✗",
-                        staged = "✓",
-                        conflict = "",
-                    },
-                },
-            },
-            window = {
-                position = "left",
-                width = 25,
-                mappings = {
-                    ["<2-LeftMouse>"] = "open",
-                    ["<cr>"] = "open",
-                    ["e"] = "open",
-                    ["s"] = "open_vsplit",
-                    ["R"] = "refresh",
-                    ["a"] = "add",
-                    ["d"] = "delete",
-                    ["r"] = "rename",
-                    ["y"] = "copy_to_clipboard",
-                    ["x"] = "cut_to_clipboard",
-                    ["p"] = "paste_from_clipboard",
-                    ["q"] = "close_window",
-                    ["<C-t>"] = "close_window",
-                    ["<C-n>"] = "next_source",
-                    ["<C-p>"] = "prev_source",
-                    ["<"] = "prev_source",
-                    [">"] = "next_source",
-                },
-            },
-            filesystem = {
-                filtered_items = {
-                    visible = false,
-                    hide_dotfiles = false,
-                    hide_gitignored = false,
-                    hide_by_name = {
-                        ".DS_Store",
-                        "thumbs.db",
-                        "node_modules",
-                        "__pycache__",
-                    },
-                },
-                follow_current_file = true,
-                hijack_netrw_behavior = "open_current",
-                use_libuv_file_watcher = true,
-                window = {
-                    position = "left",
-                    width = 25,
-                    mappings = {
-                        ["H"] = "toggle_hidden",
-                        ["/"] = "filter_on_submit",
-                        ["<c-x>"] = "clear_filter",
-                    },
-                },
-            },
-            buffers = {
-                show_unloaded = true,
-                window = {
-                    position = "left",
-                    width = 25,
-                    mappings = {
-                        ["bd"] = "buffer_delete",
-                    },
-                },
-            },
-            git_status = {
-                follow_current_file = true,
-                window = {
-                    position = "left",
-                    width = 25,
-                    mappings = {
-                        ["A"] = "git_add_all",
-                        ["u"] = "git_unstage_file",
-                        ["a"] = "git_add_file",
-                        ["r"] = "git_revert_file",
-                        ["c"] = "git_commit",
-                        ["p"] = "git_push",
-                        ["cp"] = "git_commit_and_push",
-                    },
-                },
-            },
-            event_handlers = {
-                {
-                    event = "neo_tree_buffer_enter",
-                    handler = function(_)
-                        vim.opt_local.signcolumn = "auto"
-                    end,
-                },
             },
         },
     },
