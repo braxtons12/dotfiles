@@ -5,7 +5,7 @@ return {
     {
         "navarasu/onedark.nvim",
         lazy = false,
-        priority = 9000,
+        priority = 10000,
         config = function(_, options)
             require("onedark").setup(options)
             require("onedark").load()
@@ -20,11 +20,19 @@ return {
                 orange = "#d29767",
                 green = "#83a76e",
                 purple = "#c67ada",
-                diff_add = "83a76e",
+                diff_add = "#83a76e",
                 diff_delete = "#c65156",
                 diff_change = "#61afef",
                 cyan = "#00997b",
             },
+            highlights = {
+                ["Float"] = {bg = "#20242b", fg="#9daaaa"},
+                ["FloatNormal"] = {bg = "#20242b", fg="#9daaaa"},
+                ["NormalFloat"] = {bg = "#20242b", fg="#9daaaa"},
+            },
+            code_style = {
+                keywords = "italic",
+            }
         }
     },
     {
@@ -598,6 +606,10 @@ return {
         branch = "main",
         opts = {
             scrollview_column = 1,
+            excluded_filetypes = {
+                'snacks_picker_list',
+                'snacks_layout_box',
+            },
         },
     },
     {
@@ -622,8 +634,10 @@ return {
             vim.cmd("highlight ScrollbarMiscHandle guibg=#262b33 guifg=#c67ada")
         end,
         opts = {
+            handle = {
+                color = "#262b33"
+            },
             marks = {
-                Handler = { color = "#262b33" },
                 Search = { color = "#dbba75" },
                 Error = { color = "#c65156" },
                 Warn = { color = "#d29767" },
@@ -1078,9 +1092,11 @@ return {
             )
             local openExplorer = function()
                 local snacks = require("snacks")
-                local explorer =snacks.picker.get(({source="explorer"}))[1]
+                local explorer = snacks.picker.get(({source="explorer"}))[1]
                 if explorer ~= nil then
-                    explorer:focus()
+                    if not explorer:is_focused() then
+                        explorer:focus()
+                    end
                     return
                 end
                 snacks.explorer()
@@ -1167,6 +1183,9 @@ return {
                         follow_file = false,
                         auto_close = false,
                         focus = "list",
+                        hidden = true,
+                        ignored = true,
+                        exclude = {},
                         jump = {
                             close = false,
                         },
@@ -1186,7 +1205,7 @@ return {
                                     winhighlight = 'EndOfBuffer:FloatNormal',
                                 },
                                 keys = {
-                                    ["<C-t>"] = { "", mode = "n" },
+                                    ["<C-t>"] = { "cancel", mode = "n" },
                                 }
                             },
                         },

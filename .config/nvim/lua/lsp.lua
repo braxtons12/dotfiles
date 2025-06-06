@@ -85,7 +85,6 @@ return {
                     },
                 },
             },
-            "williamboman/mason-lspconfig.nvim",
         },
         opts = {
             inlay_hints = { enabled = true, },
@@ -121,12 +120,12 @@ return {
             --local capabilities = require("cmp_nvim_lsp").default_capabilities()
             -- capabilities.offsetEncoding = { "utf-16" }
             local capabilities = require("blink.cmp").get_lsp_capabilities()
-            capabilities.offsetEncoding = { "utf-16" }
+            --capabilities.offsetEncoding = { "utf-16" }
 
             for _, lsp in pairs(servers) do
                 if lsp == "clangd" then
                     -- handled in clangd_extensions setup
-                    require("lspconfig")[lsp].setup {
+                    vim.lsp.config(lsp, {
                         capabilities = capabilities,
                         on_attach = CLANGD_ON_ATTACH,
                         flags = {
@@ -144,12 +143,12 @@ return {
                             "--suggest-missing-includes",
                             "--enable-config"
                         },
-                    }
+                    })
                     require("clangd_extensions")
                 elseif lsp == "rust_analyzer" then
                     -- handled in rust_tools setup
                 elseif lsp == "lua_ls" then
-                    require("lspconfig")[lsp].setup {
+                    vim.lsp.config(lsp, {
                         capabilities = capabilities,
                         runtime_path = true,
                         lspconfig = {
@@ -158,9 +157,9 @@ return {
                                 debounce_text_changes = 150,
                             },
                         }
-                    }
+                    })
                 elseif lsp == "ltex" then
-                    require("lspconfig").ltex.setup {
+                    vim.lsp.config(lsp, {
                         capabilities = capabilities,
                         on_attach = function(client, buffer_num)
                             LSP_ON_ATTACH(client, buffer_num)
@@ -185,41 +184,68 @@ return {
                                 language = "en-US"
                             }
                         }
-                    }
+                    })
                 elseif lsp == "phpactor" then
-                    require("lspconfig")[lsp].setup {
+                    vim.lsp.config(lsp, {
                         capabilities = capabilities,
                         on_attach = LSP_ON_ATTACH,
                         flags = {
                             debounce_text_changes = 150,
                         },
                         init_options = {
-                            ["language_server_psalm.enabled"] = false,
+                            ["language_server_psalm.enabled"] = true,
                             ["language_server_phpstan.enabled"] = true,
                             ["indexer.enabled_watchers"] = { "watchman", },
                         },
                         settings = {
-                            indexer = {
-                                enabled_watchers = {
-                                    "watchman",
+                            [lsp] = {
+                                indexer = {
+                                    enabled_watchers = {
+                                        "watchman",
+                                    },
                                 },
-                            },
+                            }
                         },
-                    }
+                    })
                 else
-                    require("lspconfig")[lsp].setup {
+                    vim.lsp.config(lsp, {
                         capabilities = capabilities,
                         on_attach = LSP_ON_ATTACH,
                         flags = {
                             debounce_text_changes = 150,
                         },
-                    }
+                    })
                 end
             end
 
-            map.nmap("gd", "<cmd>lua vim.lsp.buf.definition()<CR>", "Go to Defintion")
-            map.nmap("gc", "<cmd>lua vim.lsp.buf.declaration()<CR>", "Go to Declaration")
-            map.nmap("gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", "Go to Implementation")
+            local picker_settings = {
+                focus = "list",
+                win = {
+                    list = {
+                        keys = {
+                            ["<Esc>"] = "cancel",
+                        },
+                    },
+                },
+            }
+
+            local defs = function()
+                require("snacks").picker.lsp_definitions((picker_settings))
+            end
+            local decls = function()
+                require("snacks").picker.lsp_declarations((picker_settings))
+            end
+            local impls = function()
+                require("snacks").picker.lsp_implementations((picker_settings))
+            end
+            local refs = function()
+                require("snacks").picker.lsp_references((picker_settings))
+            end
+
+            map.nmap("gd", defs, "Go to Defintion")
+            map.nmap("gc", decls, "Go to Declaration")
+            map.nmap("gi", impls, "Go to Implementation")
+            map.nmap("ref", refs, "References")
             map.nmap("<C-k>", "<cmd>lua vim.lsp.buf.hover()<CR>", "Open Documentation Hover")
             map.nmap("<C-h>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Signature Help")
             map.nmap("<C-A-l>", "<cmd>lua vim.lsp.buf.format {async = true}<CR>", "Format Document")
@@ -229,7 +255,7 @@ return {
         "https://gitlab.com/schrieveslaach/sonarlint.nvim",
         lazy = true,
         dependencies = {
-            "williamboman/mason.nvim",
+            "mason-org/mason.nvim",
             "neovim/nvim-lspconfig",
         },
         ft = {
@@ -547,10 +573,10 @@ return {
         dependencies = "neovim/nvim-lspconfig",
     },
     {
-        "williamboman/mason-lspconfig.nvim",
-        lazy = true,
+        "mason-org/mason-lspconfig.nvim",
         dependencies = {
-            "williamboman/mason.nvim",
+            "mason-org/mason.nvim",
+            "neovim/nvim-lspconfig",
         },
         opts = {
             ensure_installed = {
@@ -684,9 +710,34 @@ return {
                 }
             }
 
-            map.nmap("gd", "<cmd>lua vim.lsp.buf.definition()<CR>", "Go to Defintion")
-            map.nmap("gc", "<cmd>lua vim.lsp.buf.declaration()<CR>", "Go to Declaration")
-            map.nmap("gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", "Go to Implementation")
+            local picker_settings = {
+                focus = "list",
+                win = {
+                    list = {
+                        keys = {
+                            ["<Esc>"] = "cancel",
+                        },
+                    },
+                },
+            }
+
+            local defs = function()
+                require("snacks").picker.lsp_definitions((picker_settings))
+            end
+            local decls = function()
+                require("snacks").picker.lsp_declarations((picker_settings))
+            end
+            local impls = function()
+                require("snacks").picker.lsp_implementations((picker_settings))
+            end
+            local refs = function()
+                require("snacks").picker.lsp_references((picker_settings))
+            end
+
+            map.nmap("gd", defs, "Go to Defintion")
+            map.nmap("gc", decls, "Go to Declaration")
+            map.nmap("gi", impls, "Go to Implementation")
+            map.nmap("ref", refs, "References")
             map.nmap("<C-k>", "<cmd>lua vim.lsp.buf.hover()<CR>", "Open Documentation Hover")
             map.nmap("<C-h>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Signature Help")
             map.nmap("<C-A-l>", "<cmd>lua vim.lsp.buf.format {async = true}<CR>", "Format Document")

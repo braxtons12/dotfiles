@@ -8,8 +8,6 @@ local function set_popup_colors()
     vim.cmd("hi NoiceBorder guifg=#61afef guibg=#20242b")
     vim.cmd("hi Noice guibg=#20242b")
     vim.cmd("hi TreesitterContext guibg=#383d48")
-    vim.cmd("hi! link NeoTreeFloatBorder FloatBorder")
-    vim.cmd("hi! link NeoTreeFloatNormal Float")
     vim.cmd("hi PmenuSbar guibg=#20242b guifg=#262b33")
     vim.cmd("hi PmenuThumb guibg=#383d48 guifg=#262b33")
 end
@@ -112,42 +110,14 @@ vim.cmd("hi LspDiagnosticsHint guifg=#9daaaa")
 vim.cmd("hi LspDiagnosticsInformation guifg=#61afef")
 
 ----------------------------------------------
--- HIGHLIGHTING FOR NEO-TREE
+-- HIGHLIGHTING FOR SNACKS
 ----------------------------------------------
 
 vim.cmd("hi ExplorerBackground guibg=#20242b guifg=#61afef")
-vim.cmd("hi Directory guibg=#20242b guifg=#61afef")
-vim.cmd("hi NeoTreeNormal guibg=#23282e guifg=#9daaaa")
-vim.cmd("hi NeoTreeCursorLine guibg=#383d48 guifg=#9daaaa")
-vim.cmd("hi NeoTreeSymlink guibg=#23282e guifg=#dbba75")
-vim.cmd("hi link NeoTreeFileName NeTitleBar")
-vim.cmd("hi NeoTreeFolderName guibg=#23282e guifg=#61afef")
-vim.cmd("hi NeoTreeEmptyFolderName guibg=#23282e guifg=#61afef")
-vim.cmd("hi NeoTreeOpenedFolderName guibg=#23282e guifg=#61afef")
-vim.cmd("hi NeoTreeFolderIcon guibg=#23282e guifg=#61afef")
-vim.cmd("hi NeoTreeRootFolder guibg=#23282e guifg=#61afef")
-vim.cmd("hi NeoTreeFloatBorder guibg=#23282e guifg=#181818")
-vim.cmd("hi NeoTreeTitleBar guibg=#181818 guifg=#9daaaa")
-vim.cmd("hi link NeoTreeFileIcon NeoTreeNormal")
-vim.cmd("hi link NeoTreeExecFile NeoTreeNormal")
-vim.cmd("hi link NeoTreeOpenedFile  NeoTreeNormal")
-vim.cmd("hi link NeoTreeSpecialFile NeoTreeNormal")
-vim.cmd("hi link NeoTreeImageFile NeoTreeNormal")
-vim.cmd("hi link NeoTreeIndentMarker NeoTreeNormal")
-
-vim.cmd("hi NeoTreeExpander guibg=#23282e guifg=#686e78")
-vim.cmd("hi NeoTreeModified guibg=#23282e guifg=#dbba75")
-
-vim.cmd("hi NeoTreeGitModified guibg=#23282e guifg=#dbba75")
-vim.cmd("hi NeoTreeGitAdded guibg=#23282e guifg=#83a76e")
-vim.cmd("hi NeoTreeGitMerge guibg=#23282e guifg=#c67ada")
-vim.cmd("hi NeoTreeGitRenamed guibg=#23282e guifg=#dbba75")
-vim.cmd("hi NeoTreeGitUntracked guibg=#23282e guifg=#dbba75")
-vim.cmd("hi NeoTreeGitIgnored guibg=#23282e guifg=#686e78")
-vim.cmd("hi NeoTreeGitDeleted guibg=#23282e guifg=#c65156")
-vim.cmd("hi NeoTreeGitStaged guibg=#23282e guifg=#00997b")
-vim.cmd("hi NeoTreeGitUnstaged guibg=#23282e guifg=#d29767")
-vim.cmd("hi NeoTreeGitConflict guibg=#23282e guifg=#9c80ff")
+vim.cmd("hi SnacksPicker guibg=#20242b guifg=#9daaaa")
+vim.cmd("hi SnacksPickerInput guibg=#20242b guifg=#9daaaa")
+vim.cmd("hi SnacksPickerBorder guibg=#20242b guifg=#00997b")
+vim.cmd("hi SnacksPickerTitle guibg=#20242b guifg=#c65156")
 
 ----------------------------------------------
 -- HIGHLIGHTING FOR NVIM NOTIFY
@@ -270,6 +240,7 @@ vim.cmd("hi cDefine guifg=#9c80ff")
 
 vim.cmd("hi! link @lsp.typemod.variable.defaultLibrary.lua @keyword")
 
+vim.cmd("hi! link @markup.raw Normal")
 vim.cmd("hi! link @attribute Normal")
 vim.cmd("hi! link @nospell Macro")
 vim.cmd("hi! link @annotation PreProc")
