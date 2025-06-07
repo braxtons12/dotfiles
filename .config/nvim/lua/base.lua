@@ -12,7 +12,7 @@ vim.opt.relativenumber = true
 vim.opt.mouse = "a"
 vim.opt.clipboard = "unnamedplus"
 vim.opt.wrap = false
-vim.cmd("set colorcolumn=101")
+vim.opt.colorcolumn = "101"
 vim.opt.expandtab = true
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
@@ -149,7 +149,7 @@ vim.api.nvim_create_autocmd("FileType", {
         "typescriptreact",
     },
 	callback = function()
-		vim.opt_local.shiftwidth = 2
-		vim.opt_local.tabstop = 2
+		vim.opt_local.shiftwidth = 4
+		vim.opt_local.tabstop = 4
 	end
 })

@@ -683,12 +683,12 @@ return {
         keys = {
             {
                 "<C-l>",
-                "<cmd>Trouble diagnostics toggle filter.buf=0<CR>",
+                "<cmd>Trouble snacks toggle filter.buf=0<CR>",
                 "Show Diagnostics",
             },
             {
                 "<C-l><C-k>",
-                "<cmd>Trouble diagnostics close filter.buf=0<CR>",
+                "<cmd>Trouble snacks close filter.buf=0<CR>",
                 "Close Diagnostics",
             },
         },
@@ -717,6 +717,29 @@ return {
                 ["<C-A-S-s>"] = "jump_vsplit",
                 ["<C-CR>"] = "jump_close",
             },
+            win = {
+                colorcolumn = "",
+            },
+        },
+        specs = {
+            "folke/snacks.nvim",
+            opts = function(_, opts)
+                return vim.tbl_deep_extend("force", opts or {}, {
+                    picker = {
+                        actions = require("trouble.sources.snacks").actions,
+                        win = {
+                            input = {
+                                keys = {
+                                    ["<C-l>"] = {
+                                        "trouble_open",
+                                        mode = { "n", "i" },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                })
+            end
         },
     },
     {
@@ -1038,7 +1061,7 @@ return {
     {
         "folke/snacks.nvim",
         priority = 1000,
-        lazy = false,
+        lazy = true,
         keys = {
             "<S-f>",
             "<S-A-g>",
@@ -1050,6 +1073,11 @@ return {
             "<leader>k",
             "<leader>git",
             "<C-t>",
+            "gd",
+            "gc",
+            "gi",
+            "ref",
+            "<C-l>",
         },
         config = function(_, opts)
             require("snacks").setup(opts)
@@ -1236,6 +1264,16 @@ return {
         "lukas-reineke/virt-column.nvim",
         lazy = true,
         event = "BufWinEnter",
+        opts = {
+            exclude = {
+                filetypes = {
+                    "trouble",
+                    "snacks_layout_box",
+                    "snacks_picker_list",
+                    "snacks_picker_input",
+                },
+            },
+        },
     },
     {
         url = "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
