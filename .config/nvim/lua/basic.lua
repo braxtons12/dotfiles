@@ -268,6 +268,7 @@ return {
                     "zig",
                 },
                 callback = function()
+                    vim.treesitter.start()
                     vim.wo.foldlevel = 1000000000
                     vim.wo.foldmethod = "expr"
                     vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
