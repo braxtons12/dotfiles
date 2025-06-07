@@ -1134,6 +1134,35 @@ return {
                 openExplorer,
                 "Explorer"
             )
+
+            local picker_settings = {
+                focus = "list",
+                win = {
+                    list = {
+                        keys = {
+                            ["<Esc>"] = "cancel",
+                        },
+                    },
+                },
+            }
+
+            local defs = function()
+                require("snacks").picker.lsp_definitions((picker_settings))
+            end
+            local decls = function()
+                require("snacks").picker.lsp_declarations((picker_settings))
+            end
+            local impls = function()
+                require("snacks").picker.lsp_implementations((picker_settings))
+            end
+            local refs = function()
+                require("snacks").picker.lsp_references((picker_settings))
+            end
+
+            map.nmap("gd", defs, "Go to Defintion")
+            map.nmap("gc", decls, "Go to Declaration")
+            map.nmap("gi", impls, "Go to Implementation")
+            map.nmap("ref", refs, "References")
         end,
         opts = {
             bufdelete = {
