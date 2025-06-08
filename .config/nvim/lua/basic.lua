@@ -267,12 +267,13 @@ return {
                     "yaml",
                     "zig",
                 },
-                callback = function()
-                    vim.treesitter.start()
+                callback = function(args)
+                    vim.treesitter.start(args.buf)
                     vim.wo.foldlevel = 1000000000
                     vim.wo.foldmethod = "expr"
                     vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-                    vim.bo.indentexpr = "v:lua.require('nvim-treesitter').indentexpr()"
+                    vim.bo[args.buf].indentexpr = "v:lua.require('nvim-treesitter').indentexpr()"
+                    vim.bo[args.buf].syntax = "on"
                 end,
             })
         end,
