@@ -53,20 +53,30 @@ return {
         },
         lazy = true,
         ft = {
-            "c,",
+            "c",
             "cpp",
             "cxx",
             "cppm",
+            "c_sharp",
+            "go",
             "h",
             "hpp",
             "hxx",
+            "java",
+            "javascript",
+            "javascriptreact",
+            "jsx",
+            "kotlin",
+            "lua",
+            "php",
             "python",
             "rust",
-            "lua",
+            "typescript",
+            "typescriptreact",
+            "tsx",
+            "vim",
+            "zig",
         },
-        config = function(_, options)
-            require("hlargs").setup(options)
-        end,
         opts = {
             color = "#588496",
             excluded_argnames = {
@@ -74,14 +84,14 @@ return {
                     python = { "self", "cls" },
                     lua = { "self" },
                     rust = { "self" },
-                    cpp = { "this", }
+                    cpp = { "this" },
                 },
                 usages = {
                     python = { "self", "cls" },
                     lua = { "self" },
                     rust = { "self" },
-                    cpp = { "this", }
-                }
+                    cpp = { "this" },
+                },
             },
             paint_arg_declarations = true,
             paint_arg_usages = true,
@@ -90,8 +100,9 @@ return {
                 usages = true,
             },
             extras = {
-                named_parameters = true
-            }
+                named_parameters = true,
+            },
+            hl_priority = 10000,
         },
     },
     {
