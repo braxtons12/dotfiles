@@ -440,6 +440,7 @@ vim.cmd("hi! link @constant.comment doxygenParam")
 vim.cmd("hi! link @define.cpp Keyword")
 vim.cmd("hi! link @error.cpp Keyword")
 vim.cmd("hi @text.todo.comment guifg=#9daaaa gui=bold")
+vim.cmd("hi! link @module.php @namespace")
 
 ----------------------------------------------------
 -- HLARGS HIGHLIGHTING
