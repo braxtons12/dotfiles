@@ -130,6 +130,18 @@ return {
                     show_on_keyword =  true,
                     show_on_trigger_character = true,
                     show_on_insert_on_trigger_character = true,
+                    show_on_x_blocked_trigger_characters = {
+                        "'",
+                        '"',
+                        '`',
+                        '(',
+                        ')',
+                        '{',
+                        '}',
+                        '[',
+                        ']',
+                        ',',
+                    },
                 },
             },
             sources = {
@@ -144,14 +156,14 @@ return {
                 implementation = 'prefer_rust',
             },
             signature = {
-                enabled = false,
+                enabled = true,
                 window = {
                     show_documentation = true,
                     border = border,
                     winblend = 1,
                     winhighlight = 'EndOfBuffer:FloatNormal',
                     direction_priority = {
-                        'e'
+                        's'
                     }
                 },
             },
