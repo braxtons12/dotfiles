@@ -13,19 +13,6 @@ LSP_ON_ATTACH = function(client, buffer_num)
     end
 end
 
-CLANGD_ON_ATTACH = function(client, buffer_num)
-    vim.api.nvim_buf_set_option(buffer_num, "omnifunc", "v:lua.vim.lsp.omnifunc")
-
-    local capabilities = client.server_capabilities
-
-    if capabilities.documentSymbolProvider then
-        require("nvim-navic").attach(client, buffer_num)
-    end
-
-    require("clangd_extensions.inlay_hints").setup_autocmd()
-    require("clangd_extensions.inlay_hints").set_inlay_hints()
-end
-
 local map = require("map")
 
 return {
@@ -127,7 +114,7 @@ return {
                     -- handled in clangd_extensions setup
                     vim.lsp.config(lsp, {
                         capabilities = capabilities,
-                        on_attach = CLANGD_ON_ATTACH,
+                        on_attach = LSP_ON_ATTACH,
                         flags = {
                             debounce_text_changes = 150,
                         },
@@ -622,22 +609,6 @@ return {
         dependencies = {
             "neovim/nvim-lspconfig",
         },
-        config = function(_, _)
-            --local capabilities = require("cmp_nvim_lsp").default_capabilities()
-            --capabilities.offsetEncoding = { "utf-16" }
-            local capabilities = require("blink.cmp").get_lsp_capabilities()
-            capabilities.offsetEncoding = { "utf-16" }
-
-            require("clangd_extensions").setup {
-                inlay_hints = {
-                    inline = true,
-                    only_current_line = false,
-                    show_parameter_hints = true,
-                    parameter_hints_prefix = "fn : ",
-                    other_hints_prefix = "-> "
-                }
-            }
-        end
     },
     {
         "mrcjkb/rustaceanvim",
