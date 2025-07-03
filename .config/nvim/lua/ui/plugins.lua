@@ -26,9 +26,9 @@ return {
                 cyan = "#00997b",
             },
             highlights = {
-                ["Float"] = {bg = "#20242b", fg="#9daaaa"},
-                ["FloatNormal"] = {bg = "#20242b", fg="#9daaaa"},
-                ["NormalFloat"] = {bg = "#20242b", fg="#9daaaa"},
+                ["Float"] = { bg = "#20242b", fg = "#9daaaa" },
+                ["FloatNormal"] = { bg = "#20242b", fg = "#9daaaa" },
+                ["NormalFloat"] = { bg = "#20242b", fg = "#9daaaa" },
             },
             code_style = {
                 keywords = "italic",
@@ -1138,7 +1138,7 @@ return {
             )
             local openExplorer = function()
                 local snacks = require("snacks")
-                local explorer = snacks.picker.get(({source="explorer"}))[1]
+                local explorer = snacks.picker.get(({ source = "explorer" }))[1]
                 if explorer ~= nil then
                     if not explorer:is_focused() then
                         explorer:focus()
@@ -1209,8 +1209,8 @@ return {
                 win = {
                     input = {
                         keys = {
-                            ['<Tab>'] = { 'list_down', mode = {'i', 'n'}},
-                            ['<S-Tab>'] = { 'list_up', mode = {'i', 'n'}},
+                            ['<Tab>'] = { 'list_down', mode = { 'i', 'n' } },
+                            ['<S-Tab>'] = { 'list_up', mode = { 'i', 'n' } },
                         },
                         wo = {
                             winblend = 1,
@@ -1386,6 +1386,19 @@ return {
                 horizontal = "<T>",
                 float = "<C-S-t>"
             },
+        },
+    },
+    {
+        'felpafel/inlay-hint.nvim',
+        dependencies = {
+            "neovim/nvim-lspconfig",
+        },
+        event = 'LspAttach',
+        config = function(_, opts)
+            require("inlay-hint").setup(opts)
+        end,
+        opts = {
+            virt_text_pos = 'inline',
         },
     },
 }
